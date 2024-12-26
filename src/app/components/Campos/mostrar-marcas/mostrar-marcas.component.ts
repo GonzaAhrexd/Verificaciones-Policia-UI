@@ -1,12 +1,13 @@
+// Angular
 import { AfterViewInit, Component, signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { addMarcas } from '../../../api/marcas.service';
-import { getMarcas } from '../../../api/marcas.service';
+// Angular Table
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-
-
+// SweetAlert
 import Swal from 'sweetalert2';
+// API
+import { addMarcas, getMarcas } from '../../../api/marcas.service';
 
 @Component({
   selector: 'MostrarMarcas',
@@ -14,33 +15,37 @@ import Swal from 'sweetalert2';
   imports: [ReactiveFormsModule, MatTableModule, MatPaginatorModule],
   templateUrl: './mostrar-marcas.component.html',
 })
-export class MostrarMarcasComponent implements AfterViewInit {
-  showAddMarcas = false
-  listaMarcas = []
+
+
+export class MostrarMarcasComponent {
+  // Array donde se guardará la lista de marcas
+    
+  listaMarcas: any = []
+  // Valores que se guardarán del formulario
   valores = []
-
-
+  
+  // Sección para cargar datos 
+  displayedColumns: string[] = ['id', 'marca', 'descripcion'];
+  dataSource = new MatTableDataSource<any>([]);
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  
   constructor() {
-    this.getMarcas()
+    this.loadMarcas();
   }
   
-  dataSource: any
-  displayedColumns: string[] = ['marca', 'descripcion'];
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
-  async getMarcas() {
-    this.listaMarcas = await getMarcas()
-    this.dataSource = new MatTableDataSource<any>(this.listaMarcas);
+  async loadMarcas() {
+    const data = await getMarcas();
+    this.dataSource.data = data; // Asignar datos a la tabla
   }
   
-  async ngAfterViewInit() {
-    if (this.paginator) {
-      this.dataSource.paginator = this.paginator;
-    } else {
-      console.error('Paginator no encontrado');
-    }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
+  
+  
+  // Sección para agregar marcas      
 
-
+  // Formulario
   form = signal<FormGroup>(
     new FormGroup(
       {
@@ -49,10 +54,14 @@ export class MostrarMarcasComponent implements AfterViewInit {
       })
   )
 
+  // Mostrar si está en modo de agregado 
+  showAddMarcas = false
+  // Botón para cancelar
   cancelar() {
     this.showAddMarcas = false
   }
 
+  // Botón para enviar
   sendMarca() {
     if (this.form().valid) {
       this.valores = this.form().value
@@ -81,16 +90,8 @@ export class MostrarMarcasComponent implements AfterViewInit {
           Swal.fire('Marca no agregada', '', 'info')
         }
       })
-
-
-
-
     }
   }
 
 
 }
-function ngAfterViewInit() {
-  throw new Error('Function not implemented.');
-}
-

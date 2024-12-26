@@ -1,48 +1,46 @@
-
-    <!-- Barra visible para activar el sidebar -->
-    <!-- <div class="fixed flex justify-center items-center h-screen w-8 bg-sky-900 hover:bg-sky-700 cursor-pointer">
+<!-- Barra visible para activar el sidebar -->
+<!-- <div class="fixed flex justify-center items-center h-screen w-8 bg-sky-900 hover:bg-sky-700 cursor-pointer">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6 text-white">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
     </div> -->
 
-    <!-- Sidebar -->
-    <div class="h-screen  bg-sky-900 text-white flex flex-col justify-between "
-        style="width: 15rem;">
-        <!-- Logo -->
-        <div class="flex flex-row p-4">
-            <img src="./Escudo_Policia_Chaco_Transparente.png" class="w-12 mr-2" alt="">
-            <div class="flex flex-col">
-                <h1 class="text-2xl font-bold">Fondo Único</h1>
-                <h2 class="text-xl font-sans">Policía del Chaco</h2>
-            </div>
-        </div>
+<!-- Sidebar -->
 
-        <!-- Menú -->
-        <nav class="flex-1 overflow-y-auto">
-            <ul class="space-y-4 px-4">
-                @for(opcion of opcionesPagina; track opcion.texto){
-                <li>
-                    <div [routerLink]="opcion.url"
-                        class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
-                        <span class="w-6 h-6 bg-gray-300 rounded-full"></span>
-                        <span>{{ opcion.texto }}</span>
-                    </div>
-                </li>
-                }
-            </ul>
-        </nav>
-
-        <!-- Usuario -->
-        <div class="p-4 border-t border-sky-800">
-            <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
-                <div>
-                    <p class="font-semibold">Nombre Usuario</p>
-                    <p class="text-sm text-gray-400">Rol</p>
-                </div>
-
-            </div>
+<div class="h-screen bg-sky-900 text-white flex flex-col justify-between " style="width: 15rem;">
+    <!-- Logo -->
+    <div class="flex flex-row p-4">
+        <img src="./Escudo_Policia_Chaco_Transparente.png" class="w-12 mr-2" alt="">
+        <div class="flex flex-col">
+            <h1 class="text-2xl font-bold">Fondo Único</h1>
+            <h2 class="text-xl font-sans">Policía del Chaco</h2>
         </div>
     </div>
+
+    <!-- Menú -->
+    <nav class="flex-1 overflow-y-auto">
+        <ul class="space-y-4 px-4">
+            @for(opcion of opcionesPagina; track opcion.texto){
+            <li>
+                <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
+                    <span class="w-6 h-6 bg-gray-300 rounded-full"></span>
+                    <span>{{ opcion.texto }}</span>
+                </div>
+            </li>
+            }
+        </ul>
+    </nav>
+
+    <!-- Usuario -->
+    <div class="p-4 border-t border-sky-800">
+        <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+            <div>
+                <p class="font-semibold">Nombre Usuario</p>
+                <p class="text-sm text-gray-400">Rol</p>
+            </div>
+
+        </div>
+    </div>
+</div>
