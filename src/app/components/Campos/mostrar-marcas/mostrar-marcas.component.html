@@ -10,30 +10,60 @@
         </svg>
     </button>
     @if(showAddMarcas){
-        <form class="w-full">
-            <div class="flex flex-col w-full">
-                <span class="flex font-medium ml-4"> Nombre de la Marca </span>
-                <input type="text"
+    <form class="w-full" [formGroup]="form()">
+        <div class="flex flex-col w-full">
+            <span class="flex font-medium ml-4"> Nombre de la Marca </span>
+            <input formControlName="Marca" id="marca" type="text"
                 class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
-            </div>
-            <div class="flex flex-col w-full">
-                <span class="flex font-medium ml-4"> Descripción </span>
-                <textarea
-                class="border open-sans border-gray-300 rounded-md h-20 xl:h-16 2xl:h-20 my-2 xl:my-1 xl:m-2 m-4 pl-2"></textarea>
-            </div>
-            <div class="flex flex-row items-center justify-center">
-                <div>
-                    Cancelar
-                </div>
-                <div>
-            Guardar
         </div>
-    </div>
-    
-</form>
+        <div class="flex flex-col w-full">
+            <span class="flex font-medium ml-4"> Descripción </span>
+            <textarea formControlName="Descripcion" id="descripcion"
+                class="resize-none border open-sans border-gray-300 rounded-md h-24 my-2 xl:my-1 xl:m-2 m-4 pl-2"></textarea>
+        </div>
+        <div class="flex flex-row items-center justify-center">
+            <div class="cursor-pointer bg-sky-950 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded w-1/2 flex flex-row items-center justify-center mr-2"
+                (click)="cancelar()">
+                Cancelar
+            </div>
+            <div class="cursor-pointer bg-sky-950 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded w-1/2 flex flex-row items-center justify-center mr-2"
+                (click)="sendMarca()">
+                Guardar
+            </div>
+        </div>
 
-}
-@if(!showAddMarcas){
-<h1 class="text-2xl">Lista de Marcas</h1>
-}
+    </form>
+
+    }
+    @if(!showAddMarcas){
+    <h1 class="text-2xl">Lista de Marcas</h1>
+    <div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="marca">
+                <th mat-header-cell *matHeaderCellDef class="bg-sky-500 w-full"> Marca </th>
+                <td mat-cell *matCellDef="let element"> {{element.marca}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+    </div>
+
+
+
+    }
 </div>
