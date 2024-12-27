@@ -31,7 +31,9 @@
                 <th mat-header-cell *matHeaderCellDef>Descripción</th>
                 <td mat-cell *matCellDef="let element">{{ element.descripcion }}</td>
             </ng-container>
-          
+            <!-- Acciones Column -->
+             <!-- Haz lo más sencillo posible sin usar iconos externos y luego ayudame ne el archivo.ts -->
+            
             
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
