@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './sidebar.component.html',
 })
 export class SidebarComponent {
+
   opcionesPagina = [
     { texto: 'Inicio', url: '/' },
     { texto: 'Editar campos', url: '/editar-campos' },
