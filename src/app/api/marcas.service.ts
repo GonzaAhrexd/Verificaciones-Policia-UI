@@ -18,3 +18,21 @@ export const addMarcas = async (marca: any) => {
         return error
     }
 }
+
+export const deleteMarcas = async (id: number) => {
+    try {
+        const response = await axios.delete(`/Marcas/${id}`)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
+
+export const editMarca = async (id: number, marca: any) => {
+    try {
+        const response = await axios.put(`/Marcas/${id}`, marca)
+        return response.data
+    } catch (error) {
+        return error
+    }
+}
