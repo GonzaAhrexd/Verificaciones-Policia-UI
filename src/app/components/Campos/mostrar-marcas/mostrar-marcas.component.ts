@@ -11,10 +11,13 @@ import { addMarcas, getMarcas } from '../../../api/marcas.service';
 
 import { AgregarMarcaComponent } from './agregar-marca/agregar-marca.component';
 
+import { CRUDMarcas } from '../../MarcasTable/table-expandable-rows-example.component';
+
+
 @Component({
   selector: 'MostrarMarcas',
   standalone: true,
-  imports: [AgregarMarcaComponent, ReactiveFormsModule, MatTableModule, MatPaginatorModule],
+  imports: [CRUDMarcas, AgregarMarcaComponent, ReactiveFormsModule, MatTableModule, MatPaginatorModule],
   templateUrl: './mostrar-marcas.component.html',
 })
 
