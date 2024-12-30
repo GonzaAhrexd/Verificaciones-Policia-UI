@@ -1,22 +1,20 @@
 
 // Importamos cosas de Angular
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
+import { Component, signal } from '@angular/core'
 
 // Importamos cosas de Angular Table de TanStack
 import {
   ColumnDef,
   createAngularTable,
-  FlexRenderDirective,
   getCoreRowModel,
   getPaginationRowModel,
   PaginationState,
 } from '@tanstack/angular-table'
 
-import { deleteMarcas, getMarcas, editMarca } from '../../api/marcas.service'
+import { getTipos, deleteTipo, editTipo } from '../../../../api/tipos.service'
 import Swal from 'sweetalert2'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
 // Definimos el tipo de dato Marca
-import { TableComponent } from '../table/table.component'
+import { TableComponent } from '../../../table/table.component'
 
 type Marca = {
   id: number
@@ -31,31 +29,27 @@ const defaultColumns: ColumnDef<Marca>[] = [
     header: () => 'ID',
     cell: info => info.getValue(),
   },
-
   {
-    accessorKey: 'marca',
-    header: () => 'Marca',
+    accessorKey: 'tipo',
+    header: () => 'Tipo',
     cell: info => info.getValue(),
   },
-  {
-    accessorKey: 'descripcion',
-    header: () => 'Descripcion',
-    cell: info => info.getValue(),
-  },
-
-
-
 ]
 
 @Component({
-  selector: 'ListMarcas',
+  selector: 'TipoTable',
   standalone: true,
-  imports: [FlexRenderDirective, TableComponent],
-  templateUrl: './table-expandable-rows-example.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ TableComponent],
+  template: `
+    <TableComponent 
+    [defaultColumns]="defaultColumns" 
+    [data]="data" 
+    [onDelete]="deleteThisRow" 
+    [onEdit]="editThisRow" />
+  `
 })
 
-export class CRUDMarcas {
+export class TiposTableComponent {
   data = signal<Marca[]>([]);
   defaultColumns = defaultColumns
 
@@ -66,7 +60,7 @@ export class CRUDMarcas {
 
   })
 
-
+// Crear tabla
   table = createAngularTable(() => ({
     data: this.data(),
     columns: defaultColumns,
@@ -87,8 +81,7 @@ export class CRUDMarcas {
   }));
 
   fetchMarcas() {
-    getMarcas().then((res) => {
-      console.log(res)
+    getTipos().then((res) => {
       this.data.set(res);
     });
   }
@@ -97,22 +90,7 @@ export class CRUDMarcas {
     this.fetchMarcas();
   }
 
-  showAlert(row: any) {
-    console.log(row.original.marca)
-    alert('Hola' + row.original.marca);
-  }
-
-  // Editar
-  form = signal<FormGroup>(
-      new FormGroup(
-        {
-          Marca: new FormControl('', [Validators.required]),
-          Descripcion: new FormControl('', [Validators.required]),
-        })
-    )
-  
-  
-
+  // Editar una fila
   editThisRow(row: any) {
     // Haz un menú de editado modal utilizando Swal
     Swal.fire({
@@ -142,8 +120,8 @@ export class CRUDMarcas {
           marca: marca,
           descripcion: descripcion
         }
-        
-        editMarca(row.original.id, values)
+
+        editTipo(row.original.id, values)
         Swal.fire({
           title: 'Marca editada',
           icon: 'success',
@@ -154,39 +132,8 @@ export class CRUDMarcas {
       }
     })
   }
-valores = []
-    sendMarca(id: number) {
-      if (this.form().valid) {
-        this.valores = this.form().value
-        Swal.fire({
-          title: '¿Está seguro de agregar esta marca?',
-          icon: 'warning',
-          confirmButtonColor: '#0C4A6E',
-          cancelButtonColor: '#FF554C',
-          showCancelButton: true,
-          confirmButtonText: `Sí`,
-          cancelButtonText: 'No'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Marca agregada',
-              icon: 'success',
-              confirmButtonColor: '#0C4A6E',
-            }).then(() => {
-              editMarca(id, this.valores)
-              setTimeout(() => {
-                this.form().reset()
-              })
-            })
-            // this.showAddMarcas = false
-          } else if (result.isDenied) {
-            Swal.fire('Marca no agregada', '', 'info')
-          }
-        })
-      }
-    }
-  
-    
+
+  // Eliminar una fila
   deleteThisRow(row: any) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -205,7 +152,7 @@ valores = []
             icon: 'success',
             confirmButtonColor: '#0C4A6E',
           }).then(() => {
-            deleteMarcas(row.original.id)
+            deleteTipo(row.original.id)
             window.location.reload()
           })
         } catch (error) {

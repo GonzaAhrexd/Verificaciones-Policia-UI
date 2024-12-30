@@ -1,21 +1,20 @@
 
 // Importamos cosas de Angular
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core'
+import { Component, signal } from '@angular/core'
 
 // Importamos cosas de Angular Table de TanStack
 import {
   ColumnDef,
   createAngularTable,
-  FlexRenderDirective,
   getCoreRowModel,
   getPaginationRowModel,
   PaginationState,
 } from '@tanstack/angular-table'
 
-import { deleteMarcas, getMarcas, editMarca } from '../../api/marcas.service'
+import { deleteMarcas, getMarcas, editMarca } from '../../../../api/marcas.service'
 import Swal from 'sweetalert2'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
 // Definimos el tipo de dato Marca
+import { TableComponent } from '../../../table/table.component'
 
 type Marca = {
   id: number
@@ -41,21 +40,24 @@ const defaultColumns: ColumnDef<Marca>[] = [
     header: () => 'Descripcion',
     cell: info => info.getValue(),
   },
-
-
-
 ]
 
 @Component({
-  selector: 'ListMarcas',
+  selector: 'MarcasTable',
   standalone: true,
-  imports: [FlexRenderDirective],
-  templateUrl: './table-expandable-rows-example.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [ TableComponent],
+  template: `
+    <TableComponent 
+    [defaultColumns]="defaultColumns" 
+    [data]="data" 
+    [onDelete]="deleteThisRow" 
+    [onEdit]="editThisRow" />
+  `
 })
 
-export class MostrarMarcasComponent {
+export class MarcasTableComponent {
   data = signal<Marca[]>([]);
+  defaultColumns = defaultColumns
 
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
   public readonly paginationState = signal<PaginationState>({
@@ -64,7 +66,7 @@ export class MostrarMarcasComponent {
 
   })
 
-
+// Crear tabla
   table = createAngularTable(() => ({
     data: this.data(),
     columns: defaultColumns,
@@ -86,7 +88,6 @@ export class MostrarMarcasComponent {
 
   fetchMarcas() {
     getMarcas().then((res) => {
-      console.log(res)
       this.data.set(res);
     });
   }
@@ -95,22 +96,7 @@ export class MostrarMarcasComponent {
     this.fetchMarcas();
   }
 
-  showAlert(row: any) {
-    console.log(row.original.marca)
-    alert('Hola' + row.original.marca);
-  }
-
-  // Editar
-  form = signal<FormGroup>(
-      new FormGroup(
-        {
-          Marca: new FormControl('', [Validators.required]),
-          Descripcion: new FormControl('', [Validators.required]),
-        })
-    )
-  
-  
-
+  // Editar una fila
   editThisRow(row: any) {
     // Haz un menú de editado modal utilizando Swal
     Swal.fire({
@@ -140,7 +126,7 @@ export class MostrarMarcasComponent {
           marca: marca,
           descripcion: descripcion
         }
-        
+
         editMarca(row.original.id, values)
         Swal.fire({
           title: 'Marca editada',
@@ -152,39 +138,8 @@ export class MostrarMarcasComponent {
       }
     })
   }
-valores = []
-    sendMarca(id: number) {
-      if (this.form().valid) {
-        this.valores = this.form().value
-        Swal.fire({
-          title: '¿Está seguro de agregar esta marca?',
-          icon: 'warning',
-          confirmButtonColor: '#0C4A6E',
-          cancelButtonColor: '#FF554C',
-          showCancelButton: true,
-          confirmButtonText: `Sí`,
-          cancelButtonText: 'No'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: 'Marca agregada',
-              icon: 'success',
-              confirmButtonColor: '#0C4A6E',
-            }).then(() => {
-              editMarca(id, this.valores)
-              setTimeout(() => {
-                this.form().reset()
-              })
-            })
-            // this.showAddMarcas = false
-          } else if (result.isDenied) {
-            Swal.fire('Marca no agregada', '', 'info')
-          }
-        })
-      }
-    }
-  
-    
+
+  // Eliminar una fila
   deleteThisRow(row: any) {
     Swal.fire({
       title: '¿Estás seguro?',

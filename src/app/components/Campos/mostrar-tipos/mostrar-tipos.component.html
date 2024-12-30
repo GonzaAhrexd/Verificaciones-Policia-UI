@@ -1,6 +1,6 @@
 <div class="h-full w-full">
 
-    <button (click)="showAddMarcas = true"
+    <button (click)="showAddTipos = true"
         class='mt-2 bg-sky-950 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded w-full flex flex-row items-center justify-center mr-2'>
         Agregar
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -9,12 +9,12 @@
                 d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
     </button>
-    @if(showAddMarcas){
-    <app-agregar-marca (showAddMarcas)="showAddMarcas=false"/>
+    @if(showAddTipos){
+    <AgregarTipo (showAddTipos)="showAddTipos=false"/>
     }
-    @if(!showAddMarcas){
+    @if(!showAddTipos){
 
-    <h1 class="text-2xl">Lista de Marcas</h1>
-    <MarcasTable />      
+    <h1 class="text-2xl">Lista de Tipos</h1>
+    <TipoTable />      
     }
 </div>
