@@ -7,15 +7,15 @@ import { CardActionsComponent } from '../../components/card-actions/card-actions
 // Campos
 import { MostrarMarcasComponent } from '../../components/Campos/mostrar-marcas/mostrar-marcas.component';
 import { MostrarTiposComponent } from '../../components/Campos/mostrar-tipos/mostrar-tipos.component';
-
-
+import { MostrarFormulariosComponent } from '../../components/Campos/mostrar-formularios/mostrar-formularios.component';
+import { MostrarValoresComponent } from '../../components/Campos/mostrar-valores/mostrar-valores.component';
 
 @Component({
   selector: 'app-editar-campos',
   standalone: true,
   imports: [CommonModule, SidebarComponent, CardActionsComponent,
     // Campos
-     MostrarMarcasComponent, MostrarTiposComponent],
+     MostrarMarcasComponent, MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent],
   templateUrl: './editar-campos.component.html',
 })
 export class EditarCamposComponent {

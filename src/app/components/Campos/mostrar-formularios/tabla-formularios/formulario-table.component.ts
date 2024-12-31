@@ -11,33 +11,34 @@ import {
   PaginationState,
 } from '@tanstack/angular-table'
 
-import { getTipos, deleteTipo, editTipo } from '../../../../api/tipos.service'
+// import { getTipos, deleteTipo, editTipo } from '../../../../api/tipos.service'
+import { getFormularios, deleteFormulario, updateFormulario } from '../../../../api/formulario.service'
+
 import Swal from 'sweetalert2'
 // Definimos el tipo de dato Marca
 import { TableComponent } from '../../../table/table.component'
 
-type Marca = {
+type Formulario = {
   id: number
-  marca: string
-  descripcion: string
-}
+  formulario: string
+ }
 
 // Definimos columnas por defecto
-const defaultColumns: ColumnDef<Marca>[] = [
+const defaultColumns: ColumnDef<Formulario>[] = [
   {
     accessorKey: 'id',
     header: () => 'ID',
     cell: info => info.getValue(),
   },
   {
-    accessorKey: 'tipo',
-    header: () => 'Tipo',
+    accessorKey: 'formulario',
+    header: () => 'Formulario',
     cell: info => info.getValue(),
   },
 ]
 
 @Component({
-  selector: 'TipoTable',
+  selector: 'FormularioTableComponent',
   standalone: true,
   imports: [ TableComponent],
   template: `
@@ -49,8 +50,8 @@ const defaultColumns: ColumnDef<Marca>[] = [
   `
 })
 
-export class TiposTableComponent {
-  data = signal<Marca[]>([]);
+export class FormularioTableComponent {
+  data = signal<Formulario[]>([]);
   defaultColumns = defaultColumns
 
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
@@ -81,7 +82,7 @@ export class TiposTableComponent {
   }));
 
   fetchMarcas() {
-    getTipos().then((res) => {
+    getFormularios().then((res) => {
       this.data.set(res);
     });
   }
@@ -97,8 +98,8 @@ export class TiposTableComponent {
       title: 'Editando Marca',
       html: `
       <div class="flex flex-col">
-      <span>Tipo</span>
-      <input  id="tipo" class="swal2-input" value="${row.original.tipo}">      
+      <span>Formulario</span>
+      <input  id="formulario" class="swal2-input" value="${row.original.formulario}">        
       </form>
       `,
       showCancelButton: true,
@@ -108,16 +109,17 @@ export class TiposTableComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        const tipo = (document.getElementById('tipo') as HTMLInputElement).value
+        const formulario = (document.getElementById('formulario') as HTMLInputElement).value
        
         const values = {
           id: row.original.id,
-          tipo: tipo
+          formulario: formulario
         }
 
-        editTipo(row.original.id, values)
+        updateFormulario(values)
+
         Swal.fire({
-          title: 'Marca editada',
+          title: 'Formulario editado',
           icon: 'success',
           confirmButtonColor: '#0C4A6E',
         }).then(() => {
@@ -146,7 +148,7 @@ export class TiposTableComponent {
             icon: 'success',
             confirmButtonColor: '#0C4A6E',
           }).then(() => {
-            deleteTipo(row.original.id)
+            deleteFormulario(row.original.id)
             window.location.reload()
           })
         } catch (error) {
