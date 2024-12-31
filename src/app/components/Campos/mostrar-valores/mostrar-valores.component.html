@@ -10,11 +10,11 @@
         </svg>
     </button>
     @if(showAddValores){
-    <!-- <AgregarTipo (showAddValores)="showAddValores=false"/> -->
+     <AgregarValores (showAddValores)="showAddValores=false"/> 
     }
     @if(!showAddValores){
 
     <h1 class="text-2xl">Lista de Valores</h1>
-    <!-- <TipoTable />    -->
+    <ValoresTableComponent />   
     }
 </div>

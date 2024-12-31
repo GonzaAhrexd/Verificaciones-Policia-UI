@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
+import { AgregarBancosComponent } from './agregar-bancos/agregar-bancos.component';
+import { TablaBancosComponent } from './tabla-bancos/tabla-bancos.component';
+
 
 @Component({
-  selector: 'app-mostrar-bancos',
+  selector: 'MostrarBancos',
   standalone: true,
-  imports: [],
+  imports: [AgregarBancosComponent, TablaBancosComponent],
   templateUrl: './mostrar-bancos.component.html',
-  styleUrl: './mostrar-bancos.component.css'
 })
 export class MostrarBancosComponent {
 
+  showAddBancos = false
 }

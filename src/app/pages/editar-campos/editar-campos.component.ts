@@ -9,13 +9,13 @@ import { MostrarMarcasComponent } from '../../components/Campos/mostrar-marcas/m
 import { MostrarTiposComponent } from '../../components/Campos/mostrar-tipos/mostrar-tipos.component';
 import { MostrarFormulariosComponent } from '../../components/Campos/mostrar-formularios/mostrar-formularios.component';
 import { MostrarValoresComponent } from '../../components/Campos/mostrar-valores/mostrar-valores.component';
-
+import { MostrarBancosComponent } from '../../components/Campos/mostrar-bancos/mostrar-bancos.component';
 @Component({
   selector: 'app-editar-campos',
   standalone: true,
   imports: [CommonModule, SidebarComponent, CardActionsComponent,
     // Campos
-     MostrarMarcasComponent, MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent],
+     MostrarMarcasComponent, MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent, MostrarBancosComponent],
   templateUrl: './editar-campos.component.html',
 })
 export class EditarCamposComponent {
