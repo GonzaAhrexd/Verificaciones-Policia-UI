@@ -11,7 +11,8 @@ import {
   PaginationState,
 } from '@tanstack/angular-table'
 
-import { getBancos, deleteBanco, updateBanco } from '../../../../api/bancos.service'
+import { getNumeradors, deleteNumerador, updateNumerador } from '../../../../api/numerador.service' 
+
 import Swal from 'sweetalert2'
 // Definimos el tipo de dato Marca
 import { TableComponent } from '../../../table/table.component'
@@ -29,8 +30,14 @@ const defaultColumns: ColumnDef<Formulario>[] = [
     cell: info => info.getValue(),
   },
   {
-    accessorKey: 'banco',
-    header: () => 'Banco',
+    accessorKey: 'objeto',
+    header: () => 'Objeto',
+    cell: info => info.getValue(),
+  },
+  
+  {
+    accessorKey: 'ultimoNumero',
+    header: () => 'Último número',
     cell: info => info.getValue(),
   },
 ]
@@ -48,10 +55,10 @@ const defaultColumns: ColumnDef<Formulario>[] = [
   `
 })
 
-export class TablaBancosComponent {
+export class TablaNumeradorComponent {
+
   data = signal<Formulario[]>([]);
   defaultColumns = defaultColumns
-
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
   public readonly paginationState = signal<PaginationState>({
     pageIndex: 0,
@@ -80,7 +87,7 @@ export class TablaBancosComponent {
   }));
 
   fetchMarcas() {
-    getBancos().then((res) => {
+    getNumeradors().then((res) => {
       this.data.set(res);
     });
   }
@@ -93,11 +100,15 @@ export class TablaBancosComponent {
   editThisRow(row: any) {
     // Haz un menú de editado modal utilizando Swal
     Swal.fire({
-      title: 'Editando Banco',
+      title: 'Editando Numerador',
       html: `
       <div class="flex flex-col">
-      <span>Banco</span>
-      <input  id="banco" class="swal2-input" value="${row.original.banco}">        
+      <span>Objeto</span>
+      <input  id="objeto" class="swal2-input" value="${row.original.objeto}">        
+      <span>Último número</span>
+      <input  id="ultimoNumero" class="swal2-input" value="${row.original.ultimoNumero}">        
+      
+      
       </form>
       `,
       showCancelButton: true,
@@ -107,17 +118,19 @@ export class TablaBancosComponent {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        const banco = (document.getElementById('banco') as HTMLInputElement).value
-       
+        const objeto = (document.getElementById('objeto') as HTMLInputElement).value
+        const ultimoNumero = (document.getElementById('ultimoNumero') as HTMLInputElement).value
+
         const values = {
           id: row.original.id,
-          banco: banco
+          objeto: objeto,
+          ultimoNumero: ultimoNumero
         }
 
-        updateBanco(values)
+        updateNumerador(values)
 
         Swal.fire({
-          title: 'Formulario editado',
+          title: 'Numerador editado',
           icon: 'success',
           confirmButtonColor: '#0C4A6E',
         }).then(() => {
@@ -142,11 +155,11 @@ export class TablaBancosComponent {
       if (result.isConfirmed) {
         try {
           Swal.fire({
-            title: 'El registro ha sido eliminado',
+            title: 'El numerador ha sido eliminado',
             icon: 'success',
             confirmButtonColor: '#0C4A6E',
           }).then(() => {
-            deleteBanco(row.original.id)
+            deleteNumerador(row.original.id)
             window.location.reload()
           })
         } catch (error) {

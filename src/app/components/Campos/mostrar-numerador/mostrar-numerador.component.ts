@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 
+
+import { AgregarNumeradorComponent } from './agregar-numerador/agregar-numerador.component';
+import { TablaNumeradorComponent } from './tabla-numerador/tabla-numerador.component';
+
 @Component({
-  selector: 'app-mostrar-numerador',
+  selector: 'MostrarNumerador',
   standalone: true,
-  imports: [],
+  imports: [AgregarNumeradorComponent, TablaNumeradorComponent],
   templateUrl: './mostrar-numerador.component.html',
-  styleUrl: './mostrar-numerador.component.css'
 })
+
 export class MostrarNumeradorComponent {
+  showAddNumerador = false
 
 }

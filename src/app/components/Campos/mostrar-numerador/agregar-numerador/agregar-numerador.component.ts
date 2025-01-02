@@ -5,16 +5,16 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 // SweetAlert
 import Swal from 'sweetalert2';
 // API
-import { createBanco } from '../../../../api/bancos.service';
+import { createNumerador} from '../../../../api/numerador.service';
 
 @Component({
-  selector: 'app-agregar-bancos',
+  selector: 'AgregarNumerador',
   standalone: true,
   imports: [ReactiveFormsModule ],
-  templateUrl: './agregar-bancos.component.html',
+  templateUrl: './agregar-numerador.component.html',
 })
 
-export class AgregarBancosComponent {
+export  class AgregarNumeradorComponent {
   valores = []
    // Sección para agregar marcas      
 
@@ -22,26 +22,37 @@ export class AgregarBancosComponent {
   form = signal<FormGroup>(
     new FormGroup(
       {
-        Banco: new FormControl('', [Validators.required]),
+        Objeto: new FormControl('', [Validators.required]),
+        ultimoNumero: new FormControl('', [Validators.required]),
       })
   )
 
   // Mostrar si está en modo de agregado 
 
-  @Output() showAddBanco = new EventEmitter<boolean>()
+  @Output() showAddNumerador = new EventEmitter<boolean>()
   
-  
+  // Evitar el scroll
+  preventScroll(event: WheelEvent): void {
+    event.preventDefault();
+  }
+
   // Botón para cancelar
   cancelar() {
-    this.showAddBanco.emit(false)
-
+    this.showAddNumerador.emit(false)
   }
+
+
+
   // Botón para enviar
-  sendBanco() {
+  sendMarca() {
     if (this.form().valid) {
       this.valores = this.form().value
+
+
+      console.log(this.valores)
+
       Swal.fire({
-        title: '¿Está seguro de agregar este banco?',
+        title: '¿Está seguro de agregar este numerador?',
         icon: 'warning',
         confirmButtonColor: '#0C4A6E',
         cancelButtonColor: '#FF554C',
@@ -51,18 +62,18 @@ export class AgregarBancosComponent {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: 'Banco agregado',
+            title: 'Numerador agregado',
             icon: 'success',
             confirmButtonColor: '#0C4A6E',
           }).then(() => {
-            createBanco(this.valores)
+            createNumerador(this.valores)
             setTimeout(() => {
               this.form().reset()
             })
           })
           // this.showAddMarcas = false
         } else if (result.isDenied) {
-          Swal.fire('Banco no agregado', '', 'info')
+          Swal.fire('Numerador no agregado', '', 'info')
         }
       })
     }
