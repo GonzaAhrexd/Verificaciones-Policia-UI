@@ -12,6 +12,8 @@ import { FormularioTableComponent } from './tabla-formularios/formulario-table.c
   templateUrl: './mostrar-formularios.component.html',
 })
 
+
+
 export class MostrarFormulariosComponent {
   showAddFormularios = false
 }

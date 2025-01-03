@@ -1,0 +1,22 @@
+<app-sidebar />
+<div class="p-10 md:p-10 w-full">
+
+    <div 
+    class='grid gap-1 grid-cols-1 md:grid-cols-2 w-full'>
+        @for(datos of opcionesDatos; track datos.texto){
+            <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" />
+        }
+    </div>
+
+    @if(opcion == "Búsqueda"){
+        <p>Búsqueda</p>
+    }
+
+    @if(opcion == "Agregar entrega"){
+        <app-agregar-entrega />
+    }
+
+
+    
+
+</div>
