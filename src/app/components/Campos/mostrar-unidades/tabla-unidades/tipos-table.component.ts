@@ -11,47 +11,33 @@ import {
   PaginationState,
 } from '@tanstack/angular-table'
 
-import { getValores, deleteValor, updateValor } from '../../../../api/valores.service'
+import { getUnidades, deleteUnidad, updateUnidad } from '../../../../api/unidades.service'
 import Swal from 'sweetalert2'
 // Definimos el tipo de dato Marca
 import { TableComponent } from '../../../table/table.component'
 
-type Formulario = {
+type Marca = {
   id: number
-  formulario: string
- }
+  marca: string
+  descripcion: string
+}
 
 // Definimos columnas por defecto
-const defaultColumns: ColumnDef<Formulario>[] = [
+const defaultColumns: ColumnDef<Marca>[] = [
   {
     accessorKey: 'id',
     header: () => 'ID',
     cell: info => info.getValue(),
   },
   {
-    accessorKey: 'valor',
-    header: () => 'Valor',
-    cell: info => info.getValue(),
-  },
-  {
-    accessorKey: 'descripcion',
-    header: () => 'Descripción',
-    cell: info => info.getValue(),
-  },
-  {
-    accessorKey: 'importe',
-    header: () => 'Importe',
-    cell: info => info.getValue(),
-  },
-  {
-    accessorKey: 'limite',
-    header: () => 'Límite',
+    accessorKey: 'unidad',
+    header: () => 'Unidad',
     cell: info => info.getValue(),
   },
 ]
 
 @Component({
-  selector: 'ValoresTableComponent',
+  selector: 'UnidadesTable',
   standalone: true,
   imports: [ TableComponent],
   template: `
@@ -63,8 +49,8 @@ const defaultColumns: ColumnDef<Formulario>[] = [
   `
 })
 
-export class ValoresTableComponent {
-  data = signal<Formulario[]>([]);
+export class UnidadesTableComponent {
+  data = signal<Marca[]>([]);
   defaultColumns = defaultColumns
 
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
@@ -95,17 +81,13 @@ export class ValoresTableComponent {
   }));
 
   fetchMarcas() {
-    getValores().then((res) => {
+    getUnidades().then((res) => {
       this.data.set(res);
     });
   }
 
   ngOnInit() {
     this.fetchMarcas();
-  }
-
-  preventScroll(event: WheelEvent): void {
-    event.preventDefault();
   }
 
   // Editar una fila
@@ -115,20 +97,8 @@ export class ValoresTableComponent {
       title: 'Editando Marca',
       html: `
       <div class="flex flex-col">
-      
-      <span>Valor</span>
-      <input  id="valor" class="swal2-input" value="${row.original.valor}">        
-      
-      <span>Descripción</span>
-      <input  id="descripcion" class="swal2-input" value="${row.original.descripcion}">        
-      
-      <span>Importe</span>
-      <input
-      type="number"  id="importe" class="swal2-input" value="${row.original.importe}">        
-      
-      <span>Límite</span>
-      <input type="date" id="limite" class="swal2-input" value="${row.original.limite}">        
-      
+      <span>Tipo</span>
+      <input  id="unidad" class="swal2-input" value="${row.original.tipo}">      
       </form>
       `,
       showCancelButton: true,
@@ -136,36 +106,28 @@ export class ValoresTableComponent {
       cancelButtonColor: '#FF554C',
       confirmButtonText: `Guardar`,
       cancelButtonText: 'Cancelar',
-    }).then(async (result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-        const valor = (document.getElementById('valor') as HTMLInputElement).value
-        const descripcion = (document.getElementById('descripcion') as HTMLInputElement).value
-        const importe = (document.getElementById('importe') as HTMLInputElement).value
-        let limite = (document.getElementById('limite') as HTMLInputElement).value || row.original.limite
-
+        const unidad = (document.getElementById('unidad') as HTMLInputElement).value
+       
         const values = {
           id: row.original.id,
-          valor: valor,
-          descripcion: descripcion,
-          importe: importe,
-          limite: limite,
+          unidad: unidad
         }
 
-
-        await updateValor(values)
-
+        updateUnidad(values)
         Swal.fire({
-          title: 'Formulario editado',
+          title: 'Marca editada',
           icon: 'success',
           confirmButtonColor: '#0C4A6E',
         }).then(() => {
-          // window.location.reload()
+          window.location.reload()
         })
       }
     })
   }
 
-  // Eliminar una fila  
+  // Eliminar una fila
   deleteThisRow(row: any) {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -180,11 +142,11 @@ export class ValoresTableComponent {
       if (result.isConfirmed) {
         try {
           Swal.fire({
-            title: 'El valor ha sido eliminado',
+            title: 'El registro ha sido eliminado',
             icon: 'success',
             confirmButtonColor: '#0C4A6E',
-          }).then(async () => {
-            await deleteValor(row.original.id)
+          }).then(() => {
+            deleteUnidad(row.original.id)
             window.location.reload()
           })
         } catch (error) {

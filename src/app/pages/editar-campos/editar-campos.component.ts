@@ -9,32 +9,29 @@ import { MostrarTiposComponent } from '../../components/Campos/mostrar-tipos/mos
 import { MostrarFormulariosComponent } from '../../components/Campos/mostrar-formularios/mostrar-formularios.component';
 import { MostrarValoresComponent } from '../../components/Campos/mostrar-valores/mostrar-valores.component';
 import { MostrarBancosComponent } from '../../components/Campos/mostrar-bancos/mostrar-bancos.component';
-
+import { MostrarUnidadesComponent } from '../../components/Campos/mostrar-unidades/mostrar-unidades.component';
 @Component({
   selector: 'app-editar-campos',
   standalone: true,
   imports: [CommonModule, SidebarComponent, CardActionsComponent,
     // Campos
-      MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent, MostrarBancosComponent],
+      MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent, MostrarBancosComponent, MostrarUnidadesComponent],
   templateUrl: './editar-campos.component.html',
 })
 export class EditarCamposComponent {
 
   opcionesDatos = [
     { texto: "Tipos" },
+    { texto: "Unidades" },
     { texto: "Formularios"},
     { texto: "Valores"},
     { texto: "Bancos"},
     
   ]
 
-  
   opcion:string = ""
   
-
   getClickedSection(text: any) {
-    console.log(text)
-
       this.opcion = text
   }
 }

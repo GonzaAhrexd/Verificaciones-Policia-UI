@@ -4,7 +4,7 @@
         <div class="flex flex-col items-center justify-center">
             <div 
             [ngClass]="{ 'md:grid-cols-6': opcion, 'text-sm': opcion }"
-            class='grid gap-1 grid-cols-1 md:grid-cols-4 w-full'>
+            class='grid gap-1 grid-cols-1 md:grid-cols-5 w-full'>
                 @for(datos of opcionesDatos; track datos.texto){
                     <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" />
                 }
@@ -15,6 +15,9 @@
         <!-- TIPOS -->
         @if(opcion == "Tipos"){
             <MostrarTipos />
+        }   
+        @if(opcion == "Unidades"){
+            <MostrarUnidades />
         }   
         <!-- FORMULARIOS -->
         @if(opcion == "Formularios"){
