@@ -9,3 +9,13 @@ export const sendEntrega = async (entrega: any) => {
         return null;
     }
 }
+
+export const buscarEntrega = async (entrega: any) => {
+    try {
+        const response = await axios.get(`/Entregas/${entrega.Unidad}/${entrega.Desde}/${entrega.Hasta}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
