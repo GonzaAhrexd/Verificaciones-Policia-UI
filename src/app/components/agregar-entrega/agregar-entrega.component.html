@@ -1,42 +1,51 @@
-<form class="w-full" [formGroup]="form()">
+<form class="w-full" [formGroup]="form">
     <div class="flex flex-col w-full">
       <span class="flex font-medium ml-4"> Fecha </span>
       <input formControlName="Fecha" id="Fecha" type="date"
         class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
-        
+         
       <span class="flex font-medium ml-4"> Unidad </span>
       <select formControlName="Unidad" id="Unidad"
         class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
         <option value="0">Selecciona una opción</option>
         @for (unidad of unidades; track unidad.nombre) {
-          <option value="unidad.nombre">{{ unidad.nombre }}</option>
+          <option value="{{unidad.nombre}}">{{ unidad.nombre }}</option>
         }
       </select>
   
       <p class="font-bold">Renglones</p>
-      @for (renglon of renglones.controls; track renglon) {
-        <div class="bg-slate-300 rounded-lg flex flex-row items-center justify-center">
-          <select formControlName="TipoFormulario" id="TipoFormulario"
-            class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
-            <option value="0">Selecciona un tipo de formulario</option>
-            @for (form of data; track form.id) {
-              <option value="{{form.formulario}}">{{form.formulario}}</option>
-            }
-          </select>
-  
-          <input formControlName="Desde" type="text" placeholder="Desde" 
-            class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
-          
-          <input formControlName="Hasta" type="text" placeholder="Hasta" 
-            class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
-          
-          <input formControlName="Cantidad" type="text" placeholder="Cantidad" 
-            class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
-        </div>
-      }
-      <div class="flex flex-col items-center justify-center">
+      <ng-container formArrayName="renglones">
+        <div class="bg-slate-300 rounded-lg flex flex-col items-center justify-center"> 
+            @for (renglon of renglones.controls; track renglon; let i = $index) {
+                <div [formGroupName]="i" class="bg-slate-300 flex flex-row items-center justify-center">
+                    <select formControlName="TipoFormulario" id="TipoFormulario"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                    <option value="0">Selecciona un tipo de formulario</option>
+                    @for (form of data; track form.id) {
+                        <option value="{{form.formulario}}">{{form.formulario}}</option>
+                    }
+                </select>
+                
+                <input formControlName="Desde" type="text" placeholder="Desde" 
+                class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+                
+                <input formControlName="Hasta" type="text" placeholder="Hasta" 
+                class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+                
+                <input formControlName="Cantidad" type="text" placeholder="Cantidad" 
+                class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+                
+                <div class="flex flex-col items-center justify-center">
+                    <button (click)="deleteLesson(i)" class="bg-sky-950 text-white rounded-lg h-10 w-10">-</button>
+                    </div>
+            
+              </div>
+        }
+    </div>  
+    </ng-container>
+    <div class="flex flex-col items-center justify-center">
         <button (click)="addRenglones()" class="bg-sky-950 text-white rounded-lg h-10 w-10">+</button>
-      </div>
+    </div>
     </div>
   
     <div class="flex flex-row items-center justify-center mt-2">
@@ -45,4 +54,3 @@
       </div>
     </div>
   </form>
-  

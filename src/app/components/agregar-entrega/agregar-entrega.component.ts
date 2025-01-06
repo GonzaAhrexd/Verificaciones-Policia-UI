@@ -1,21 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { getFormularios } from '../../api/formulario.service';
 
 type Formulario = {
   id: number
   formulario: string
- }
+}
 
- 
 @Component({
   selector: 'app-agregar-entrega',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './agregar-entrega.component.html',
 })
-
-export class AgregarEntregaComponent {
+export class AgregarEntregaComponent implements OnInit {
   
   // Un array de unidades (opciones del select)
   unidades = [
@@ -27,17 +25,15 @@ export class AgregarEntregaComponent {
   ];
 
   // Formulario principal con FormArray para los renglones
-  form = signal<FormGroup>(
-    new FormGroup({
-      Fecha: new FormControl('', [Validators.required]),
-      Unidad: new FormControl('', [Validators.required]),
-      renglones: new FormArray([])  // FormArray para manejar los renglones
-    })
-  );
+  form: FormGroup = new FormGroup({
+    Fecha: new FormControl('', [Validators.required]),
+    Unidad: new FormControl('', [Validators.required]),
+    renglones: new FormArray([])  // FormArray para manejar los renglones
+  });
 
   // Función para acceder a los renglones como FormArray
   get renglones() {
-    return this.form().get('renglones') as FormArray;
+    return this.form.get('renglones') as FormArray;
   }
 
   // Función para agregar un nuevo renglon
@@ -51,10 +47,17 @@ export class AgregarEntregaComponent {
     this.renglones.push(renglonFormGroup);
   }
 
-  data:any = ([]);
+  deleteLesson(lessonIndex: number) {
+    this.renglones.removeAt(lessonIndex);
+    console.log(this.form.value)
+  
+  }
+
+  data: any = [];
+
   fetchFormulario() {
     getFormularios().then((res) => {
-      this.data = (res);
+      this.data = res;
     });
   }
 
@@ -64,6 +67,6 @@ export class AgregarEntregaComponent {
 
   // Función para enviar la entrega (ejemplo de uso)
   sendEntrega() {
-    console.log(this.form().value);
+    console.log(this.form.value);
   }
 }
