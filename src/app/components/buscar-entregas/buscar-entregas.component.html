@@ -11,13 +11,13 @@ Filtros:
 
         <span class="flex font-medium ml-4"> Unidad </span>
         <select formControlName="Unidad" id="Unidad"
-        class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2 w-full">
-        <option value="0">Selecciona una opción</option>
-        @for (unidad of unidades; track unidad.unidad) {
+            class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2 w-full">
+            <option value="0">Selecciona una opción</option>
+            @for (unidad of unidades; track unidad.unidad) {
             <option value="{{unidad.unidad}}">{{ unidad.unidad }}</option>
-        }
-    </select>
-</div>
+            }
+        </select>
+    </div>
     <div class="flex flex-row items-center justify-center w-full">
         <div class="flex flex-col w-full">
             <span class="flex font-medium ml-4"> Desde </span>
@@ -38,6 +38,7 @@ Filtros:
     </div>
 </form>
 
-@for(entrega of listaEntregas; track entrega.id ){
-    <p>{{entrega.id}}</p>
+@if(!isEmpty){
+<TableComponent [defaultColumns]="defaultColumns" [data]="listaEntregas" [onDelete]="deleteThisRow"
+    [onEdit]="editThisRow" />
 }

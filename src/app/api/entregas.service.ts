@@ -19,3 +19,14 @@ export const buscarEntrega = async (entrega: any) => {
         return null;
     }
 }
+
+
+export const deleteEntrega = async (id: string) => {
+    try {
+        const response = await axios.delete(`/Entregas/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

@@ -18,32 +18,40 @@ import {
   selector: 'TableComponent',
   standalone: true,
   imports: [FlexRenderDirective],
-  templateUrl: './table.component.html',
+ templateUrl: './table.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class TableComponent {
 
   @Input() defaultColumns: ColumnDef<any>[] = []
-  @Input() data = signal<any>([])
+  @Input() data:any = ([])
   @Input() onDelete: Function = () => {}; // Función de eliminación
   @Input() onEdit: Function = () => {}; // Función de edición
-  // @Input() onShow: Function = () => {}; // Función para mostrar detalles o alertas
 
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
   public readonly paginationState = signal<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
 
-  })
+  })  
+ 
 
+  show(row: any){
+    console.log(row)
+  }
 
-
+  expandThisRow(row: any){
+    
+    row.toggleExpanded(!row.getIsExpanded())
+  
+  }
 
   table = createAngularTable(() => ({
-    data: this.data(),
+    data: this.data,
     columns: this.defaultColumns,
     getCoreRowModel: getCoreRowModel(),
+    enableExpandingRows: true,
     debugTable: true,
     getPaginationRowModel: getPaginationRowModel(),
     state: {
