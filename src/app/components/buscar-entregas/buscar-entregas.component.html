@@ -1,13 +1,6 @@
-<!-- 
-Filtros: 
-- Filtrar por unidad
-- Filtrar por rango de fecha
--> Realizar un get personalizado al API donde se envien la unidad y el rango de fecha, esto retornará estos campos coincidentes de la BD
--> En el front se mostrarán los resultados de la búsqueda en una tabla
--> Esta tabla intentaré que sea desplegable, es decir, que al hacer click en un registro se despliegue la información de ese registro, sino, lo haré con un modal
--->
+<!-- Formulario para filtrar -->
 <form [formGroup]="buscarEntregasForm" class="flex flex-col items-center justify-center">
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full ">
 
         <span class="flex font-medium ml-4"> Unidad </span>
         <select formControlName="Unidad" id="Unidad"
@@ -18,7 +11,7 @@ Filtros:
             }
         </select>
     </div>
-    <div class="flex flex-row items-center justify-center w-full">
+    <div class="flex flex-col lg:flex-row items-center justify-center w-full">
         <div class="flex flex-col w-full">
             <span class="flex font-medium ml-4"> Desde </span>
             <input formControlName="Desde" id="desde" type="date"
@@ -37,7 +30,7 @@ Filtros:
         </div>
     </div>
 </form>
-
+<!-- Componente que muestra la tabla -->
 @if(!isEmpty){
 <TableComponent [defaultColumns]="defaultColumns" [data]="listaEntregas" [onDelete]="deleteThisRow"
     [onEdit]="editThisRow" />

@@ -27,7 +27,7 @@ export class AgregarEntregaComponent implements OnInit {
   // Formulario principal con FormArray para los renglones
   form: FormGroup = new FormGroup({
     Fecha: new FormControl('', [Validators.required]),
-    Unidad: new FormControl('', [Validators.required]),
+    Unidad: new FormControl('0', [Validators.required]),
     renglonesEntregas: new FormArray([])  // FormArray para manejar los renglones
   });
 
@@ -41,7 +41,7 @@ export class AgregarEntregaComponent implements OnInit {
   addRenglones() {
     this.renglones++;
     const renglonFormGroup = new FormGroup({
-      TipoFormulario: new FormControl('', [Validators.required]),
+      TipoFormulario: new FormControl('0', [Validators.required]),
       NroRenglon: new FormControl(this.renglones, [Validators.required]),
       Desde: new FormControl('', [Validators.required]),
       Hasta: new FormControl('', [Validators.required]),

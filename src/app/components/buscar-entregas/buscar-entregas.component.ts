@@ -46,7 +46,7 @@ export class BuscarEntregasComponent {
   listaEntregas:any = []
   
   buscarEntregasForm: FormGroup = new FormGroup({
-    Unidad: new FormControl('', [Validators.required]),
+    Unidad: new FormControl('0', [Validators.required]),
     Desde: new FormControl('', [Validators.required]),
     Hasta: new FormControl('', [Validators.required]),
   });
@@ -66,10 +66,13 @@ export class BuscarEntregasComponent {
 
   async fetchEntregas() {
     try {
+      this.listaEntregas = []
+      this.isEmpty = true 
+
       const entrega = await buscarEntrega(this.buscarEntregasForm.value)
       this.listaEntregas = entrega
       this.isEmpty = false
-      console.log(this.listaEntregas)
+    
     } catch (error) {
       console.error(error)
     }

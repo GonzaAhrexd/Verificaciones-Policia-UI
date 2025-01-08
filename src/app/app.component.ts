@@ -14,7 +14,7 @@ import { RouterOutlet } from '@angular/router';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
   </head>
-  <body class='flex flex-col md:ml-[15rem]'>
+  <body class='flex flex-col lg:ml-[15rem]'>
   <router-outlet /> 
   </body>
 </html>
