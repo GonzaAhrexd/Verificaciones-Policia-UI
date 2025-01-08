@@ -33,6 +33,12 @@ export class BuscarEntregasComponent {
       header: () => 'Fecha',
       cell: info => info.getValue(),
     },
+    {
+      accessorKey: 'unidad',
+      header: () => 'Unidad',
+      cell: info => info.getValue(),
+  
+    }
   ]
 
   

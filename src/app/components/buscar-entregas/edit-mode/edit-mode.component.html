@@ -1,0 +1,65 @@
+<form class="w-full" [formGroup]="form">
+  <div class="flex flex-col w-full">
+    <span class="flex font-medium ml-4"> Fecha </span>
+    <input formControlName="Fecha" id="Fecha" type="date"
+      class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />         
+      
+    <span class="flex font-medium ml-4"> Unidad </span>
+    <select formControlName="Unidad" id="Unidad"
+      class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+      <option value="0">Selecciona una opción</option>
+      @for (unidad of unidades; track unidad.unidad) {
+        <option value="{{unidad.unidad}}">{{ unidad.unidad }}</option>
+      }
+    </select>
+
+    <p class="font-bold">Renglones</p>
+    <ng-container formArrayName="renglonesEntregas">
+      <div class="bg-slate-300 rounded-lg flex flex-col items-center justify-center"> 
+        @for (renglon of renglonesEntregas.controls; track renglon; let i = $index) {
+          <div [formGroupName]="i" class="bg-slate-300 flex flex-row items-center justify-center">
+            {{i + 1}}
+            <select formControlName="TipoFormulario" id="TipoFormulario"
+              class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+              <option value="0">Selecciona un tipo de formulario</option>
+              @for (form of data; track form.id) {
+                <option value="{{form.formulario}}">{{form.formulario}}</option>
+              }
+            </select>
+
+            @if(renglon.hasError('hastaMenorQueDesde')) {
+              <div class="text-red-500">Hasta debe ser menor que desde</div>
+            }
+            <input (wheel)="preventScroll($event)" formControlName="Desde" type="number" placeholder="Desde" 
+              class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+              
+            <input (wheel)="preventScroll($event)" formControlName="Hasta" type="number" placeholder="Hasta" 
+              class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            
+            <input (wheel)="preventScroll($event)" formControlName="Cantidad" type="number" placeholder="Cantidad" 
+              class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            
+            <div class="flex flex-col items-center justify-center">
+              <button (click)="deleteLesson(i)" class="flex flex-col items-center justify-center bg-sky-950 text-white rounded-lg h-10 w-10">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.243-2.077l-1.034-13.035c-.008-.102-.01-.204-.01-.306m0 0a2.25 2.25 0 0 1 2.244-2.077h7.848a2.25 2.25 0 0 1 2.243 2.077l-.242 3.008M6.213 7.674l-.342-.165z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </ng-container>
+    
+    <div class="flex flex-col items-center justify-center">
+      <button (click)="addRenglones()" class="flex flex-col items-center justify-center bg-sky-950 text-white rounded-lg h-10 w-10">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 w-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"/>
+        </svg>
+      </button>
+    </div>
+    <div class="w-full flex flex-col items-center justify-center">
+      <button class="flex flex-col items-center justify-center bg-sky-950 text-white rounded-lg h-10 w-6/10 mt-2" (click)="saveChanges()">Guardar</button>
+    </div>
+  </div>
+</form>
