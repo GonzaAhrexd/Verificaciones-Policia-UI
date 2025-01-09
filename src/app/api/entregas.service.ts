@@ -40,3 +40,14 @@ export const updateEntrega = async (id: number, entrega: any) => {
         return null;
     }
 }
+
+
+export const deleteRenglonEntrega = async(id: number) => {
+    try {
+        const response = await axios.delete(`/RenglonesEntregas/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

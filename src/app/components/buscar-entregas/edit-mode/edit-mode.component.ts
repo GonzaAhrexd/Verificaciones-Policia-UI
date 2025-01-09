@@ -1,19 +1,20 @@
+// Angular
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+// APIs
 import { getFormularios } from '../../../api/formulario.service';
-import { sendEntrega, updateEntrega } from '../../../api/entregas.service';
+import { updateEntrega, deleteRenglonEntrega } from '../../../api/entregas.service';
 import { getUnidades } from '../../../api/unidades.service';
+//SweetAlert
 import Swal from 'sweetalert2';
 
-type Formulario = {
-  id: number
-  formulario: string
-}
+// Tipo de datos para las unidades
 type Unidad = {
   id: number
   unidad: string
 }
 
+// Componente para editar una entrega
 @Component({
   selector: 'EditMode',
   standalone: true,
@@ -21,10 +22,13 @@ type Unidad = {
   templateUrl: './edit-mode.component.html',
 })
 export class EditModeComponent implements OnInit {
-
+  // Datos de entrada
   @Input() defaultData:any = []
-  
+  // Variables internas
   unidades:Unidad[] = []
+  renglones:number = 0
+  renglonesToDelete: number[] = [];
+  data: any = [];
 
 
   // Formulario principal con FormArray para los renglones
@@ -40,7 +44,6 @@ export class EditModeComponent implements OnInit {
     return this.form.get('renglonesEntregas') as FormArray;
   }
 
-  renglones = 0
   // Función para agregar un nuevo renglon
   addRenglones(renglonData: any = null) {
     const renglonFormGroup = new FormGroup({
@@ -54,6 +57,7 @@ export class EditModeComponent implements OnInit {
 
     this.renglonesEntregas.push(renglonFormGroup);
   }
+  // Validador para que la fecha de inicio sea menor a la fecha de fin
   hastaMayorQueDesdeValidator = () => {
     return (control: any): { [key: string]: any } | null => {
       const desde = control.get('Desde')?.value;
@@ -62,19 +66,24 @@ export class EditModeComponent implements OnInit {
     };
   }
 
-  deleteLesson(lessonIndex: number) {
-    this.renglonesEntregas.removeAt(lessonIndex);
-  
+  // Función para eliminar un renglón	
+  deleteLesson(renglonIndex: number) {
+    // Obtener el ID del renglón
+    const renglon = this.defaultData.renglonesEntregas[renglonIndex];
+    // Cargarlo al array de renglones para eliminar 
+    this.renglonesToDelete.push(renglon.id);
+    // Eliminar el renglón del FormArray
+    this.renglonesEntregas.removeAt(renglonIndex);
+
   }
 
-  data: any = [];
-
+  // Función para obtener los formularios
   fetchFormulario() {
     getFormularios().then((res) => {
       this.data = res;
     });
   }
-
+  // Inicialización del componente
   ngOnInit() {
     this.fetchUnidades()
     this.fetchFormulario();
@@ -91,8 +100,6 @@ export class EditModeComponent implements OnInit {
       Unidad: this.defaultData.unidad
     });
 
-
-    
     // Establecer los valores de los renglones (si existen)
     if (this.defaultData.renglonesEntregas && this.defaultData.renglonesEntregas.length > 0) {
       this.defaultData.renglonesEntregas.forEach((renglon: any) => {
@@ -101,7 +108,7 @@ export class EditModeComponent implements OnInit {
     }
   }
   
-
+// Función para formatear la fecha
   formatDate(date: string | Date): string {
     const d = new Date(date);
     const year = d.getFullYear();
@@ -110,40 +117,14 @@ export class EditModeComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
+  // Función para obtener las unidades
   fetchUnidades(){
     getUnidades().then((res) => {
       this.unidades = res;
     });
   }
 
-  // Función para enviar la entrega (ejemplo de uso)
-  postEntrega() {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "¿Desea enviar la entrega?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#0C4A6E',
-      cancelButtonColor: '#FF554C',
-       confirmButtonText: 'Enviar'
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await sendEntrega(this.form.value)
-        Swal.fire({
-          title: 'Entrega enviada',
-          icon: 'success',
-        }).then(() => {
-          this.form.reset();
-          this.renglonesEntregas.clear();
-        })
-
-        
-        }
-      
-      })
-  
-  }
-
+// Guardar cambios
   saveChanges(){
     Swal.fire({
       title: '¿Estás seguro?',
@@ -155,19 +136,34 @@ export class EditModeComponent implements OnInit {
        confirmButtonText: 'Guardar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(this.form.value)
+
+        // Si hay valores nulos en los campos id de los renglones, elimina solo el campo de id
+        const renglones = this.form.value.renglonesEntregas.map((renglon: any) => {
+          if (!renglon.Id) {
+            delete renglon.Id;
+          }
+          return renglon;
+        });
+
+        // Establecer los renglones en el formulario
+        this.form.value.renglonesEntregas = renglones
+
+        for(const renglon of this.renglonesToDelete){
+          await deleteRenglonEntrega(renglon)
+        }
+      
         await updateEntrega(this.defaultData.nroEntrega, this.form.value)
         Swal.fire({
           title: 'Cambios guardados',
           icon: 'success',
         }).then(() => {
-          // Window?.location.reload()   
+          window.location.reload()   
         })  
         }
     })
   }
 
-
+  // Función para prevenir el scroll
   preventScroll(event: WheelEvent): void {
     event.preventDefault();
   }

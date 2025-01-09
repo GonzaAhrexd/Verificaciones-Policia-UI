@@ -30,6 +30,7 @@
             @if(renglon.hasError('hastaMenorQueDesde')) {
               <div class="text-red-500">Hasta debe ser menor que desde</div>
             }
+            <input formControlName="Id" type="hidden" />
             <input (wheel)="preventScroll($event)" formControlName="Desde" type="number" placeholder="Desde" 
               class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
               
