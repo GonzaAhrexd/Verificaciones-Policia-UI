@@ -14,7 +14,7 @@
   
       <p class="font-bold">Renglones</p>
       <ng-container formArrayName="renglonesEntregas">
-        <div class="bg-slate-300 rounded-lg flex flex-col items-center justify-center"> 
+        <div class="bg-slate-300 rounded-lg flex flex-col items-center justify-center w-full"> 
             @for (renglon of renglonesEntregas.controls; track renglonesEntregas; let i = $index) {
                 <div [formGroupName]="i" class="bg-slate-300 flex flex-row items-center justify-center">
                   {{i + 1}}
@@ -45,9 +45,8 @@
                       </svg>
                     </button>
                     </div>
-            
-              </div>
-        }
+                  </div>
+                  }
     </div>  
     </ng-container>
     <div class="flex flex-col items-center justify-center">
