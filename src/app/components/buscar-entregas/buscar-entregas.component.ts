@@ -105,7 +105,7 @@ export class BuscarEntregasComponent {
       }
     })
 
-    console.log("Deleted")
+    
   }
 
   editThisRow(){

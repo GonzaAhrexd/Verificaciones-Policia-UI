@@ -1,0 +1,21 @@
+<app-sidebar />
+<div class="p-2 md:p-10 w-full">
+    <h2 class="text-2xl">Depósitos</h2>
+
+    <div>
+        <div class="grid gap-1 grid-cols-1 md:grid-cols-2 w-full">
+            @for(datos of opcionesDatos; track datos.texto){
+            <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" />
+        }
+        </div>
+    </div>
+
+    @if(opcion == "Búsqueda"){
+    <app-buscar-deposito />  
+    }
+    @if(opcion == "Agregar depósito"){
+    <app-agregar-deposito />
+    }
+
+
+</div>
