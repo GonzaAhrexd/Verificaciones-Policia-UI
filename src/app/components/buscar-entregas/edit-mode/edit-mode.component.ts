@@ -123,6 +123,11 @@ export class EditModeComponent implements OnInit {
       this.unidades = res;
     });
   }
+cancelChanges(){
+  console.log("first")
+  
+
+}
 
 // Guardar cambios
   saveChanges(){
