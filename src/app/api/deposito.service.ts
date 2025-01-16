@@ -22,6 +22,6 @@ export const deleteDepositos = async (id: any) => {
 }
 
 export const editDeposito = async (data: any) => {
-    const response = await axios.put(`/Depositos/${data.id}`, data)
+    const response = await axios.put(`/Depositos/${data.NroDeposito}`, data)
     return response.data
 }
