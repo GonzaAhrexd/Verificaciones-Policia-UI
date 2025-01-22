@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'EditMode',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule ],
   templateUrl: './edit-mode.component.html',
 })
 export class EditModeComponent {

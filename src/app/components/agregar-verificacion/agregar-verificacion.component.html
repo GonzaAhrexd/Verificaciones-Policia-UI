@@ -1,0 +1,151 @@
+<form class="w-full" [formGroup]="form">
+    <div class="flex flex-col w-full">
+        <div class="flex flex-row w-full items-center justify-center">
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Unidad </span>
+                <select formControlName="Unidad" id="Formulario"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                    <option value="0">Selecciona una opción</option>
+                    @for (unidad of unidadesOpciones; track unidad.unidad) {
+                    <option value="{{unidad.unidad}}">{{ unidad.unidad }}</option>
+                    }
+                </select>
+            </div>
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Recibo </span>
+                <input (wheel)="preventScroll($event)" formControlName="Recibo" type="number"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 w-full  pl-2" />
+            </div>
+
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Fecha </span>
+                <input formControlName="Fecha" id="Fecha" type="date"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            </div>
+
+        </div>
+        <div class="flex flex-row w-full items-center justify-center">
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Planta Verificadora </span>
+                <input formControlName="PlantaVerificadora" id="PlantaVerificadora" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+
+            </div>
+
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Tipo </span>
+                <select (change)="verifyType($event)" formControlName="Tipo" id="Tipo"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                    <option value="0">Selecciona una opción</option>
+                    @for (opciones of opcionesTipoVehiculo; track opciones.nombre) {
+                    <option value="{{opciones.nombre}}">{{ opciones.nombre }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="flex flex-row w-full items-center justify-center">
+            <div class="flex flex-col w-full">
+                
+                <span class="flex font-medium ml-4"> Responsable </span>
+                <input formControlName="Responsable" id="Responsable" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            </div>
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Formulario </span>
+                <input formControlName="Formulario" id="Formulario" type="text"
+                class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+
+            </div>
+        </div>
+       @if(setNoListMode){
+           <p>¿Probar con la lista?  <span (click)="setNoListMode = false" class="text-blue-400 cursor-pointer">Haz click aquí</span> </p>
+        }@else {
+            <p>¿No está en la lista? <span (click)="setNoListMode = true" class="text-blue-400 cursor-pointer">Haz click aquí</span> </p>
+        }
+        <div class="flex flex-row w-full items-center justify-center">
+            @if(setNoListMode){
+                <div class="flex flex-col w-full">
+                    <span class="flex font-medium ml-4"> Marca </span>
+                    <input formControlName="Marca" id="Marca" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+    
+                </div>
+                <div class="flex flex-col w-full">
+                    <span class="flex font-medium ml-4"> Modelo </span>
+                    <input formControlName="Modelo" id="Modelo" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+                    
+                </div>
+            }
+            @if(!modoMoto && !setNoListMode){
+               <div class="flex flex-col w-full">
+                   <span class="flex font-medium ml-4"> Marca </span>
+                <select (change)="onSelectChange($event)" formControlName="Marca" id="Marca"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                    <option value="0">Selecciona una opción</option>
+                    @for (vehiculo of vehiclesOpciones.Makes; track vehiculo) {
+                        <option value="{{vehiculo.make_display }}">{{ vehiculo.make_display }}</option>
+                    }
+                </select>
+            </div>
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Modelo </span>
+                <select formControlName="Modelo" id="Modelo"
+                class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                    <option value="0">Selecciona una opción</option>
+                    @for (modelo of modelOpciones.Models; track modelo) {
+                    <option value="{{modelo.model_name }}">{{ modelo.model_name }}</option>
+                    }
+                </select>
+            </div>
+        }@else if(modoMoto && !setNoListMode){
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Marca </span>
+             <select (change)="onSelectChangeMotorcycle($event)" formControlName="Marca" id="Marca"
+                 class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                 <option value="0">Selecciona una opción</option>
+                 @for (moto of motorcycleOpciones; track moto.id) {
+                     <option value="{{moto.name }}">{{ moto.name }}</option>
+                 }
+             </select>
+         </div>
+         <div class="flex flex-col w-full">
+             <span class="flex font-medium ml-4"> Modelo </span>
+             <select formControlName="Modelo" id="Modelo"
+             class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+                 <option value="0">Selecciona una opción</option>
+                 @for (modelo of modelOpcionesMoto; track modelo.id) {
+                 <option value="{{modelo.name }}">{{ modelo.name }}</option>
+                 }
+             </select>
+         </div>
+        }
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Año </span>
+                <input formControlName="Anio" id="Anio" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            </div>
+        </div>
+        
+        <div class="flex flex-row w-full items-center justify-center">
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Dominio </span>
+                <input formControlName="Dominio" id="Dominio" type="text"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            </div>
+            <div class="flex flex-col w-full">
+                <span class="flex font-medium ml-4"> Importe </span>
+                <input (wheel)="preventScroll($event)" formControlName="Importe" id="Importe" type="number"
+                    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2" />
+            </div>
+        </div>
+
+        <div (click)="postVerificacion()"
+            class="cursor-pointer bg-sky-950 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded w-full flex flex-row items-center justify-center mr-2">
+            Guardar
+        </div>
+
+    </div>
+
+</form>
