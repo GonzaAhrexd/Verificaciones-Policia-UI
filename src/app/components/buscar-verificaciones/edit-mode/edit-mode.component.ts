@@ -5,7 +5,7 @@ import { getUnidades } from '../../../api/unidades.service';
 import { getVehicles, getVehicleByMake, getMotorcycles, getMotoByMake } from '../../../api/vehicles.service';
 
 import Swal from 'sweetalert2';
-import { editVerificacion } from '../../../api/verificaciones.service';
+import { editVerificacion, deleteVerificacion } from '../../../api/verificaciones.service';
 @Component({
   selector: 'EditMode',
   standalone: true,
@@ -128,6 +128,31 @@ verifyType = (type: any ) => {
 
   })
 
+  eliminarVerificacion(id: number){
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "¡No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#FF554C',
+      cancelButtonColor: '#0C4A6E',
+      confirmButtonText: '¡Sí, eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteVerificacion(id)
+        Swal.fire(
+          {
+            title: '¡Eliminado!',
+            text: 'La verificación ha sido eliminada.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+          }
+        )
+      }
+    })
+  }
+
   editVerificacion(){
     Swal.fire({
       title: '¿Estás seguro?',
@@ -141,6 +166,9 @@ verifyType = (type: any ) => {
     }).then((result) => {
       if (result.isConfirmed) {
         console.log(this.form.value)  
+        this.form.value.id = this.defaultData.id
+
+        console.log(this.form.value)
         editVerificacion(this.form.value)
         Swal.fire(
           {

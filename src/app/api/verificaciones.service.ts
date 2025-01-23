@@ -16,7 +16,14 @@ export const sendVerificacion = async (verificacion: any) => {
 }
 
 export const editVerificacion = async (verificacion: any) => {
+
+    
+
     const response = await axios.put(`/Verificaciones/${verificacion.id}`, verificacion)
     return response.data
 }
 
+export const deleteVerificacion = async (id: number) => {
+    const response = await axios.delete(`/Verificaciones/${id}`)
+    return response.data
+}
