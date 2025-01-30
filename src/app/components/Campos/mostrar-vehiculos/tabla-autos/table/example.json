@@ -1,0 +1,15 @@
+{
+    "nroEntrega": 2,
+    "fecha": "2025-01-06T00:00:00",
+    "unidad": "Metropolitana",
+    "renglonesEntregas": [
+        {
+            "id": 2,
+            "nroRenglon": 0,
+            "tipoFormulario": "Transferencia de Motos",
+            "desde": 1,
+            "hasta": 100,
+            "cantidad": 5
+        }
+    ]
+}

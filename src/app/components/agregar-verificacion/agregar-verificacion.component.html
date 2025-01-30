@@ -84,8 +84,8 @@
                 <select (change)="onSelectChange($event)" formControlName="Marca" id="Marca"
                     class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
                     <option value="0">Selecciona una opción</option>
-                    @for (vehiculo of vehiclesOpciones.Makes; track vehiculo) {
-                        <option value="{{vehiculo.make_display }}">{{ vehiculo.make_display }}</option>
+                    @for (vehiculo of vehiclesOpciones; track vehiculo) {
+                        <option value="{{vehiculo.marca }}">{{ vehiculo.marca }}</option>
                     }
                 </select>
             </div>
@@ -94,8 +94,8 @@
                 <select formControlName="Modelo" id="Modelo"
                 class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
                     <option value="0">Selecciona una opción</option>
-                    @for (modelo of modelOpciones.Models; track modelo) {
-                    <option value="{{modelo.model_name }}">{{ modelo.model_name }}</option>
+                    @for (modelo of modelOpciones; track modelo) {
+                    <option value="{{modelo.modelo }}">{{ modelo.modelo }}</option>
                     }
                 </select>
             </div>
@@ -106,7 +106,7 @@
                  class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
                  <option value="0">Selecciona una opción</option>
                  @for (moto of motorcycleOpciones; track moto.id) {
-                     <option value="{{moto.name }}">{{ moto.name }}</option>
+                     <option value="{{moto.marca }}">{{ moto.marca }}</option>
                  }
              </select>
          </div>
@@ -116,7 +116,7 @@
              class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
                  <option value="0">Selecciona una opción</option>
                  @for (modelo of modelOpcionesMoto; track modelo.id) {
-                 <option value="{{modelo.name }}">{{ modelo.name }}</option>
+                 <option value="{{modelo.modelo }}">{{ modelo.modelo }}</option>
                  }
              </select>
          </div>

@@ -10,12 +10,14 @@ import { MostrarFormulariosComponent } from '../../components/Campos/mostrar-for
 import { MostrarValoresComponent } from '../../components/Campos/mostrar-valores/mostrar-valores.component';
 import { MostrarBancosComponent } from '../../components/Campos/mostrar-bancos/mostrar-bancos.component';
 import { MostrarUnidadesComponent } from '../../components/Campos/mostrar-unidades/mostrar-unidades.component';
+import { MostrarVehiculosComponent } from "../../components/Campos/mostrar-vehiculos/mostrar-vehiculos.component";
+
 @Component({
   selector: 'app-editar-campos',
   standalone: true,
   imports: [CommonModule, SidebarComponent, CardActionsComponent,
     // Campos
-      MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent, MostrarBancosComponent, MostrarUnidadesComponent],
+    MostrarTiposComponent, MostrarFormulariosComponent, MostrarValoresComponent, MostrarBancosComponent, MostrarUnidadesComponent, MostrarVehiculosComponent],
   templateUrl: './editar-campos.component.html',
 })
 export class EditarCamposComponent {
@@ -26,7 +28,7 @@ export class EditarCamposComponent {
     { texto: "Formularios"},
     { texto: "Valores"},
     { texto: "Bancos"},
-    
+    { texto: "Vehículos"}	
   ]
 
   opcion:string = ""

@@ -3,8 +3,8 @@
         <h2 class="text-2xl">Listar y editar campos</h2>
         <div class="flex flex-col items-center justify-center">
             <div 
-            [ngClass]="{ 'md:grid-cols-6': opcion, 'text-sm': opcion }"
-            class='grid gap-1 grid-cols-1 md:grid-cols-5 w-full'>
+            [ngClass]="{ 'md:grid-cols-5': opcion, 'text-sm': opcion }"
+            class='grid gap-1 grid-cols-1 md:grid-cols-6 w-full'>
                 @for(datos of opcionesDatos; track datos.texto){
                     <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" />
                 }
@@ -31,4 +31,10 @@
         @if(opcion=="Bancos"){
             <MostrarBancos />
         }
+        <!-- VEHÍCULOS -->
+        @if(opcion=="Vehículos"){
+            <MostrarVehiculos />
+        }
+
+
 </div>

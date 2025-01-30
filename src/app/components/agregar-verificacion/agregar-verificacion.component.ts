@@ -3,9 +3,11 @@ import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angula
 import { getFormularios  } from '../../api/formulario.service';
 import { getUnidades } from '../../api/unidades.service';
 import { getVehicles, getVehicleByMake, getMotorcycles, getMotoByMake } from '../../api/vehicles.service';
-
+import { getMarcasAutos, getModelosByMarcas } from '../../api/marcasAutos.service';
+import { getMarcasMotos, getModelosByMarcaMoto } from '../../api/marcasMotos.service';
 import Swal from 'sweetalert2';
 import { sendVerificacion } from '../../api/verificaciones.service';
+
 @Component({
   selector: 'AgregarVerificacion',
   standalone: true,
@@ -47,13 +49,13 @@ export class AgregarVerificacionComponent {
 
 
   obtenerVehiculos = async () => {
-    getVehicles().then((res) => {
+    getMarcasAutos().then((res) => {
       this.vehiclesOpciones = res;
       console.log(this.vehiclesOpciones)
     });
   }
   obtenerMotocicletas(){
-    getMotorcycles().then((res) => {
+    getMarcasMotos().then((res) => {
       this.motorcycleOpciones = res; 
       console.log(this.motorcycleOpciones)
     });
@@ -132,24 +134,17 @@ verifyType = (type: any ) => {
   onSelectChange(event: any) {
     console.log(event.target.value)
 
-    getVehicleByMake(event.target.value).then((res) => {
+    getModelosByMarcas(event.target.value).then((res) => {
       this.modelOpciones = res; 
+      console.log(this.modelOpciones)
     })
 
   }
 
  onSelectChangeMotorcycle(event: any) {
-   
-    getMotoByMake(event.target.value).then((res) => {
+    getModelosByMarcaMoto(event.target.value).then((res) => {
       this.modelOpcionesMoto = res; 
-      console.log(this.modelOpcionesMoto)
-    
     })
-
   }
-  
-  
- 
-
 }
 

@@ -17,8 +17,6 @@ export const sendVerificacion = async (verificacion: any) => {
 
 export const editVerificacion = async (verificacion: any) => {
 
-    
-
     const response = await axios.put(`/Verificaciones/${verificacion.id}`, verificacion)
     return response.data
 }
