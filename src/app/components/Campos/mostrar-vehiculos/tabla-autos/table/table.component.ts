@@ -1,9 +1,8 @@
 
 // Importamos cosas de Angular
 import {  Component, Input, signal } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { EditModeComponent } from '../edit-mode/edit-mode.component';
+import { AgregarModeloComponent  } from '../agregar-modelo/agregar-modelo.component';
 // import { EditModeComponent } from '../edit-mode/edit-mode.component'
 // Importamos cosas de Angular Table de TanStack
 import {
@@ -19,7 +18,7 @@ import {
 @Component({
   selector: 'TableComponent',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent],
+  imports: [FlexRenderDirective, EditModeComponent, AgregarModeloComponent],
  templateUrl: './table.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -32,13 +31,13 @@ export class TableComponent {
   @Input() onDelete: Function = () => {}; // Función de eliminación
   @Input() onEdit: Function = () => {}; // Función de edición
   editMode = false 
+  setAddModelo = false
 
   // Señales para manejar la paginación
   public readonly sizesPages = signal<number[]>([5, 10, 25, 50, 100])
   public readonly paginationState = signal<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
-
   })  
 
 
