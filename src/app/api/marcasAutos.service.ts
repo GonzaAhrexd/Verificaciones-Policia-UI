@@ -20,7 +20,7 @@ export const loadMarcasAutos = async () => {
     }
 
 export const editMarcasAutos = async (marca: any) => {
-        const response = await axios.put(`/MarcasAutos/${marca.id}`, marca)
+        const response = await axios.put(`/MarcasAutos/${marca.Id}`, marca)
         return response.data
     }
 
