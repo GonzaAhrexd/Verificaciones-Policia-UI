@@ -9,17 +9,13 @@ export const getMarcasMotos = async () => {
     }
     }
 
-export const loadMarcasMotos = async () => {
-    try {
-        const response = await axios.get('/MarcasMotos')
-        return response.data
-    } catch (error) {
-        console.error(error)
-    }
-    }
+export const postMarcaMoto = async (marca: any) => {
+    const response = await axios.post('/MarcasMotos', marca)
+    return response.data
+}
 
 export const editMarcasMotos = async (marca: any) => {
-        const response = await axios.put(`/MarcasMotos/${marca.id}`, marca)
+        const response = await axios.put(`/MarcasMotos/${marca.Id}`, marca)
         return response.data
     }
 

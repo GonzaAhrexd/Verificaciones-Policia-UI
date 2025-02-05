@@ -19,7 +19,6 @@ import { RouterLink } from '@angular/router';
 export class CardActionsComponent {
   @Input() texto: string = "";
   @Output() opcion = new EventEmitter<string>();
-  
   clicked(text: any){ 
     this.opcion.emit(text);
   }

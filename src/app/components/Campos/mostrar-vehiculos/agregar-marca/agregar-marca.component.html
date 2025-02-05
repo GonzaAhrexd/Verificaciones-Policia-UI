@@ -1,0 +1,18 @@
+<form class="w-full flex flex-col items-center justify-center" [formGroup]="formulario">
+    <span class="flex font-medium ml-4"> Marca </span>
+    <input formControlName="Marca" type="text"
+    class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 w-full max-w-sm pl-2" />
+    <!-- Haz un select con las opciones de tipos -->
+    <span class="flex font-medium ml-4"> Tipo </span>
+    <select formControlName="Tipo" class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 w-full max-w-sm pl-2">
+    @for(tipo of tipos; track tipo.valor){
+        <option value="{{tipo.valor}}">{{tipo.valor}}</option>
+    }    
+    </select>
+   
+    <div class="flex flex-row items-center justify-center w-full">    
+    <button class="
+    bg-sky-950 hover:bg-sky-700 text-white font-bold py-2 px-4 rounded w-1/2 flex flex-row items-center justify-center mr-2"
+    (click)="agregarMarca()">Agregar</button>
+</div>
+</form>
