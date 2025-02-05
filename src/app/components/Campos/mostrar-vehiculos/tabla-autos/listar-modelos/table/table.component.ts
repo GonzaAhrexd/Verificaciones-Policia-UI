@@ -20,8 +20,6 @@ import { EditarModeloComponent } from './editar-modelo/editar-modelo.component';
 export class TableComponent {
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla
-  @Input() onDelete: Function = () => {}; // Función de eliminación
-  @Input() onEdit: Function = () => {}; // Función de edición
   
   editMode = false 
   setAddModelo = false

@@ -49,7 +49,6 @@ export class EditarModeloComponent {
   }
 
   editarMarca(){
-
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡No podrás revertir esto!",

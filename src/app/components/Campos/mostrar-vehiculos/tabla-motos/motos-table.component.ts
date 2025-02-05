@@ -17,9 +17,7 @@ type Marca = {
   @if(!isLoading){
     <TableComponent 
     [defaultColumns]="defaultColumns" 
-    [data]="listaMarcaMotos" 
-    [onDelete]="deleteThisRow" 
-    [onEdit]="editThisRow" />
+    [data]="listaMarcaMotos"  />
    }@else {
      <p>Cargando...</p>
    }
@@ -53,12 +51,7 @@ export class MotoTableComponent {
       })
     }
   
-    deleteThisRow = (row: any) => {
-      console.log('Deleting row', row)
-    }
-    editThisRow = (row: any) => {
-      console.log('Editing row', row)
-    }
+ 
     
 
 

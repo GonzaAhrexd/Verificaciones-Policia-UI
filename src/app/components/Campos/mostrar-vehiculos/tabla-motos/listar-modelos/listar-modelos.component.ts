@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { getModelosByMarcas } from '../../../../../api/marcasAutos.service';
+import { getModelosByMarcaMoto } from '../../../../../api/marcasMotos.service';
 import { ColumnDef } from '@tanstack/angular-table';
 import { TableComponent } from './table/table.component';
+
 
 type Modelo = {
   modelo: string
@@ -23,7 +24,6 @@ type Modelo = {
     <p>Cargando...</p>
   }
   `,
-  // templateUrl: './listar-modelos.component.html',
 })
 
 
@@ -35,7 +35,7 @@ export class ListarModelosComponent {
   isLoading = true
 
   ngOnInit() {
-    getModelosByMarcas(this.marcaNombre).then((data) => {
+    getModelosByMarcaMoto(this.marcaNombre).then((data) => {
       this.modelos = data
       this.isLoading = false
     })
@@ -54,5 +54,6 @@ export class ListarModelosComponent {
         cell: info => info.getValue(),
       },
     ]
+
     
 }

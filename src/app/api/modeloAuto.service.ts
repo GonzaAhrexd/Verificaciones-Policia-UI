@@ -23,3 +23,4 @@ export const editModelo = async (modelo: any) => {
         console.log(e)
     }   
 }
+

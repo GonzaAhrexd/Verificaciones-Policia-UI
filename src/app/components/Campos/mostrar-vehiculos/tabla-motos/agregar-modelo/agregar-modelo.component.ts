@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 
 export class AgregarModeloComponent {
 
-  @Input() marcaNombre:any = []
+  @Input() marcaNombre:any 
 
   
     formulario:FormGroup = new FormGroup({
@@ -23,10 +23,12 @@ export class AgregarModeloComponent {
   ngOnInit() {
     // Carga MarcaNombre con lo que viene en marcaNombre
     this.formulario.controls['MarcaNombre'].setValue(this.marcaNombre)
-  }
-
   
-    agregarModelo(){
+    console.log(this.formulario)
+  }
+  
+  
+  agregarModelo(){
       Swal.fire({
         title: '¿Estás seguro de que quieres agregar este modelo?',
         showDenyButton: true,

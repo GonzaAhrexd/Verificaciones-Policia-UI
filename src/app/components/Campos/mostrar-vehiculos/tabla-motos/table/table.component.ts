@@ -1,7 +1,7 @@
 import { Component, Input, signal } from '@angular/core';
 import { EditModeComponent } from '../edit-mode/edit-mode.component';
 import { AgregarModeloComponent  } from '../agregar-modelo/agregar-modelo.component';
-
+import { ListarModelosComponent } from '../listar-modelos/listar-modelos.component';
 import {
   ColumnDef,
   createAngularTable,
@@ -12,19 +12,16 @@ import {
 } from '@tanstack/angular-table'
 
 
-
 @Component({
   selector: 'TableComponent',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent, AgregarModeloComponent],
+  imports: [FlexRenderDirective, EditModeComponent, AgregarModeloComponent, ListarModelosComponent ],
     templateUrl: './table.component.html'
 })
 export class TableComponent {
 
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla
-  @Input() onDelete: Function = () => {}; // Función de eliminación
-  @Input() onEdit: Function = () => {}; // Función de edición
   editMode = false 
   setAddModelo = false
 
