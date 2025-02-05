@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { getFormularios  } from '../../api/formulario.service';
 import { getUnidades } from '../../api/unidades.service';
-import { getVehicles, getVehicleByMake, getMotorcycles, getMotoByMake } from '../../api/vehicles.service';
 import { getMarcasAutos, getModelosByMarcas } from '../../api/marcasAutos.service';
 import { getMarcasMotos, getModelosByMarcaMoto } from '../../api/marcasMotos.service';
 import Swal from 'sweetalert2';
@@ -71,7 +70,15 @@ export class AgregarVerificacionComponent {
 modoMoto = false
 
 verifyType = (type: any ) => {
-  const typeVehicle = type.target.value
+  const formType = type.target.value
+
+  // Con este formType buscalo dentro de formulariosOpciones y devuelve el campo tipoVehiculo, guardalo en una variable typeVehicle
+  let typeVehicle = this.formulariosOpciones?.find((form: any) => form.formulario == formType).tipoVehiculo
+  let importe = this.formulariosOpciones?.find((form: any) => form.formulario == formType).importe
+  
+  this.form.patchValue({
+    Importe: importe
+  })
 
   if (typeVehicle == 'Automóvil') {
     this.modoMoto = false

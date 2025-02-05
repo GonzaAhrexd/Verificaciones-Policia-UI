@@ -26,7 +26,6 @@ export class EditarCamposComponent {
     { texto: "Tipos" },
     { texto: "Unidades" },
     { texto: "Formularios"},
-    { texto: "Valores"},
     { texto: "Bancos"},
     { texto: "Vehículos"}	
   ]

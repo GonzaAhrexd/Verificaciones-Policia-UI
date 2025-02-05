@@ -35,6 +35,16 @@ const defaultColumns: ColumnDef<Formulario>[] = [
     header: () => 'Formulario',
     cell: info => info.getValue(),
   },
+  {
+    accessorKey: 'importe',
+    header: () => 'Importe',
+    cell: info => info.getValue(),
+  }, 
+  {
+    accessorKey: 'tipoVehiculo',
+    header: () => 'Vehículo',
+    cell: info => info.getValue(),
+  }
 ]
 
 @Component({
@@ -100,6 +110,16 @@ export class FormularioTableComponent {
       <div class="flex flex-col">
       <span>Formulario</span>
       <input  id="formulario" class="swal2-input" value="${row.original.formulario}">        
+      <input  id="importe" class="swal2-input" value="${row.original.importe}">    
+       <select id="tipoVehiculo" class="swal2-select border open-sans border-gray-300">
+      
+       <option value="Automóvil" class="swal2-select">Automóvil</option>
+
+        <option value="Motocicleta" class="swal2-select">Motocicleta</option>
+        
+        <option value="Ninguno" class="swal2-select">Ninguno</option> 
+      
+        </select>
       </form>
       `,
       showCancelButton: true,
@@ -110,10 +130,13 @@ export class FormularioTableComponent {
     }).then((result) => {
       if (result.isConfirmed) {
         const formulario = (document.getElementById('formulario') as HTMLInputElement).value
-       
+        const importe = (document.getElementById('importe') as HTMLInputElement).value
+        const tipoVehiculo = (document.getElementById('tipoVehiculo') as HTMLSelectElement).value
         const values = {
           id: row.original.id,
-          formulario: formulario
+          formulario: formulario,
+          importe: importe,
+          tipoVehiculo: tipoVehiculo
         }
 
         updateFormulario(values)

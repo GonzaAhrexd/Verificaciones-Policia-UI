@@ -98,7 +98,7 @@ export class UnidadesTableComponent {
       html: `
       <div class="flex flex-col">
       <span>Tipo</span>
-      <input  id="unidad" class="swal2-input" value="${row.original.tipo}">      
+      <input  id="unidad" class="swal2-input" value="${row.original.unidad}">      
       </form>
       `,
       showCancelButton: true,

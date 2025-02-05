@@ -15,6 +15,8 @@ export class VerificacionesComponent {
     { texto: "Agregar verificación"},
 
   ]
+  
+
 
   opcion:string = ""
 
