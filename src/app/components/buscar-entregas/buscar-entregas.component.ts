@@ -5,6 +5,9 @@ import { buscarEntrega, deleteEntrega } from '../../api/entregas.service';
 import { TableComponent } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
 import Swal from 'sweetalert2';
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
+
 type Unidad = {
   id: number,
   unidad: string,
@@ -113,7 +116,6 @@ export class BuscarEntregasComponent {
   }
 
   imprimir(){
-    console.log(this.listaEntregas)
 
     // @ts-ignore
     const transformedData = this.listaEntregas.flatMap(entrega =>
@@ -121,7 +123,7 @@ export class BuscarEntregasComponent {
       entrega.renglonesEntregas.map(renglon => ({
           id: renglon.id,
           nroEntrega: entrega.nroEntrega,
-          fecha: entrega.fecha,
+          fecha: new Date(entrega.fecha).toLocaleDateString("es-AR"),
           unidad: entrega.unidad,
           ...renglon
       }))
@@ -129,6 +131,78 @@ export class BuscarEntregasComponent {
   
   console.log(transformedData);
   
+  const workbook = new Workbook();
+  const worksheet = workbook.addWorksheet('Entregas');
+
+  worksheet.mergeCells('A1:D1'); // Unir celdas
+  worksheet.getCell('A1').value = 'JEFATURA DE POLICÍA';
+  // worksheet.getCell('A1').alignment = { horizontal: 'center' };
+  worksheet.getCell('A1').font = { bold: true, size: 10 };
+
+  worksheet.mergeCells('A2:D2'); // Unir celdas
+  worksheet.getCell('A2').value = 'DIRECCIÓN DE ADMINISTRACIÓN';
+  // worksheet.getCell('A2').alignment = { horizontal: 'center' };
+  worksheet.getCell('A2').font = { bold: true, size: 10 };
+
+  worksheet.mergeCells('A3:D3'); // Unir celdas
+
+  worksheet.getCell('A3').value = 'VERIFICACIÓN DEL AUTOMOTOR';
+  // worksheet.getCell('A3').alignment = { horizontal: 'center' };
+  worksheet.getCell('A3').font = { bold: true, size: 10 };
+
+  worksheet.mergeCells('A4:G4'); // Unir celdas
+  worksheet.getCell('A4').value = 'INFORME DE ENTREGAS';
+  worksheet.getCell('A4').alignment = { horizontal: 'center' };
+  worksheet.getCell('A4').font = { bold: true, size: 10 };
+
+  worksheet.getCell('E1').value = `Fecha de impresión: ${new Date().toLocaleDateString("es-AR")}`;
+
+  worksheet.mergeCells('A6:G6'); // Unir celdas
+  worksheet.getCell('A6').value = `Periodo desde ${new Date(this.buscarEntregasForm.value.Desde).toLocaleDateString("es-AR")} hasta ${new Date(this.buscarEntregasForm.value.Hasta).toLocaleDateString("es-AR")}`;
+  // worksheet.getCell('A4').alignment = { horizontal: 'center' };
+  worksheet.getCell('A6').font = { bold: true, size: 10 };
+
+
+
+
+  // Encabezados personalizados en la fila 8
+worksheet.getRow(8).values = [
+  'ID', 'Fecha', 'Unidad', 'Tipo de Formulario', 'Desde', 'Hasta', 'Cantidad'
+];
+
+// Establecer ancho de columnas manualmente
+worksheet.getColumn(1).width = 10; // ID
+worksheet.getColumn(2).width = 20; // Fecha
+worksheet.getColumn(3).width = 20; // Unidad
+worksheet.getColumn(4).width = 25; // Tipo de Formulario
+worksheet.getColumn(5).width = 10; // Desde
+worksheet.getColumn(6).width = 10; // Hasta
+worksheet.getColumn(7).width = 10; // Cantidad
+
+// Inserción de datos comenzando en la fila 9
+transformedData.forEach((data: any, index:number) => {
+  const rowIndex = 9 + index; // Empieza en la fila 9
+  worksheet.getRow(rowIndex).values = [
+    data.id,
+    data.fecha,
+    data.unidad,
+    data.tipoFormulario,
+    data.desde,
+    data.hasta,
+    data.cantidad
+  ];
+});
+
+
+      // Agregar los datos
+   //   worksheet.insertRows(9, transformedData);
+  
+      // Crear archivo Excel
+      workbook.xlsx.writeBuffer().then((buffer) => {
+        const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        fs.saveAs(blob, 'Entregas.xlsx');
+      });
+
 
     // listaEntregas viene con un NroEntrega y 
   }
