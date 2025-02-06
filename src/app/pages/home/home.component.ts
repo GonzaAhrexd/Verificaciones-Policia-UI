@@ -10,4 +10,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 })
 export class HomeComponent {
   usuario = "Usuario"
+
+
+
 }

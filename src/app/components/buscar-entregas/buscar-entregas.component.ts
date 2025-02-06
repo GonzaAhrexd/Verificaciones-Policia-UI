@@ -112,4 +112,25 @@ export class BuscarEntregasComponent {
     console.log("Edit")
   }
 
+  imprimir(){
+    console.log(this.listaEntregas)
+
+    // @ts-ignore
+    const transformedData = this.listaEntregas.flatMap(entrega =>
+    // @ts-ignore
+      entrega.renglonesEntregas.map(renglon => ({
+          id: renglon.id,
+          nroEntrega: entrega.nroEntrega,
+          fecha: entrega.fecha,
+          unidad: entrega.unidad,
+          ...renglon
+      }))
+  );
+  
+  console.log(transformedData);
+  
+
+    // listaEntregas viene con un NroEntrega y 
+  }
+
 }
