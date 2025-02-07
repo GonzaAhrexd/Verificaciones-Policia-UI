@@ -131,7 +131,6 @@ export class BuscarEntregasComponent {
       }))
   );
   
-  console.log(transformedData);
   
   const workbook = new Workbook();
   const worksheet = workbook.addWorksheet('Entregas');
@@ -155,7 +154,9 @@ export class BuscarEntregasComponent {
   worksheet.mergeCells('A4:G4'); // Unir celdas
   worksheet.getCell('A4').value = 'INFORME DE ENTREGAS';
   worksheet.getCell('A4').alignment = { horizontal: 'center' };
-  worksheet.getCell('A4').font = { bold: true, size: 10 };
+  worksheet.getCell('A4').font = { bold: true, size: 14 };
+  worksheet.getRow(4).height = 20;
+
 
   worksheet.getCell('E1').value = `Fecha de impresión: ${new Date().toLocaleDateString("es-AR")}`;
 
@@ -166,11 +167,29 @@ export class BuscarEntregasComponent {
 
 
 
+    // Encabezados personalizados en la fila 8
+    worksheet.getRow(8).values = [
+      'ID', 'Fecha', 'Unidad', 'Tipo de Formulario', 'Desde', 'Hasta', 'Cantidad'
+    ];
+    worksheet.getRow(8).font = { bold: true };
 
-  // Encabezados personalizados en la fila 8
-worksheet.getRow(8).values = [
-  'ID', 'Fecha', 'Unidad', 'Tipo de Formulario', 'Desde', 'Hasta', 'Cantidad'
-];
+    
+    // Haz que desde A8 hasta J8 tenga un borde abajo sin hacerlo manualmente uno a uno, no directamente getRow(8) porque lo hace en todo le documento y solo quiero de la A a la J
+    for (let col = 1; col <= 7; col++) { // 1 = A, 10 = J
+      const cell4 = worksheet.getCell(4, col);
+
+      const cell8 = worksheet.getCell(8, col);
+
+      cell4.border = {
+        bottom: { style: 'thick', color: { argb: '000000' }}
+    }
+
+      cell8.border = {
+        bottom: { style: 'thin', color: { argb: '000000' } } // Color negro
+      };
+    }
+
+    
 
 // Establecer ancho de columnas manualmente
 worksheet.getColumn(1).width = 10; // ID
