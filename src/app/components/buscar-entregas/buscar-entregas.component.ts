@@ -57,6 +57,8 @@ export class BuscarEntregasComponent {
   fetchUnidades() {
     getUnidades().then((data) => {
       this.unidades = data
+       // Agrega la opción listar todo
+       this.unidades.unshift({id: 0, unidad: 'Listar todo'});
     })
   }
 

@@ -43,6 +43,7 @@ export class AgregarVerificacionComponent {
   fetchUnidades(){
     getUnidades().then((res) => {
       this.unidadesOpciones = res;
+     
     });
   }
 
@@ -50,13 +51,11 @@ export class AgregarVerificacionComponent {
   obtenerVehiculos = async () => {
     getMarcasAutos().then((res) => {
       this.vehiclesOpciones = res;
-      console.log(this.vehiclesOpciones)
     });
   }
   obtenerMotocicletas(){
     getMarcasMotos().then((res) => {
       this.motorcycleOpciones = res; 
-      console.log(this.motorcycleOpciones)
     });
   }
 
@@ -119,7 +118,6 @@ verifyType = (type: any ) => {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(this.form.value)  
         sendVerificacion(this.form.value)
         Swal.fire(
           {
@@ -139,11 +137,9 @@ verifyType = (type: any ) => {
   }
 
   onSelectChange(event: any) {
-    console.log(event.target.value)
 
     getModelosByMarcas(event.target.value).then((res) => {
       this.modelOpciones = res; 
-      console.log(this.modelOpciones)
     })
 
   }

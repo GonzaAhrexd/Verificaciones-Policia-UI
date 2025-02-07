@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { getUnidades } from '../../api/unidades.service';
-import { buscarDeposito, getDepositos, deleteDepositos, editDeposito } from '../../api/deposito.service'
+import { buscarDeposito, deleteDepositos } from '../../api/deposito.service'
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableComponent } from './table/table.component'
@@ -85,6 +85,7 @@ export class BuscarDepositoComponent {
     fetchUnidades() {
       getUnidades().then((data) => {
         this.unidades = data
+        this.unidades.unshift({id: 0, unidad: 'Listar todo'});
       })
     }
 
@@ -117,10 +118,7 @@ export class BuscarDepositoComponent {
 
     }
         
-    editThisRow(row: any) {
-      
-
-    }
+ 
 
      imprimir(){
       

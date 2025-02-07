@@ -79,7 +79,6 @@ export class AgregarDepositoComponent {
         confirmButtonText: 'Sí, enviar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log(this.form.value)
           sendDepositos(this.form.value).then((res) => {
             Swal.fire(
              {

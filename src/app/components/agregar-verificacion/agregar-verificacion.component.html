@@ -1,6 +1,6 @@
 <form class="w-full" [formGroup]="form">
     <div class="flex flex-col w-full">
-        <div class="flex flex-row w-full items-center justify-center">
+        <div class="flex flex-col md:flex-row w-full items-center justify-center">
             <div class="flex flex-col w-full">
                 <span class="flex font-medium ml-4"> Unidad </span>
                 <select formControlName="Unidad" id="Formulario"
@@ -24,7 +24,7 @@
             </div>
 
         </div>
-        <div class="flex flex-row w-full items-center justify-center">
+        <div class="flex flex-col md:flex-row w-full items-center justify-center">
             <div class="flex flex-col w-full">
                 <span class="flex font-medium ml-4"> Planta Verificadora </span>
                 <input formControlName="PlantaVerificadora" id="PlantaVerificadora" type="text"
@@ -63,7 +63,7 @@
         }@else {
             <p>¿No está en la lista? <span (click)="setNoListMode = true" class="text-blue-400 cursor-pointer">Haz click aquí</span> </p>
         }
-        <div class="flex flex-row w-full items-center justify-center">
+        <div class="flex flex-col md:flex-row w-full items-center justify-center">
             @if(setNoListMode){
                 <div class="flex flex-col w-full">
                     <span class="flex font-medium ml-4"> Marca </span>

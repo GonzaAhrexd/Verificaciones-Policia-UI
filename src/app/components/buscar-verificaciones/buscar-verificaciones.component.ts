@@ -10,7 +10,7 @@ import { ColumnDef } from '@tanstack/angular-table';
   imports: [ReactiveFormsModule, TableComponent],
   templateUrl: './buscar-verificaciones.component.html',
 })
-export class BuscarVerificacionesComponent {
+export class  BuscarVerificacionesComponent {
   defaultColumns: ColumnDef<any>[] = [
     {
       accessorKey: 'recibo',
@@ -68,7 +68,6 @@ export class BuscarVerificacionesComponent {
 
   unidades:any = []
   isEmpty = true
-
 
   getUnidades = async () => {
     getUnidades().then((res) => {
