@@ -1,0 +1,32 @@
+import axios from './axios';
+import { UserService } from './user.service';  // Asegúrate de importar UserService
+
+// Asegúrate de inyectar el servicio en el constructor del servicio o componente que estés usando
+export const login = async (userForm: any, userService: UserService) => {
+  try {
+    // Envía la solicitud POST para el login
+
+    
+    
+    const response = await axios.post('/Usuarios/login', userForm);
+    
+    // Guarda el token de autenticación en la cookie
+    document.cookie = `AuthToken=${response.data.tokenString}`;  // Suponiendo que la respuesta contiene un token
+    
+    userService.setUser(response.data.usuario);
+    // Obtiene los datos del usuario logueado
+    
+    // Guarda los datos del usuario en el UserService
+    
+    return response.data;
+  } catch (error) {
+    console.error("Error during login:", error);
+    throw error;  // Opcionalmente maneja el error según sea necesario
+  }
+}
+
+// Función para obtener los datos del usuario logueado
+export const getLoggedUser = async () => {
+  const response = await axios.get('/Usuarios/logged');
+  return response.data;
+}

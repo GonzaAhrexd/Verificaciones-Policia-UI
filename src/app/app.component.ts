@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
+import { CommonModule } from '@angular/common'; // Asegúrate de importar esto
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule],
   // templateUrl: './app.component.html',
   template: `
   <!DOCTYPE html>
@@ -14,7 +17,7 @@ import { RouterOutlet } from '@angular/router';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
   </head>
-  <body class='flex flex-col lg:ml-[15rem]'>
+  <body [ngClass]="{'flex flex-col lg:ml-[15rem]': !isLoginPage}">
   <router-outlet /> 
   </body>
 </html>
@@ -22,4 +25,17 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'FondoUnicoUI';
+
+  isLoginPage = false;
+
+  constructor(private router: Router) {
+    // Escucha los cambios de ruta
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      // Si la ruta es 'login', no agregues la clase 'flex flex-col lg:ml-[15rem]'
+      this.isLoginPage = this.router.url.includes('login');
+    });
+  }
+
 }
