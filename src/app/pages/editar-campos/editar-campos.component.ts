@@ -47,6 +47,9 @@ export class EditarCamposComponent {
     if(!isAuth){
       this.router.navigate(['/login']);
       }else{
+        if(this.userService.getUser().rol != "Administrador"){
+          this.router.navigate(['/']);
+        }
         
     }
   }
