@@ -43,8 +43,6 @@ export class UserService {
 
   isAuthenticated(): boolean {
 
-    console.log("Está el user: "  + this.getUser() != null && this.getUser() != undefined);
-
     return this.getUser() !== null && this.getUser() !== undefined;
   }
 }

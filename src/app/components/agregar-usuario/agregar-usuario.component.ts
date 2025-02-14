@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { getUnidades } from '../../api/unidades.service';
-
+import { altaUsuario } from '../../api/auth.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-agregar-usuario',
   standalone: true,
@@ -49,7 +50,23 @@ export class AgregarUsuarioComponent {
     }
 
     agregarUsuario(){
-      console.log(this.formulario.value)
+      Swal.fire({
+        title: '¿Estás seguro de que deseas agregar este usuario?',
+        showDenyButton: true,
+        confirmButtonText: `Sí`,
+        denyButtonText: `No`,
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try{
+            const res = await altaUsuario(this.formulario.value)
+            Swal.fire('Usuario agregado con éxito', '', 'success')
+          }catch(err){
+            Swal.fire('Error al agregar el usuario', '', 'error')
+          }
+        } else if (result.isDenied) {
+          Swal.fire('No se ha agregado el usuario', '', 'info')
+        }
+      })
     }
 
 }

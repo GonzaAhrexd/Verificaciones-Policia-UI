@@ -30,3 +30,33 @@ export const getLoggedUser = async () => {
   const response = await axios.get('/Usuarios/logged');
   return response.data;
 }
+
+export const altaUsuario = async (userForm: any) => {
+  try {
+    const response = await axios.post('/Usuarios/registrar-usuario', userForm);
+    return response.data;
+  } catch (error) {
+    console.error("Error during user creation:", error);
+    throw error;
+  }
+}
+
+export const buscarUsuarioDNI = async (dni: string) => {
+  try {
+    const response = await axios.get(`/Usuarios/buscar-usuario-dni/${dni}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error during user search:", error);
+    throw error;
+  }
+}
+
+export const buscarUsuarios = async (userForm: any) => {
+  try {
+    const response = await axios.get(`/Usuarios/buscar-usuarios/${userForm.Rol ? userForm.Rol : "no_ingresado"}/${userForm.Unidad ? userForm.Unidad : "no_ingresado"}`, );
+    return response.data;
+  } catch (error) {
+    console.error("Error during user search:", error);
+    throw error;
+  }
+}

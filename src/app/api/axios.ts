@@ -11,7 +11,6 @@ const instance = axios.create({
 instance.interceptors.request.use(
     (config) => {
         const token = Cookies.get('AuthToken'); // Recupera el token desde la cookie
-        console.log("El token es: " + token)
         // Si el token existe, lo agregamos al header Authorization
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
