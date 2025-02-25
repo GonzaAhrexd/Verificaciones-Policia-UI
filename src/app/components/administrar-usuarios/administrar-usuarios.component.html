@@ -59,5 +59,11 @@
         ">Buscar</button>
 
     </div>
+    @if(!isEmpty){
+        
+
+    <TableComponent [defaultColumns]="defaultColumns" [data]="listaUsuarios" />
+
+    }
 
 </form>
