@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { getFormularios  } from '../../api/formulario.service';
+import { getFormularios } from '../../api/formulario.service';
 import { getUnidades } from '../../api/unidades.service';
 import { getMarcasAutos, getModelosByMarcas } from '../../api/marcasAutos.service';
 import { getMarcasMotos, getModelosByMarcaMoto } from '../../api/marcasMotos.service';
+import { UserService } from '../../api/user.service';
 import Swal from 'sweetalert2';
 import { sendVerificacion } from '../../api/verificaciones.service';
 
@@ -15,14 +16,15 @@ import { sendVerificacion } from '../../api/verificaciones.service';
 })
 
 export class AgregarVerificacionComponent {
-  
+  constructor(private userService: UserService) { }
+
   formulariosOpciones: any = []
   unidadesOpciones: any = []
   vehiclesOpciones: any = []
   motorcycleOpciones: any = []
   modelOpciones: any = []
   modelOpcionesMoto: any = []
-  setNoListMode:boolean = false
+  setNoListMode: boolean = false
 
 
   ngOnInit() {
@@ -30,20 +32,25 @@ export class AgregarVerificacionComponent {
     this.fetchUnidades()
     this.obtenerVehiculos()
     this.obtenerMotocicletas()
+    // Al campo responsable del formulario pasale el nombre del usuario logueado
+    this.form.patchValue({
+      Responsable: `${this.userService.getUser().nombre} ${this.userService.getUser().apellido}`,
+      Unidad: this.userService.getUser().unidad
+    })
 
   }
-  
-  fetchFormularios(){
+
+  fetchFormularios() {
     getFormularios().then((res) => {
       this.formulariosOpciones = res;
     });
   }
 
 
-  fetchUnidades(){
+  fetchUnidades() {
     getUnidades().then((res) => {
       this.unidadesOpciones = res;
-     
+
     });
   }
 
@@ -53,45 +60,45 @@ export class AgregarVerificacionComponent {
       this.vehiclesOpciones = res;
     });
   }
-  obtenerMotocicletas(){
+  obtenerMotocicletas() {
     getMarcasMotos().then((res) => {
-      this.motorcycleOpciones = res; 
+      this.motorcycleOpciones = res;
     });
   }
 
-  
+
   opcionesTipoVehiculo = [
-    {nombre: 'Automóvil'},
-    {nombre: 'Motocicleta'},
-]
+    { nombre: 'Automóvil' },
+    { nombre: 'Motocicleta' },
+  ]
 
 
-modoMoto = false
+  modoMoto = false
 
-verifyType = (type: any ) => {
-  const formType = type.target.value
+  verifyType = (type: any) => {
+    const formType = type.target.value
 
-  // Con este formType buscalo dentro de formulariosOpciones y devuelve el campo tipoVehiculo, guardalo en una variable typeVehicle
-  let typeVehicle = this.formulariosOpciones?.find((form: any) => form.formulario == formType).tipoVehiculo
-  let importe = this.formulariosOpciones?.find((form: any) => form.formulario == formType).importe
-  
-  this.form.patchValue({
-    Importe: importe
-  })
+    // Con este formType buscalo dentro de formulariosOpciones y devuelve el campo tipoVehiculo, guardalo en una variable typeVehicle
+    let typeVehicle = this.formulariosOpciones?.find((form: any) => form.formulario == formType).tipoVehiculo
+    let importe = this.formulariosOpciones?.find((form: any) => form.formulario == formType).importe
 
-  if (typeVehicle == 'Automóvil') {
-    this.modoMoto = false
-  } else {
-    this.modoMoto = true
-  }   
- 
+    this.form.patchValue({
+      Importe: importe
+    })
 
-}
+    if (typeVehicle == 'Automóvil') {
+      this.modoMoto = false
+    } else {
+      this.modoMoto = true
+    }
+
+
+  }
 
 
   form: FormGroup = new FormGroup({
     Unidad: new FormControl('0', [Validators.required]),
-    Recibo: new FormControl('', [Validators.required]),
+    Recibo: new FormControl('', [Validators.required, Validators.min(0)]),
     Fecha: new FormControl('', [Validators.required]),
     PlantaVerificadora: new FormControl('', [Validators.required]),
     Tipo: new FormControl('0', [Validators.required]),
@@ -104,9 +111,14 @@ verifyType = (type: any ) => {
     Importe: new FormControl('', [Validators.required]),
 
   })
-
   
-  postVerificacion(){
+  preventNegative(event: KeyboardEvent) {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  }
+
+  postVerificacion() {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡No podrás revertir esto!",
@@ -131,7 +143,7 @@ verifyType = (type: any ) => {
     })
 
   }
-  
+
   preventScroll(event: WheelEvent): void {
     event.preventDefault();
   }
@@ -139,14 +151,14 @@ verifyType = (type: any ) => {
   onSelectChange(event: any) {
 
     getModelosByMarcas(event.target.value).then((res) => {
-      this.modelOpciones = res; 
+      this.modelOpciones = res;
     })
 
   }
 
- onSelectChangeMotorcycle(event: any) {
+  onSelectChangeMotorcycle(event: any) {
     getModelosByMarcaMoto(event.target.value).then((res) => {
-      this.modelOpcionesMoto = res; 
+      this.modelOpcionesMoto = res;
     })
   }
 }

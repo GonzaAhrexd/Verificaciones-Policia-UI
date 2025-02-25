@@ -105,9 +105,7 @@ export class EditarUsuariosComponent {
           this.isEmpty = true 
 
           const buscarPorDNI =  await buscarUsuarioDNI(this.formulario.value.DNI)
-          // Convierte buscarPorDNI dentro de un array
 
-          // Agrega el resultado en el array en la posición 0
           // @ts-ignore
           this.listaUsuarios.push(buscarPorDNI)
           this.isEmpty = false

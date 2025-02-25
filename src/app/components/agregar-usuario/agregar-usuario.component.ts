@@ -55,6 +55,8 @@ export class AgregarUsuarioComponent {
         showDenyButton: true,
         confirmButtonText: `Sí`,
         denyButtonText: `No`,
+        confirmButtonColor: '#0C4A6E',
+        cancelButtonColor: '#FF554C',
       }).then(async (result) => {
         if (result.isConfirmed) {
           try{

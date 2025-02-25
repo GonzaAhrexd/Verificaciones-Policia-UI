@@ -74,3 +74,12 @@ export const editUsuario = async (userForm: any) => {
   }
 }
 
+export const deleteUsuario = async (id: string) => {
+  try {
+    const response = await axios.delete(`/Usuarios/delete-usuario/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error during user deletion:", error);
+    throw error;
+  }
+}

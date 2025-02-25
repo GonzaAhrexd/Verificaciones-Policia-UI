@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getUnidades } from '../../../api/unidades.service';
-import { editUsuario } from '../../../api/auth.service';
+import { editUsuario, deleteUsuario } from '../../../api/auth.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -51,18 +51,43 @@ export class ExpandedComponentComponent {
           showCancelButton: true,
           confirmButtonText: `Editar`,
           cancelButtonText: `Cancelar`,
+          confirmButtonColor: '#0C4A6E',
+          cancelButtonColor: '#FF554C',
         }).then(async (result) => {
           if (result.isConfirmed) {
            await editUsuario(this.formulario.value)
             // this.editMode = true
+          
+            Swal.fire({
+              title: 'Usuario editado',
+              icon: 'success',
+              confirmButtonColor: '#0C4A6E',
+            })
+          
           }
         })
     
       }
     
 
-      onDelete(row: any) {
-        console.log(row)
+      onDelete() {
+        Swal.fire({
+          title: '¿Estás seguro de eliminar este usuario?',
+          showCancelButton: true,
+          confirmButtonText: `Eliminar`,
+          cancelButtonText: `Cancelar`,
+          confirmButtonColor: '#FF554C',
+          cancelButtonColor: '#0C4A6E',
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            await deleteUsuario(this.data.id)
+            Swal.fire({
+              title: 'Usuario eliminado',
+              icon: 'success',
+              confirmButtonColor: '#0C4A6E',
+            })
+          }
+        })
       }
 
       
