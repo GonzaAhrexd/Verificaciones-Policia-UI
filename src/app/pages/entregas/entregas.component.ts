@@ -34,8 +34,11 @@ export class EntregasComponent {
     let isAuth = this.userService.isAuthenticated();
     if(!isAuth){
       this.router.navigate(['/login']);
+      
       }else{
-        
+      if(this.userService.getUser().rol !== "Fondo" && this.userService.getUser().rol !== "Administrador"  ){
+        this.router.navigate(['/']);
+      }
     }
 }
 }

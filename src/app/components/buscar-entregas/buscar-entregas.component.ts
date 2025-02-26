@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { getUnidades } from '../../api/unidades.service';
-import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { buscarEntrega, deleteEntrega } from '../../api/entregas.service';
 import { TableComponent } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
@@ -49,13 +49,20 @@ export class BuscarEntregasComponent {
   
   unidades: Unidad[] = []
   listaEntregas:any = []
-  
+
+
   buscarEntregasForm: FormGroup = new FormGroup({
+    NroEntrega: new FormControl('',),
     Unidad: new FormControl('0', [Validators.required]),
     Desde: new FormControl('', [Validators.required]),
     Hasta: new FormControl('', [Validators.required]),
-  });
+});
 
+
+
+  
+
+  
   fetchUnidades() {
     getUnidades().then((data) => {
       this.unidades = data
@@ -70,11 +77,35 @@ export class BuscarEntregasComponent {
       Unidad: this.userService.getUser().unidad
     })
     // Si el usuario es administrador, entonces puede buscar en todas las unidades, sino, este tiene que estar desactivado
-    if(this.userService.getUser().rol != "Administrador"){
+    if(this.userService.getUser().rol != "Administrador" && this.userService.getUser().rol != "Fondo" ){
       this.buscarEntregasForm.controls['Unidad'].disable({ onlySelf: true });  
     }
+
+    this.buscarEntregasForm.get('NroEntrega')?.valueChanges.subscribe(value => {
+      this.actualizarValidaciones(value);
+    });
   }
   
+  actualizarValidaciones(nroEntrega: string) {
+    const desdeControl = this.buscarEntregasForm.get('Desde');
+    const hastaControl = this.buscarEntregasForm.get('Hasta');
+
+    if (nroEntrega && nroEntrega.trim() !== '') {
+      // Si NroEntrega tiene valor, quitar Validators.required de Desde y Hasta
+      desdeControl?.clearValidators();
+      hastaControl?.clearValidators();
+    } else {
+      // Si NroEntrega está vacío, volver a poner Validators.required en Desde y Hasta
+      desdeControl?.setValidators([Validators.required]);
+      hastaControl?.setValidators([Validators.required]);
+    }
+
+    // Actualizar el estado de las validaciones
+    desdeControl?.updateValueAndValidity();
+    hastaControl?.updateValueAndValidity();
+  }
+
+
   isEmpty = true
 
 

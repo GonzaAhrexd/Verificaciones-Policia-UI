@@ -97,7 +97,7 @@ export class BuscarDepositoComponent {
       this.buscarDepositosForm.patchValue({
         Unidad: this.userService.getUser().unidad
       })
-      if(this.userService.getUser().rol != "Administrador"){
+      if(this.userService.getUser().rol != "Administrador" && this.userService.getUser().rol != "Fondo"){
         this.buscarDepositosForm.controls['Unidad'].disable({ onlySelf: true });  
       }
     }

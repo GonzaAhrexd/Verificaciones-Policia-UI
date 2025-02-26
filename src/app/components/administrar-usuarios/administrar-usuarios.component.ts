@@ -65,8 +65,9 @@ export class EditarUsuariosComponent {
 
 
     opcionesRol = [
+      { texto: "Planta" }, 
+      { texto: "Fondo" }, 
       { texto: "Administrador" },
-      { texto: "Usuario" }, 
     ]
 
     ngOnInit() {

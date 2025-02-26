@@ -19,10 +19,14 @@ export class AgregarUsuarioComponent {
     Unidad: new FormControl('', [Validators.required]),
   })
 
+
+
   opcionesRol = [
+    { texto: "Planta" }, 
+    { texto: "Fondo" }, 
     { texto: "Administrador" },
-    { texto: "Usuario" }, 
   ]
+
 
   opcionesTipoUsuario = [
     { texto: "Civil" },

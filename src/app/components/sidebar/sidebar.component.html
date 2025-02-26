@@ -41,7 +41,7 @@
     <!-- Menú -->
     <nav class="flex-1 overflow-y-auto h-5/10 w-full">
         <ul class="space-y-4 px-4">
-            @for(opcion of opcionesPagina; track opcion.texto){
+            @for(opcion of opcionesTodo; track opcion.texto){
             <li>
                 <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
@@ -51,6 +51,32 @@
                 </div>
             </li>
             }
+            @if(usuario.rol == "Administrador" || usuario.rol == "Fondo"){
+                @for(opcion of opcionesPaginaFondo; track opcion.texto){
+                    <li>
+                        <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="opcion.svg"   />
+                                  </svg>                          
+                            <span class="text-4xl font-bold">{{ opcion.texto }}</span>
+                        </div>
+                    </li>
+                    }
+                }
+            @if(usuario.rol == "Planta" || usuario.rol == "Administrador" || usuario.rol == "Fondo"){
+            @for(opcion of opcionesPaginaPlanta; track opcion.texto){
+                <li>
+                    <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
+                                <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="opcion.svg"   />
+                              </svg>                          
+                        <span class="text-4xl font-bold">{{ opcion.texto }}</span>
+                    </div>
+                </li>
+                }
+            }
+
+
             @if(usuario.rol == "Administrador"){
             @for(opcion of opcionesPaginaAdmin; track opcion.texto){
                 <li>
@@ -111,7 +137,7 @@
     <!-- Menú -->
     <nav class="flex-1 overflow-y-auto">
         <ul class="space-y-4 px-4">
-            @for(opcion of opcionesPagina; track opcion.texto){
+            @for(opcion of opcionesTodo; track opcion.texto){
             <li>
                 <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -122,6 +148,32 @@
                 
             </li>
             }
+            
+            @if(usuario.rol == "Administrador" || usuario.rol == "Fondo"){
+                @for(opcion of opcionesPaginaFondo; track opcion.texto){
+                    <li>
+                    <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="opcion.svg"   />
+                          </svg>                          
+                        <span>{{ opcion.texto }}</span>
+                    </div>
+                </li>
+            }
+        }
+
+        @if(usuario.rol == "Administrador" || usuario.rol == "Planta" || usuario.rol == "Fondo"){
+            @for(opcion of opcionesPaginaPlanta; track opcion.texto){
+                <li>
+                <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="opcion.svg"   />
+                      </svg>                          
+                    <span>{{ opcion.texto }}</span>
+                </div>
+            </li>
+        }
+    }
             @if(usuario.rol == "Administrador"){
                 @for(opcion of opcionesPaginaAdmin; track opcion.texto){
                     <li>

@@ -22,9 +22,12 @@ export class ExpandedComponentComponent {
       Unidad: new FormControl('', []),
     })
 
+ 
+
     roles = [
-        { rol: 'Administrador' },
-        { rol: 'Usuario' },
+      { rol: "Planta" }, 
+      { rol: "Fondo" }, 
+      { rol: "Administrador" },
     ]
 
     

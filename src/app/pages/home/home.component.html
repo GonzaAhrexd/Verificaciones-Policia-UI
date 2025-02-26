@@ -4,8 +4,13 @@
     <h1 class="text-4xl">Bienvenido {{usuario}} </h1>
     <h2 class="text-2xl">Resumen</h2>
     <div class="flex flex-row items-center justify-center">
-        <div class='grid gap-1 grid-cols-3 w-full '>  
-            @for(opcion of Opciones; track opcion.texto){
+        <div class="grid gap-1 w-full" [ngClass]="usuarioRol === 'Planta' ? 'grid-cols-2' : 'grid-cols-3'">
+            @if(usuarioRol == "Fondo" || usuarioRol == "Administrador" ){
+                @for(opcion of OpcionesFondo; track opcion.texto){
+                <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta"/>
+                }
+            }
+            @for(opcion of OpcionesPlanta; track opcion.texto){
             <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta"/>
             }
         </div>
