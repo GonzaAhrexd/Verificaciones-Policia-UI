@@ -38,6 +38,10 @@ export class AgregarVerificacionComponent {
       Unidad: this.userService.getUser().unidad
     })
 
+    if (this.userService.getUser().rol != "Administrador") {
+      this.form.controls['Unidad'].disable({ onlySelf: true });
+    }
+
   }
 
   fetchFormularios() {
@@ -128,9 +132,10 @@ export class AgregarVerificacionComponent {
       cancelButtonColor: '#FF554C',
       confirmButtonText: '¡Sí, enviar!',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        sendVerificacion(this.form.value)
+        const formData = this.form.getRawValue();
+        await sendVerificacion(formData)
         Swal.fire(
           {
             title: '¡Enviado!',

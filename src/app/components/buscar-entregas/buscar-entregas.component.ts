@@ -7,6 +7,7 @@ import { ColumnDef } from '@tanstack/angular-table';
 import Swal from 'sweetalert2';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
+import { UserService } from '../../api/user.service';
 
 type Unidad = {
   id: number,
@@ -24,7 +25,8 @@ type Unidad = {
 })
 export class BuscarEntregasComponent {
 
-  
+  constructor(private userService: UserService) { }
+
   defaultColumns: ColumnDef<any>[] = [
     {
       accessorKey: 'nroEntrega',
@@ -64,6 +66,13 @@ export class BuscarEntregasComponent {
 
   ngOnInit() {
     this.fetchUnidades()
+    this.buscarEntregasForm.patchValue({
+      Unidad: this.userService.getUser().unidad
+    })
+    // Si el usuario es administrador, entonces puede buscar en todas las unidades, sino, este tiene que estar desactivado
+    if(this.userService.getUser().rol != "Administrador"){
+      this.buscarEntregasForm.controls['Unidad'].disable({ onlySelf: true });  
+    }
   }
   
   isEmpty = true
@@ -71,10 +80,13 @@ export class BuscarEntregasComponent {
 
   async fetchEntregas() {
     try {
+      const formData = this.buscarEntregasForm.getRawValue(); // getRawValue() incluye los campos deshabilitados
+
+      console.log(formData)
       this.listaEntregas = []
       this.isEmpty = true 
 
-      const entrega = await buscarEntrega(this.buscarEntregasForm.value)
+      const entrega = await buscarEntrega(formData)
       this.listaEntregas = entrega
       this.isEmpty = false
     

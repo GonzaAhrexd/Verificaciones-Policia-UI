@@ -4,7 +4,7 @@ import { getUnidades } from '../../../api/unidades.service';
 import { getBancos } from '../../../api/bancos.service'
 import { editDeposito } from '../../../api/deposito.service';
 import { deleteDepositos } from '../../../api/deposito.service';
-
+import { UserService } from '../../../api/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
   templateUrl: './edit-mode.component.html',
 })
 export class EditModeComponent {
+
+  constructor(private userService: UserService) { }
 
   @Input() defaultData:any = {}
   unidades:any = []
@@ -45,8 +47,13 @@ export class EditModeComponent {
       Tipo: this.defaultData.tipo,
       Importe: this.defaultData.importe,
     });
-    console.log(this.defaultData)
-    console.log(this.form.value);
+    
+    if(this.userService.getUser().rol != "Administrador"){
+      this.form.controls['Unidad'].disable({ onlySelf: true });  
+    }
+
+
+
   }
 
     fetchUnidades() {
@@ -129,7 +136,8 @@ export class EditModeComponent {
         }).then((result) => {
           if (result.isConfirmed) {
             console.log(this.form.value)
-            editDeposito(this.form.value).then((res) => {
+            const formData = this.form.getRawValue(); // getRawValue() incluye los campos deshabilitados
+            editDeposito(formData).then((res) => {
               Swal.fire(
                {
                 title: 'Depósito enviado',

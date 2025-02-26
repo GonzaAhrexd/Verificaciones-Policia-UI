@@ -7,7 +7,7 @@ import { updateEntrega, deleteRenglonEntrega } from '../../../api/entregas.servi
 import { getUnidades } from '../../../api/unidades.service';
 //SweetAlert
 import Swal from 'sweetalert2';
-
+import { UserService } from '../../../api/user.service';
 // Tipo de datos para las unidades
 type Unidad = {
   id: number
@@ -22,6 +22,7 @@ type Unidad = {
   templateUrl: './edit-mode.component.html',
 })
 export class EditModeComponent implements OnInit {
+  constructor(private userService: UserService) { }
   // Datos de entrada
   @Input() defaultData:any = []
   // Variables internas
@@ -90,7 +91,10 @@ export class EditModeComponent implements OnInit {
     if(this.defaultData){
       this.setFormValues()
     }
+    if(this.userService.getUser().rol != "Administrador"){
+      this.form.controls['Unidad'].disable({ onlySelf: true });
   }
+}
 
   setFormValues() {
     // Establecer valores de fecha y unidad
@@ -157,7 +161,7 @@ cancelChanges(){
           await deleteRenglonEntrega(renglon)
         }
       
-        await updateEntrega(this.defaultData.nroEntrega, this.form.value)
+        await updateEntrega(this.defaultData.nroEntrega, this.form.getRawValue())
         Swal.fire({
           title: 'Cambios guardados',
           icon: 'success',

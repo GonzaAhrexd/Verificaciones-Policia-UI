@@ -3,6 +3,7 @@ import { ReactiveFormsModule, FormControl, FormGroup, FormArray, Validators } fr
 import { getFormularios } from '../../api/formulario.service';
 import { sendEntrega } from '../../api/entregas.service';
 import { getUnidades } from '../../api/unidades.service';
+import { UserService } from '../../api/user.service';
 import Swal from 'sweetalert2';
 type Formulario = {
   id: number
@@ -21,6 +22,9 @@ type Unidad = {
 })
 export class AgregarEntregaComponent implements OnInit {
   
+  constructor(private userService: UserService) { }
+
+
   unidades:Unidad[] = []
 
 
@@ -74,6 +78,15 @@ export class AgregarEntregaComponent implements OnInit {
   ngOnInit() {
     this.fetchUnidades()
     this.fetchFormulario();
+    this.form.patchValue({
+      Unidad: this.userService.getUser().unidad
+    })
+
+    if(this.userService.getUser().rol != "Administrador"){
+      this.form.controls['Unidad'].disable({ onlySelf: true });  
+    }
+
+
   }
 
   fetchUnidades(){
@@ -94,7 +107,10 @@ export class AgregarEntregaComponent implements OnInit {
        confirmButtonText: 'Enviar'
     }).then(async (result) => {
       if (result.isConfirmed) {
-        await sendEntrega(this.form.value)
+        const formData = this.form.getRawValue(); // getRawValue() incluye los campos deshabilitados
+       
+        console.log(formData)
+        await sendEntrega(formData)
         Swal.fire({
           title: 'Entrega enviada',
           icon: 'success',

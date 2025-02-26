@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { getFormularios  } from '../../../api/formulario.service';
+import { getFormularios } from '../../../api/formulario.service';
 import { getUnidades } from '../../../api/unidades.service';
-import { getVehicles, getVehicleByMake, getMotorcycles, getMotoByMake } from '../../../api/vehicles.service';
+// import { getVehicles, getVehicleByMake, getMotorcycles, getMotoByMake } from '../../../api/vehicles.service';
+
+import { getMarcasAutos, getModelosByMarcas } from '../../../api/marcasAutos.service';
+import { getMarcasMotos, getModelosByMarcaMoto } from '../../../api/marcasMotos.service';
 
 import Swal from 'sweetalert2';
 import { editVerificacion, deleteVerificacion } from '../../../api/verificaciones.service';
+import { UserService } from '../../../api/user.service';
 @Component({
   selector: 'EditMode',
   standalone: true,
@@ -14,6 +18,9 @@ import { editVerificacion, deleteVerificacion } from '../../../api/verificacione
 })
 
 export class EditModeComponent {
+
+  constructor(private userService: UserService) { }
+
   @Input() defaultData: any = {}
 
   formulariosOpciones: any = []
@@ -22,34 +29,41 @@ export class EditModeComponent {
   motorcycleOpciones: any = []
   modelOpciones: any = []
   modelOpcionesMoto: any = []
-  setNoListMode:boolean = false
+  setNoListMode: boolean = false
 
-  
+
   ngOnInit() {
-    this.fetchFormularios()
+
     this.fetchUnidades()
     this.obtenerVehiculos()
     this.obtenerMotocicletas()
-  
-    if(this.defaultData.tipo == 'Automóvil'){
-      this.modoMoto = false
-      
-    getVehicleByMake(this.defaultData.marca).then((res) => {
-      this.modelOpciones = res; 
+
+    this.fetchFormularios().then(() => {
+
+      const formType = this.defaultData.tipo
+      let typeVehicle = this.formulariosOpciones?.find((form: any) => form.formulario == formType).tipoVehiculo
+
+      if (typeVehicle == 'Automóvil') {
+        this.modoMoto = false
+
+        getModelosByMarcas(this.defaultData.marca).then((res) => {
+          this.modelOpciones = res;
+        })
+
+      } else {
+        this.modoMoto = true
+
+        getModelosByMarcaMoto(this.defaultData.marca).then((res) => {
+          this.modelOpciones = res;
+        })
+      }
     })
-      
-    } else {
-      this.modoMoto = true
-    
-      getMotoByMake(this.defaultData.marca).then((res) => {
-        this.modelOpciones = res; 
-      })
-    }
-    
+
     this.form.patchValue({
+      Id: this.defaultData.id,
       Unidad: this.defaultData.unidad,
       Recibo: this.defaultData.recibo,
-      Fecha: this.defaultData.fecha,
+      Fecha: this.formatDate(this.defaultData.fecha),
       PlantaVerificadora: this.defaultData.plantaVerificadora,
       Tipo: this.defaultData.tipo,
       Responsable: this.defaultData.responsable,
@@ -61,16 +75,25 @@ export class EditModeComponent {
       Importe: this.defaultData.importe,
     })
 
-  }
-  
-  fetchFormularios(){
-    getFormularios().then((res) => {
-      this.formulariosOpciones = res;
-    });
+    if (this.userService.getUser().rol != "Administrador") {
+      this.form.controls['Unidad'].disable({ onlySelf: true });
+    }
+
   }
 
+  async fetchFormularios() {
+    this.formulariosOpciones = await getFormularios()
+  }
 
-  fetchUnidades(){
+  formatDate(date: string | Date): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  fetchUnidades() {
     getUnidades().then((res) => {
       this.unidadesOpciones = res;
     });
@@ -78,41 +101,39 @@ export class EditModeComponent {
 
 
   obtenerVehiculos = async () => {
-    getVehicles().then((res) => {
+    getMarcasAutos().then((res) => {
       this.vehiclesOpciones = res;
-      console.log(this.vehiclesOpciones)
     });
   }
-  obtenerMotocicletas(){
-    getMotorcycles().then((res) => {
-      this.motorcycleOpciones = res; 
-      console.log(this.motorcycleOpciones)
+  obtenerMotocicletas() {
+    getMarcasMotos().then((res) => {
+      this.motorcycleOpciones = res;
     });
   }
 
-  
+
   opcionesTipoVehiculo = [
-    {nombre: 'Automóvil'},
-    {nombre: 'Motocicleta'},
-]
+    { nombre: 'Automóvil' },
+    { nombre: 'Motocicleta' },
+  ]
+
+  modoMoto = false
+
+  verifyType = (type: any) => {
+    const typeVehicle = type.target.value
+
+    if (typeVehicle == 'Automóvil') {
+      this.modoMoto = false
+    } else {
+      this.modoMoto = true
+    }
 
 
-modoMoto = false
-
-verifyType = (type: any ) => {
-  const typeVehicle = type.target.value
-
-  if (typeVehicle == 'Automóvil') {
-    this.modoMoto = false
-  } else {
-    this.modoMoto = true
-  }   
- 
-
-}
+  }
 
 
   form: FormGroup = new FormGroup({
+    Id: new FormControl('', [Validators.required]),
     Unidad: new FormControl('0', [Validators.required]),
     Recibo: new FormControl('', [Validators.required]),
     Fecha: new FormControl('', [Validators.required]),
@@ -128,7 +149,7 @@ verifyType = (type: any ) => {
 
   })
 
-  eliminarVerificacion(id: number){
+  eliminarVerificacion(id: number) {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡No podrás revertir esto!",
@@ -153,7 +174,7 @@ verifyType = (type: any ) => {
     })
   }
 
-  editVerificacion(){
+  editVerificacion() {
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¡No podrás revertir esto!",
@@ -163,13 +184,11 @@ verifyType = (type: any ) => {
       cancelButtonColor: '#FF554C',
       confirmButtonText: '¡Sí, enviar!',
       cancelButtonText: 'Cancelar'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(this.form.value)  
-        this.form.value.id = this.defaultData.id
+        const formData = this.form.getRawValue();
 
-        console.log(this.form.value)
-        editVerificacion(this.form.value)
+        await editVerificacion(formData)
         Swal.fire(
           {
             title: '¡Enviado!',
@@ -182,31 +201,26 @@ verifyType = (type: any ) => {
     })
 
   }
-  
+
   preventScroll(event: WheelEvent): void {
     event.preventDefault();
   }
 
   onSelectChange(event: any) {
 
-    getVehicleByMake(event.target.value).then((res) => {
-      this.modelOpciones = res; 
+    getModelosByMarcas(event.target.value).then((res) => {
+      this.modelOpciones = res;
     })
 
   }
 
- onSelectChangeMotorcycle(event: any) {
-   
-    getMotoByMake(event.target.value).then((res) => {
-      this.modelOpcionesMoto = res; 
+  onSelectChangeMotorcycle(event: any) {
+    getModelosByMarcaMoto(event.target.value).then((res) => {
+      this.modelOpcionesMoto = res;
       console.log(this.modelOpcionesMoto)
-    
     })
 
   }
-  
-  
- 
 
 }
 

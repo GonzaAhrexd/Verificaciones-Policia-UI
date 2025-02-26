@@ -6,7 +6,7 @@ import { TableComponent } from './table/table.component';
 import { ColumnDef } from '@tanstack/angular-table';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-
+import { UserService } from '../../api/user.service';
 @Component({
   selector: 'BuscarVerificaciones',
   standalone: true,
@@ -14,6 +14,7 @@ import * as fs from 'file-saver';
   templateUrl: './buscar-verificaciones.component.html',
 })
 export class  BuscarVerificacionesComponent {
+  constructor(private userService: UserService) { }
   defaultColumns: ColumnDef<any>[] = [
     {
       accessorKey: 'recibo',
@@ -94,6 +95,12 @@ export class  BuscarVerificacionesComponent {
 
   ngOnInit() {
     this.getUnidades()
+    this.buscarVerificacionesForm.patchValue({
+      Unidad: this.userService.getUser().unidad
+    })
+    if(this.userService.getUser().rol != "Administrador"){
+      this.buscarVerificacionesForm.controls['Unidad'].disable({ onlySelf: true });  
+    }
   }
   verificaciones = []
 
@@ -101,11 +108,11 @@ export class  BuscarVerificacionesComponent {
 
 
     // Si fecha tiene valor, se busca por fecha
+    const formData = this.buscarVerificacionesForm.getRawValue(); // getRawValue() incluye los campos deshabilitados
+    if(formData.Fecha != ''){
 
-    if(this.buscarVerificacionesForm.value.Fecha != ''){
 
-
-    getVerificaciones(this.buscarVerificacionesForm.value).then((res) => {
+    getVerificaciones(formData).then((res) => {
       this.verificaciones = res;
 
       if(this.verificaciones.length > 0){
@@ -114,10 +121,7 @@ export class  BuscarVerificacionesComponent {
     })
   } else {
     // Si no, se busca por rango de fechas
-
-
-
-    getVerificacionesRango(this.buscarVerificacionesForm.value).then((res) => {
+    getVerificacionesRango(formData).then((res) => {
       this.verificaciones = res;
 
       if(this.verificaciones.length > 0){

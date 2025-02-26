@@ -4,6 +4,7 @@ import { getBancos } from '../../api/bancos.service';
 import { sendDepositos } from '../../api/deposito.service';
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../api/user.service';
 type Unidad = {
   id: number
   unidad: string
@@ -26,6 +27,8 @@ type Banco = {
 
 export class AgregarDepositoComponent {
 
+  constructor(private userService: UserService) { }
+
   unidades:Unidad[] = []
   bancos: Banco[] = []
 
@@ -47,6 +50,16 @@ export class AgregarDepositoComponent {
   ngOnInit() {
     this.fetchUnidades()
     this.fetchBancos()
+    
+    this.form.patchValue({
+      Unidad: this.userService.getUser().unidad
+    })
+
+    if(this.userService.getUser().rol != "Administrador"){
+      this.form.controls['Unidad'].disable({ onlySelf: true });  
+    }
+
+  
   }
 
 
@@ -79,7 +92,9 @@ export class AgregarDepositoComponent {
         confirmButtonText: 'Sí, enviar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          sendDepositos(this.form.value).then((res) => {
+          const formData = this.form.getRawValue(); // getRawValue() incluye los campos deshabilitados
+
+          sendDepositos(formData).then((res) => {
             Swal.fire(
              {
               title: 'Depósito enviado',

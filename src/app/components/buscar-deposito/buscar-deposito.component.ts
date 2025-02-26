@@ -7,7 +7,7 @@ import { TableComponent } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
-
+import { UserService } from '../../api/user.service';
 @Component({
   selector: 'app-buscar-deposito',
   standalone: true,
@@ -17,7 +17,8 @@ import * as fs from 'file-saver';
 
 })
 export class BuscarDepositoComponent {
-  
+
+  constructor(private userService: UserService) { }
 
     defaultColumns: ColumnDef<any>[] = [
       {
@@ -67,10 +68,12 @@ export class BuscarDepositoComponent {
     
     async fetchDepositos(){
           try {
+            const formData = this.buscarDepositosForm.getRawValue(); // getRawValue() incluye los campos deshabilitados
+
             this.depositos = []
             this.isEmpty = true 
       
-            const entrega = await buscarDeposito(this.buscarDepositosForm.value)
+            const entrega = await buscarDeposito(formData)
             this.depositos = entrega
             this.isEmpty = false
 
@@ -91,6 +94,12 @@ export class BuscarDepositoComponent {
 
     ngOnInit() {
       this.fetchUnidades()
+      this.buscarDepositosForm.patchValue({
+        Unidad: this.userService.getUser().unidad
+      })
+      if(this.userService.getUser().rol != "Administrador"){
+        this.buscarDepositosForm.controls['Unidad'].disable({ onlySelf: true });  
+      }
     }
 
     deleteThisRow(row: any) {

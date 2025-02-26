@@ -1,5 +1,5 @@
 <!-- Barra visible para activar el sidebar -->
-<div class="lg:hidden flex  items-center p-4 h-10 bg-sky-900 hover w-full ">
+<div class="lg:hidden flex  items-center p-4 h-12 bg-sky-900 hover w-full ">
     <svg (click)="toggleSideBarMobile = true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="size-6 text-white cursor-pointer">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Menú -->
-    <nav class="flex-1 overflow-y-auto h-6/10 w-full">
+    <nav class="flex-1 overflow-y-auto h-5/10 w-full">
         <ul class="space-y-4 px-4">
             @for(opcion of opcionesPagina; track opcion.texto){
             <li>
@@ -51,6 +51,7 @@
                 </div>
             </li>
             }
+            @if(usuario.rol == "Administrador"){
             @for(opcion of opcionesPaginaAdmin; track opcion.texto){
                 <li>
                     <div [routerLink]="opcion.url" class="flex items-center space-x-3 hover:text-sky-300 cursor-pointer">
@@ -61,6 +62,7 @@
                     </div>
                 </li>
                 }
+            }
         </ul>
     </nav>
 
@@ -78,8 +80,9 @@
             <div>
                 
 
-                <p class="text-4xl font-semibold">{{usuario ? usuario.nombre + " " + usuario.apellido : "Nada"}}</p>
-                <p class="text-2xl text-gray-400">{{ usuario ? usuario.rol : "Nada"}}</p>
+                <p class="text-2xl font-semibold">{{usuario ? usuario.nombre + " " + usuario.apellido : "Nada"}}</p>
+                <p class="text-xl text-gray-400">{{ usuario ? usuario.rol : "Nada"}}</p>
+                <p class="text-xl text-gray-400">{{ usuario ? usuario.unidad : "Nada"}}</p>
                 
             </div>
             
@@ -150,7 +153,7 @@
 
                 <p class="font-semibold">{{usuario ? usuario.nombre + " " + usuario.apellido : "Nada"}}</p>
                 <p class="text-sm text-gray-400">{{ usuario ? usuario.rol : "Nada"}}</p>
-                
+                <p class="text-sm text-gray-400">{{ usuario ? usuario.unidad : "Nada"}}</p>
             </div>
             
     
