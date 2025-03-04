@@ -15,6 +15,10 @@ export const buscarDeposito = async (data: any) => {
     return response.data
 }
 
+export const buscarDepositoNroTicket = async (nroTicket: any) => {
+    const response = await axios.get(`/Depositos/buscar-por-nro-ticket/${nroTicket}`)
+    return response.data
+}
 
 export const deleteDepositos = async (id: any) => {
     const response = await axios.delete(`/Depositos/${id}`)

@@ -20,6 +20,18 @@ export const buscarEntrega = async (entrega: any) => {
     }
 }
 
+export const buscarEntregaPorNro = async (nroEntrega: string) => {
+    try {
+        const response = await axios.get(`/Entregas/${nroEntrega}`);
+        return response.data;
+    }
+    catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+
 
 export const deleteEntrega = async (id: string) => {
     try {

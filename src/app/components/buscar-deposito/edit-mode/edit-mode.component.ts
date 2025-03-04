@@ -23,6 +23,7 @@ export class EditModeComponent {
 
   form: FormGroup = new FormGroup({
     NroDeposito: new FormControl(''),
+    NroTicket: new FormControl('', [Validators.required]),
     Fecha: new FormControl('', [Validators.required]),
     Unidad: new FormControl('', [Validators.required]),
     Banco: new FormControl('', [Validators.required]),
@@ -40,6 +41,7 @@ export class EditModeComponent {
 
     this.form.patchValue({
       NroDeposito: this.defaultData.nroDeposito,
+      NroTicket: this.defaultData.nroTicket,
       Fecha: this.formatDate(this.defaultData.fecha),
       Unidad: this.defaultData.unidad,
       Banco: this.defaultData.banco,

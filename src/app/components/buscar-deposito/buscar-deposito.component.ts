@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { getUnidades } from '../../api/unidades.service';
-import { buscarDeposito, deleteDepositos } from '../../api/deposito.service'
+import { buscarDeposito, buscarDepositoNroTicket, deleteDepositos } from '../../api/deposito.service'
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableComponent } from './table/table.component'
@@ -8,6 +8,7 @@ import { ColumnDef } from '@tanstack/angular-table';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
 import { UserService } from '../../api/user.service';
+
 @Component({
   selector: 'app-buscar-deposito',
   standalone: true,
@@ -23,7 +24,12 @@ export class BuscarDepositoComponent {
     defaultColumns: ColumnDef<any>[] = [
       {
         accessorKey: 'nroDeposito',
-        header: () => 'NroDeposito',
+        header: () => 'Id',
+        cell: info => info.getValue(),
+      },
+      {
+        accessorKey: 'nroTicket',
+        header: () => 'Nro de Ticket',
         cell: info => info.getValue(),
       },
       {
@@ -54,6 +60,7 @@ export class BuscarDepositoComponent {
     ]
     
     buscarDepositosForm: FormGroup = new FormGroup({
+      NroTicket: new FormControl(''),
       Unidad: new FormControl('0', [Validators.required]),
       Desde: new FormControl('', [Validators.required]),
       Hasta: new FormControl('', [Validators.required]),
@@ -72,10 +79,20 @@ export class BuscarDepositoComponent {
 
             this.depositos = []
             this.isEmpty = true 
-      
-            const entrega = await buscarDeposito(formData)
-            this.depositos = entrega
-            this.isEmpty = false
+            
+            let entrega = []  
+            
+            if(formData.NroTicket != '') {
+              entrega = await buscarDepositoNroTicket(formData.NroTicket)
+
+              this.depositos = entrega
+              console.log(this.depositos)
+              this.isEmpty = false
+            }else { 
+              entrega = await buscarDeposito(formData)
+              this.depositos = entrega
+              this.isEmpty = false
+            }
 
             console.log(this.depositos)
           

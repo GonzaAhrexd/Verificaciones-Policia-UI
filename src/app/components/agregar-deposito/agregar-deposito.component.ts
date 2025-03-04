@@ -35,6 +35,7 @@ export class AgregarDepositoComponent {
   form: FormGroup = new FormGroup({
       Fecha: new FormControl('', [Validators.required]),
       Unidad: new FormControl('0', [Validators.required]),
+      NroTicket: new FormControl('', [Validators.required]),
       Banco: new FormControl('0', [Validators.required]),
       Cuenta: new FormControl('', [Validators.required]),
       Tipo: new FormControl('0', [Validators.required]),
