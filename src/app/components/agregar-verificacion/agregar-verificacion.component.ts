@@ -136,6 +136,7 @@ export class AgregarVerificacionComponent {
       if (result.isConfirmed) {
         const formData = this.form.getRawValue();
         await sendVerificacion(formData)
+     
         Swal.fire(
           {
             title: '¡Enviado!',
@@ -143,7 +144,11 @@ export class AgregarVerificacionComponent {
             icon: 'success',
             confirmButtonColor: '#3085d6',
           }
-        )
+        ).then(() => {
+         this.form.reset(); 
+      
+        }
+      )
       }
     })
 

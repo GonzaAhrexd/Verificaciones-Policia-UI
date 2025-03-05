@@ -160,13 +160,13 @@ cancelChanges(){
         for(const renglon of this.renglonesToDelete){
           await deleteRenglonEntrega(renglon)
         }
-      
-        await updateEntrega(this.defaultData.nroEntrega, this.form.getRawValue())
+
+        await updateEntrega(this.defaultData.nroEntrega, this.form.value)
         Swal.fire({
           title: 'Cambios guardados',
           icon: 'success',
         }).then(() => {
-          window.location.reload()   
+          // window.location.reload()   
         })  
         }
     })

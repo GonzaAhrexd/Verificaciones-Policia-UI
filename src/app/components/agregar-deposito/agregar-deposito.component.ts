@@ -103,7 +103,9 @@ export class AgregarDepositoComponent {
               confirmButtonColor: '#0C4A6E',
               confirmButtonText: 'Aceptar'
              }
-            )
+            ).then(() => {
+              this.form.reset(); 
+             })
           })
         }
       })
