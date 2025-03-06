@@ -16,4 +16,8 @@ import { FormularioTableComponent } from './tabla-formularios/formulario-table.c
 
 export class MostrarFormulariosComponent {
   showAddFormularios = false
+
+  
+
+
 }

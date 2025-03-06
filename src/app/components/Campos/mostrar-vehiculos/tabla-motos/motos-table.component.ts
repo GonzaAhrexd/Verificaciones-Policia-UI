@@ -26,6 +26,11 @@ type Marca = {
 
 
 export class MotoTableComponent {
+    
+  // Variables
+    isLoading = true
+    listaMarcaMotos = []
+  
 
     defaultColumns: ColumnDef<Marca>[] = [
       {
@@ -39,15 +44,11 @@ export class MotoTableComponent {
         cell: info => info.getValue(),
       },
     ]
-
-    isLoading = true
-    listaMarcaMotos = []
   
     ngOnInit() {
       getMarcasMotos().then((data) => {
         this.listaMarcaMotos = data
         this.isLoading = false
-        console.log(this.listaMarcaMotos)
       })
     }
   

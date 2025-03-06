@@ -34,25 +34,44 @@ export class AgregarMarcaComponent {
       showDenyButton: true,
       confirmButtonText: `Sí`,
       denyButtonText: `No`,
-    }).then((result) => {
+      confirmButtonColor: '#0C4A6E',
+      denyButtonColor: '#FF554C',
+    }).then( async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Marca agregada con éxito',
-          showConfirmButton: false,
-        }).then(async () => {
-        
+       
+        try{ 
+
+          
           if(this.formulario.value.Tipo == "Automóvil"){
             await postMarcaAuto(this.formulario.value)
           }else if(this.formulario.value.Tipo == "Motocicleta"){
             await postMarcaMoto(this.formulario.value)
           }
 
+          Swal.fire({
+            icon: 'success',
+            title: 'Marca agregada con éxito',
+            showConfirmButton: true,
+            confirmButtonColor: '#0C4A6E',
+            confirmButtonText: `Aceptar`,
+  
+          }).then(async () => {
+            // Limpia el formulario
+            this.formulario.reset()
+          })
+
+          
+        }catch(e){
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al agregar la marca',
+            showConfirmButton: false,
+            confirmButtonColor: '#0C4A6E',
+            confirmButtonText: `Sí`,
+          })
         
-        })
-      } else if (result.isDenied) {
-        Swal.fire('No se ha agregado la marca', '', 'info')
-      }
+      
+  }}
     })
   }
 }

@@ -32,12 +32,22 @@ export class EditModeComponent {
       denyButtonText: `No`,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(this.formulario.value)
-        await deleteMarcasMotos(this.formulario.value.Id)
-        Swal.fire('Marca eliminada', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('No se ha eliminado la marca', '', 'info')
-      }
+        try{
+          await deleteMarcasMotos(this.formulario.value.Id)
+           Swal.fire({
+                      title: 'Marca eliminada',
+                      icon: 'success',
+                      confirmButtonColor: '#0C4A6E',
+                    })
+                  } catch (error) {
+                    Swal.fire({
+                      title: 'Error',
+                      text: 'No se pudo eliminar la marca',
+                      icon: 'error',
+                      confirmButtonColor: '#0C4A6E',
+                    })
+        }
+      }    
     })
   
   }
@@ -53,12 +63,22 @@ export class EditModeComponent {
       denyButtonText: `No`,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(this.formulario.value)
-        await editMarcasMotos(this.formulario.value )
-        Swal.fire('Marca editada', '', 'success')
-      } else if (result.isDenied) {
-        Swal.fire('No se ha editado la marca', '', 'info')
-      }
+        try{
+          await editMarcasMotos(this.formulario.value )
+          Swal.fire({
+            title: 'Marca editada',
+            icon: 'success',
+            confirmButtonColor: '#0C4A6E',
+          })
+        } catch(error){
+        Swal.fire({
+          title: 'Error',
+          text: 'No se pudo editar la marca',
+          icon: 'error',
+          confirmButtonColor: '#0C4A6E',
+        })
+        }
+      } 
     })
   
   }

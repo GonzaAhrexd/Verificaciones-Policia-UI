@@ -22,18 +22,25 @@ export class AgregarFormularioComponent {
     new FormGroup(
       {
         Formulario: new FormControl('', [Validators.required]),
+        Importe: new FormControl('', [Validators.required]),
+        TipoVehiculo: new FormControl('', [Validators.required]),
       })
   )
 
   // Mostrar si está en modo de agregado 
 
-  @Output() showAddTipos = new EventEmitter<boolean>()
+  @Output() showAddFormularios = new EventEmitter<boolean>()
   
   
   // Botón para cancelar
   cancelar() {
-    this.showAddTipos.emit(false)
+    this.showAddFormularios.emit(false)
 
+  }
+
+    // Función para prevenir el scroll
+  preventScroll(event: WheelEvent): void {
+    event.preventDefault();
   }
   // Botón para enviar
   sendMarca() {
