@@ -8,7 +8,6 @@ import { UserService } from '../../api/user.service';
 @Component({
   selector: 'app-depositos',
   standalone: true,
-  styleUrls: ['./depositos.style.css'],
   imports: [SidebarComponent, CardActionsComponent, AgregarDepositoComponent, BuscarDepositoComponent ],
   templateUrl: './depositos.component.html',
 })
