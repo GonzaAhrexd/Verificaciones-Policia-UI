@@ -1,11 +1,16 @@
+// Librerías de Angular
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';  // Importa CommonModule
+import { Router } from '@angular/router';
+// Servicios
+import { UserService } from '../../api/user.service';
+// Componentes 
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { CardActionsComponent } from '../../components/card-actions/card-actions.component';
-import { CommonModule } from '@angular/common';  // Importa CommonModule
 import { AgregarEntregaComponent } from '../../components/agregar-entrega/agregar-entrega.component';
 import { BuscarEntregasComponent } from '../../components/buscar-entregas/buscar-entregas.component';
-import { UserService } from '../../api/user.service';
-import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-entregas',
   standalone: true,
@@ -13,23 +18,17 @@ import { Router } from '@angular/router';
   templateUrl: './entregas.component.html',
 })
 export class EntregasComponent {
-
+  // Inicialización del servicio de usuario y del router
   constructor(private userService: UserService, private router: Router) {}
   
-
+  // Variables
+  opcion:string = ""
   opcionesDatos = [
     { texto: "Búsqueda" },
     { texto: "Agregar entrega"},
-
   ]
 
-  opcion:string = ""
-
-  getClickedSection(text: any) {
-    this.opcion = text
-  }
-
-  
+  // Inicialización
   ngOnInit() { 
     let isAuth = this.userService.isAuthenticated();
     if(!isAuth){
@@ -41,4 +40,9 @@ export class EntregasComponent {
       }
     }
 }
+  // Funciones
+  getClickedSection(text: any) {
+    this.opcion = text
+  }
+
 }

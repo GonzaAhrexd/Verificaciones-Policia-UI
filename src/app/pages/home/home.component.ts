@@ -1,11 +1,14 @@
+// Librerías de Angular
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+// Servicio de usuario
+import { UserService } from '../../api/user.service';
 // Componentes
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { HomeButtonsComponent } from '../../components/home-buttons/home-buttons.component';
-import { getLoggedUser } from '../../api/auth.service';
-import { UserService } from '../../api/user.service';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
+// Tipos
 type Opcion = {
   texto: string, ruta: string
 }
@@ -20,7 +23,7 @@ type Opcion = {
 export class HomeComponent {
   // Instancia del servicio UserService
   constructor(private userService: UserService, private router: Router) { }
-
+  // Variables
   usuario = "Usuario"
   usuarioRol = ""
   
@@ -33,13 +36,14 @@ export class HomeComponent {
     { texto: "Verificaciones", ruta: "/verificaciones" }
   ]
 
+  // Inicialización de la página
   ngOnInit() {
-    let isAuth = this.userService.isAuthenticated();
-    if (!isAuth) {
-      this.router.navigate(['/login']);
-    } else {
-      this.usuarioRol = this.userService.getUser().rol;
-      this.usuario = this.userService.getUser().nombre + " " + this.userService.getUser().apellido;
+    let isAuth = this.userService.isAuthenticated(); // Verifica si el usuario está autenticado
+    if (!isAuth) { // Si no está autenticado, redirige al login
+      this.router.navigate(['/login']); // Redirige al login
+    } else { // Si está autenticado
+      this.usuarioRol = this.userService.getUser().rol; // Obtiene el rol del usuario
+      this.usuario = this.userService.getUser().nombre + " " + this.userService.getUser().apellido; // Obtiene el nombre y apellido del usuario
     }
   }
 

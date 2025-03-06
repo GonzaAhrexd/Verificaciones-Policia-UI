@@ -24,8 +24,8 @@ import { CommonModule } from '@angular/common'; // Asegúrate de importar esto
   `,
 })
 export class AppComponent {
+  // Variables
   title = 'FondoUnicoUI';
-
   isLoginPage = false;
 
   constructor(private router: Router) {
