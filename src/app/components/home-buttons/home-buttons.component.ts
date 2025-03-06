@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home-buttons',
@@ -11,12 +12,26 @@ import { RouterLink } from '@angular/router';
         <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-50">
           {{texto}}
         </h5>
+        <div [innerHTML]="sanitizedHtml"></div>
       </div>
     </div>
   `,
- })
-export class HomeButtonsComponent {
-  @Input() texto: string = ""; 
-  @Input() ruta: string = "";
+})
 
+
+
+export class HomeButtonsComponent implements OnChanges {
+  @Input() texto: string = "";
+  @Input() ruta: string = "";
+  @Input() SVG: string = "";
+
+  sanitizedHtml: SafeHtml = '';
+
+  constructor(private sanitizer: DomSanitizer) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['SVG']) {
+      this.sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(this.SVG);
+    }
+  }
 }

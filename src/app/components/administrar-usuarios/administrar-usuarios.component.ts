@@ -4,6 +4,7 @@ import { getUnidades } from '../../api/unidades.service';
 import { buscarUsuarioDNI, buscarUsuarios } from '../../api/auth.service';
 import { ColumnDef } from '@tanstack/angular-table';
 import { TableComponent } from './table/table.component';
+import { UserService } from '../../api/user.service';
 @Component({
   selector: 'editar-usuarios',
   standalone: true,
@@ -11,6 +12,8 @@ import { TableComponent } from './table/table.component';
   templateUrl: './administrar-usuarios.component.html',
 })
 export class EditarUsuariosComponent {
+
+  constructor(private userService: UserService) {}  
 
     formulario: FormGroup = new FormGroup({
       DNI: new FormControl('', []),

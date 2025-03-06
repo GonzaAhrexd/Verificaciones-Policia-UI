@@ -35,7 +35,8 @@ export class BuscarDepositoComponent {
       {
         accessorKey: 'fecha',
         header: () => 'Fecha',
-        cell: info => info.getValue(),
+        // @ts-ignore
+        cell: info => new Date(info.getValue()).toLocaleDateString("es-AR") ,
       },
       {
         accessorKey: 'unidad',

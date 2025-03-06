@@ -7,11 +7,11 @@
         <div class="grid gap-1 w-full" [ngClass]="usuarioRol === 'Planta' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'">
             @if(usuarioRol == "Fondo" || usuarioRol == "Administrador" ){
                 @for(opcion of OpcionesFondo; track opcion.texto){
-                <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta"/>
+                <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta" [SVG]="opcion.SVG"/>
                 }
             }
             @for(opcion of OpcionesPlanta; track opcion.texto){
-            <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta"/>
+            <app-home-buttons [texto]="opcion.texto" [ruta]="opcion.ruta" [SVG]="opcion.SVG"/>
             }
         </div>
     </div>

@@ -5,7 +5,7 @@
     <div>
         <div class="grid gap-1 grid-cols-1 md:grid-cols-2 w-full">
             @for(datos of opcionesDatos; track datos.texto){
-            <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" />
+            <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" [SVG]="datos.SVG" />
         }
         </div>
     </div>

@@ -165,6 +165,7 @@ cancelChanges(){
         Swal.fire({
           title: 'Cambios guardados',
           icon: 'success',
+          confirmButtonColor: '#0C4A6E',
         }).then(() => {
           // window.location.reload()   
         })  

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'CardActions',
@@ -10,6 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
         <h5 class="mb-2 text-xl font-medium leading-tight text-neutral-50">
           {{texto}}
         </h5>
+        <div [innerHTML]="sanitizedHtml">
       </div>
     </div>
     
@@ -18,8 +20,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class CardActionsComponent {
   @Input() texto: string = "";
   @Output() opcion = new EventEmitter<string>();
+  @Input() SVG: string = "";
+
   clicked(text: any){ 
     this.opcion.emit(text);
   }
+
+   sanitizedHtml: SafeHtml = '';
+  
+    constructor(private sanitizer: DomSanitizer) {}
+  
+    ngOnChanges(changes: SimpleChanges): void {
+      if (changes['SVG']) {
+        this.sanitizedHtml = this.sanitizer.bypassSecurityTrustHtml(this.SVG);
+      }
+    }
   
 }
