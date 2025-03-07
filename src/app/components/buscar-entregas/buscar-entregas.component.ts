@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { getUnidades } from '../../api/unidades.service';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { buscarEntrega, deleteEntrega, buscarEntregaPorNro } from '../../api/entregas.service';
-import { TableComponent } from './table/table.component'
+import { TableComponentEntrega } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
 import Swal from 'sweetalert2';
 import { Workbook } from 'exceljs';
@@ -20,7 +20,7 @@ type Unidad = {
 @Component({
   selector: 'app-buscar-entregas',
   standalone: true,
-  imports: [ReactiveFormsModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponentEntrega],
   templateUrl: './buscar-entregas.component.html',
 })
 export class BuscarEntregasComponent {

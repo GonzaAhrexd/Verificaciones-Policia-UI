@@ -4,13 +4,13 @@ import { addModelo } from '../../../../../api/modeloMoto.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-modelo',
+  selector: 'AgregarModeloMoto',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './agregar-modelo.component.html',
 })
 
-export class AgregarModeloComponent {
+export class AgregarModeloComponentMoto {
 
   @Input() marcaNombre:any 
 

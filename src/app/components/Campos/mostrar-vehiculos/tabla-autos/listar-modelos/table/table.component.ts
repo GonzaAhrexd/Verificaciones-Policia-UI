@@ -11,13 +11,13 @@ import {
 import { EditarModeloComponent } from './editar-modelo/editar-modelo.component';
 
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentModelosAutos',
   standalone: true,
   imports: [FlexRenderDirective, EditarModeloComponent],
   templateUrl: './table.component.html',
 })
 
-export class TableComponent {
+export class TableComponentModelosAutos {
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla
   

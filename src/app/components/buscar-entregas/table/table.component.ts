@@ -1,7 +1,7 @@
 
 // Importamos cosas de Angular
 import {  Component, Input, signal } from '@angular/core'
-import { EditModeComponent } from '../edit-mode/edit-mode.component'
+import { EditModeComponentEntrega } from '../edit-mode/edit-mode.component'
 // Importamos cosas de Angular Table de TanStack
 import {
   ColumnDef,
@@ -14,15 +14,15 @@ import {
 
 // Definimos el componente
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentEntrega',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent],
+  imports: [FlexRenderDirective, EditModeComponentEntrega],
  templateUrl: './table.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 // Definimos la clase del componente
-export class TableComponent {
+export class TableComponentEntrega {
   
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla

@@ -11,13 +11,13 @@ import Swal from 'sweetalert2';
 import { editVerificacion, deleteVerificacion } from '../../../api/verificaciones.service';
 import { UserService } from '../../../api/user.service';
 @Component({
-  selector: 'EditMode',
+  selector: 'EditModeVerificacion',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-mode.component.html',
 })
 
-export class EditModeComponent {
+export class EditModeComponentVerificaciones {
 
   constructor(private userService: UserService) { }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { getVerificaciones, getVerificacionesRango, getVerificacionPorRecibo } from '../../api/verificaciones.service';
 import { getUnidades } from '../../api/unidades.service';
-import { TableComponent } from './table/table.component';
+import { TableComponentVerificaciones } from './table/table.component';
 import { getFormularios } from '../../api/formulario.service';
 import { ColumnDef } from '@tanstack/angular-table';
 import { Workbook } from 'exceljs';
@@ -11,7 +11,7 @@ import { UserService } from '../../api/user.service';
 @Component({
   selector: 'BuscarVerificaciones',
   standalone: true,
-  imports: [ReactiveFormsModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponentVerificaciones],
   templateUrl: './buscar-verificaciones.component.html',
 })
 export class BuscarVerificacionesComponent {

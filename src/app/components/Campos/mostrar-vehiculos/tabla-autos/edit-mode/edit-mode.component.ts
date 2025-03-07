@@ -10,7 +10,7 @@ type Marca = {
 
 
 @Component({
-  selector: 'app-edit-mode',
+  selector: 'EditModeAuto',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-mode.component.html',
@@ -18,7 +18,7 @@ type Marca = {
 
 
 
-export class EditModeComponent {
+export class EditModeComponentAuto {
 
   @Input() defaultData: any = []
 

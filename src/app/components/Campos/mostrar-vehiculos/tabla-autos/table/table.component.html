@@ -55,7 +55,7 @@
             @if(row.getIsExpanded()){
 <!-- Haz que se expanda a todo la tabla -->
             <td [attr.colspan]="3">
-                <app-edit-mode  [defaultData]="row.original" />
+                <EditModeAuto  [defaultData]="row.original" />
                 
                 <p class="text-lg">Lista de modelos</p>
                 <button
@@ -63,9 +63,9 @@
                 (click)="setAddModelo = true"
                 >Agregar</button>
                 @if(setAddModelo){
-                    <app-agregar-modelo [marcaNombre]="row.original.marca"/>
+                    <AgregarModeloAuto [marcaNombre]="row.original.marca"/>
                 }
-                <ListarModelos [marcaNombre]="row.original.marca"/>
+                <ListarModelosAuto [marcaNombre]="row.original.marca"/>
 
             </td>
             }

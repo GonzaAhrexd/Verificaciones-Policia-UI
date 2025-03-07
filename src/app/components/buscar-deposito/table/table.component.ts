@@ -1,5 +1,5 @@
 import {  Component, Input, signal } from '@angular/core'
-import { EditModeComponent } from '../edit-mode/edit-mode.component'
+import { EditModeComponentDeposito } from '../edit-mode/edit-mode.component'
 import {
   ColumnDef,
   createAngularTable,
@@ -10,13 +10,13 @@ import {
 } from '@tanstack/angular-table'
 
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentDeposito',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent ],
+  imports: [FlexRenderDirective, EditModeComponentDeposito ],
   templateUrl: './table.component.html',
 })
 
-export class TableComponent {
+export class TableComponentDeposito {
 
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla

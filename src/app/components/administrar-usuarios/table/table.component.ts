@@ -1,7 +1,6 @@
 import { Component, Input, signal } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getUnidades } from '../../../api/unidades.service';
-import { editUsuario } from '../../../api/auth.service';
 import {
   ColumnDef,
   createAngularTable,
@@ -10,17 +9,16 @@ import {
   getPaginationRowModel,
   PaginationState,
 } from '@tanstack/angular-table'
-import Swal from 'sweetalert2';
 import { ExpandedComponentComponent } from '../expanded-component/expanded-component.component';
 
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentAdministrarUsuarios',
   standalone: true,
   imports: [FlexRenderDirective, ReactiveFormsModule, ExpandedComponentComponent],
   templateUrl: './table.component.html',
 })
 
-export class TableComponent {
+export class TableComponentAdministrarUsuarios {
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data: any = ([]) // Datos de la tabla
   @Input() onDelete: Function = () => { }; // Función de eliminación

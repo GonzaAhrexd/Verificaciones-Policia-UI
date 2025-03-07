@@ -7,14 +7,14 @@ import {
   getPaginationRowModel,
   PaginationState,
 } from '@tanstack/angular-table'
-import { EditModeComponent } from './edit-mode/edit-mode.component';
+import { EditModeComponentModelo } from './edit-mode/edit-mode.component';
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentModelosMoto',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent],
+  imports: [FlexRenderDirective, EditModeComponentModelo],
   templateUrl: './table.component.html',
 })
-export class TableComponent {
+export class TableComponentModelosMoto {
 
    @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
     @Input() data:any = ([]) // Datos de la tabla

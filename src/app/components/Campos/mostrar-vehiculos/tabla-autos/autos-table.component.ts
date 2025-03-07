@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TableComponent } from './table/table.component'
+import { TableComponentAuto } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
 import { getMarcasAutos } from '../../../../api/marcasAutos.service'
 
@@ -15,10 +15,10 @@ type Marca = {
 @Component({
   selector: 'AutoTable',
   standalone: true,
-  imports: [ TableComponent],
+  imports: [ TableComponentAuto],
   template: `
    @if(!isLoading){
-     <TableComponent 
+     <TableComponentAuto
      [defaultColumns]="defaultColumns" 
      [data]="listaMarcasAutos" 
      />

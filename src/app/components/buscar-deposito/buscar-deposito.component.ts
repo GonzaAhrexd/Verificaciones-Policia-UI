@@ -3,7 +3,7 @@ import { getUnidades } from '../../api/unidades.service';
 import { buscarDeposito, buscarDepositoNroTicket, deleteDepositos } from '../../api/deposito.service'
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TableComponent } from './table/table.component'
+import { TableComponentDeposito } from './table/table.component'
 import { ColumnDef } from '@tanstack/angular-table';
 import { Workbook } from 'exceljs';
 import * as fs from 'file-saver';
@@ -12,7 +12,7 @@ import { UserService } from '../../api/user.service';
 @Component({
   selector: 'app-buscar-deposito',
   standalone: true,
-  imports: [ReactiveFormsModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponentDeposito],
   templateUrl: './buscar-deposito.component.html',
 
 

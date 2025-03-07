@@ -8,12 +8,12 @@ import { UserService } from '../../../api/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'EditMode',
+  selector: 'EditModeDeposito',
   standalone: true,
   imports: [ReactiveFormsModule ],
   templateUrl: './edit-mode.component.html',
 })
-export class EditModeComponent {
+export class EditModeComponentDeposito {
 
   constructor(private userService: UserService) { }
 

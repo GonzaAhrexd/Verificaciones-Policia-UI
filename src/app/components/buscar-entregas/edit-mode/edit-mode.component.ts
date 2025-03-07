@@ -16,12 +16,12 @@ type Unidad = {
 
 // Componente para editar una entrega
 @Component({
-  selector: 'EditMode',
+  selector: 'EditModeEntrega',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-mode.component.html',
 })
-export class EditModeComponent implements OnInit {
+export class EditModeComponentEntrega implements OnInit {
   constructor(private userService: UserService) { }
   // Datos de entrada
   @Input() defaultData:any = []

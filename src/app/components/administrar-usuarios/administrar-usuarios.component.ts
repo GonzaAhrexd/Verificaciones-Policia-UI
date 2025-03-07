@@ -3,12 +3,12 @@ import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angula
 import { getUnidades } from '../../api/unidades.service';
 import { buscarUsuarioDNI, buscarUsuarios } from '../../api/auth.service';
 import { ColumnDef } from '@tanstack/angular-table';
-import { TableComponent } from './table/table.component';
+import { TableComponentAdministrarUsuarios } from './table/table.component';
 import { UserService } from '../../api/user.service';
 @Component({
   selector: 'editar-usuarios',
   standalone: true,
-  imports: [ReactiveFormsModule, TableComponent],
+  imports: [ReactiveFormsModule, TableComponentAdministrarUsuarios],
   templateUrl: './administrar-usuarios.component.html',
 })
 export class EditarUsuariosComponent {

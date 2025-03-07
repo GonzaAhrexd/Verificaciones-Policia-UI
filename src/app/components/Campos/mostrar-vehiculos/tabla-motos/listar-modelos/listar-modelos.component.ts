@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { getModelosByMarcaMoto } from '../../../../../api/marcasMotos.service';
 import { ColumnDef } from '@tanstack/angular-table';
-import { TableComponent } from './table/table.component';
+import { TableComponentModelosMoto } from './table/table.component';
 
 
 type Modelo = {
@@ -11,12 +11,12 @@ type Modelo = {
 }
 
 @Component({
-  selector: 'ListarModelos',
+  selector: 'ListarModelosMoto',
   standalone: true,
-  imports: [TableComponent],
+  imports: [TableComponentModelosMoto],
   template: `
   @if(!isLoading) {
-   <TableComponent 
+   <TableComponentModelosMoto 
      [defaultColumns]="columnas" 
      [data]="modelos" 
      />
@@ -28,7 +28,7 @@ type Modelo = {
 
 
 
-export class ListarModelosComponent {
+export class ListarModelosComponentMoto {
 
   @Input() marcaNombre = '';  
   modelos: Modelo[] = []

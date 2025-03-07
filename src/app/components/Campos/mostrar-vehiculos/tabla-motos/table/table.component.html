@@ -55,16 +55,16 @@
             @if(row.getIsExpanded()){
 <!-- Haz que se expanda a todo la tabla -->
             <td [attr.colspan]="3">
-                <app-edit-mode  [defaultData]="row.original" />
+                <EditModeMotos  [defaultData]="row.original" />
                 <p class="text-lg">Lista de modelos</p>
                 <button
                 class="bg-sky-950 w-full text-white font-bold py-2 px-4 rounded-lg"
                 (click)="setAddModelo = true"
                 >Agregar</button>
                 @if(setAddModelo){
-                    <app-agregar-modelo [marcaNombre]="row.original.marca"/>
+                    <AgregarModeloMoto [marcaNombre]="row.original.marca"/>
                 }
-                <ListarModelos [marcaNombre]="row.original.marca" />
+                <ListarModelosMoto [marcaNombre]="row.original.marca" />
             </td>
             }
         }

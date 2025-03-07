@@ -4,12 +4,12 @@ import { editModelo, deleteModelo } from '../../../../../../../api/modeloMoto.se
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-edit-mode',
+  selector: 'EditModeModelo',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-mode.component.html',
 })
-export class EditModeComponent {
+export class EditModeComponentModelo {
   @Input() defaultData: any = {};
 
    formulario:FormGroup = new FormGroup({

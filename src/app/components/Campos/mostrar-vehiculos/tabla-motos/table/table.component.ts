@@ -1,7 +1,7 @@
 import { Component, Input, signal } from '@angular/core';
-import { EditModeComponent } from '../edit-mode/edit-mode.component';
-import { AgregarModeloComponent  } from '../agregar-modelo/agregar-modelo.component';
-import { ListarModelosComponent } from '../listar-modelos/listar-modelos.component';
+import { EditModeComponentMotos } from '../edit-mode/edit-mode.component';
+import { AgregarModeloComponentMoto  } from '../agregar-modelo/agregar-modelo.component';
+import { ListarModelosComponentMoto } from '../listar-modelos/listar-modelos.component';
 import {
   ColumnDef,
   createAngularTable,
@@ -13,12 +13,12 @@ import {
 
 
 @Component({
-  selector: 'TableComponent',
+  selector: 'TableComponentMotos',
   standalone: true,
-  imports: [FlexRenderDirective, EditModeComponent, AgregarModeloComponent, ListarModelosComponent ],
+  imports: [FlexRenderDirective, EditModeComponentMotos, AgregarModeloComponentMoto, ListarModelosComponentMoto ],
     templateUrl: './table.component.html'
 })
-export class TableComponent {
+export class TableComponentMotos {
 
   @Input() defaultColumns: ColumnDef<any>[] = [] // Columnas por defecto
   @Input() data:any = ([]) // Datos de la tabla

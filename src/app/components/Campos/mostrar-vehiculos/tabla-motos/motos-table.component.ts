@@ -1,5 +1,5 @@
 import { Component, Input, signal } from '@angular/core';
-import {TableComponent } from './table/table.component'
+import {TableComponentMotos } from './table/table.component'
 
 import { getMarcasMotos } from '../../../../api/marcasMotos.service';
 import { ColumnDef } from '@tanstack/angular-table';
@@ -12,10 +12,10 @@ type Marca = {
 @Component({
   selector: 'MotoTable',
   standalone: true,
-  imports: [TableComponent ],
+  imports: [TableComponentMotos ],
   template:  `
   @if(!isLoading){
-    <TableComponent 
+    <TableComponentMotos 
     [defaultColumns]="defaultColumns" 
     [data]="listaMarcaMotos"  />
    }@else {

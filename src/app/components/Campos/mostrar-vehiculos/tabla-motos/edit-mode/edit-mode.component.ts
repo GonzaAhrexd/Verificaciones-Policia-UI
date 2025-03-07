@@ -5,14 +5,14 @@ import { editMarcasMotos, deleteMarcasMotos } from '../../../../../api/marcasMot
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-edit-mode',
+  selector: 'EditModeMotos',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-mode.component.html',
 
 })
 
-export class EditModeComponent {
+export class EditModeComponentMotos {
 
     @Input() defaultData:any = []
   
