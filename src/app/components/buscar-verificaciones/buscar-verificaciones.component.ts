@@ -115,7 +115,6 @@ export class BuscarVerificacionesComponent {
   getFormulariosTipos = async () => { // Obtiene los tipos de formularios
     getFormularios().then((res) => {
       this.formulariosTipos = res;
-      console.log(this.formulariosTipos)
     });
   }
 

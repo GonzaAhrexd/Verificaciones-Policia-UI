@@ -1,5 +1,5 @@
 // Angular
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 // APIs
 import { getFormularios } from '../../../api/formulario.service';
@@ -127,10 +127,11 @@ export class EditModeComponent implements OnInit {
       this.unidades = res;
     });
   }
-cancelChanges(){
-  console.log("first")
-  
 
+  @Output() cancelEditMode = new EventEmitter<void>(false);
+  
+cancelChanges(){
+  this.cancelEditMode.emit();
 }
 
 // Guardar cambios

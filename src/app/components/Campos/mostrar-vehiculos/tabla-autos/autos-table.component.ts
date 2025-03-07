@@ -21,8 +21,7 @@ type Marca = {
      <TableComponent 
      [defaultColumns]="defaultColumns" 
      [data]="listaMarcasAutos" 
-     [onDelete]="deleteThisRow" 
-     [onEdit]="editThisRow" />
+     />
     }@else {
       <p>Cargando...</p>
     }
@@ -49,16 +48,10 @@ export class AutosTableComponent {
     getMarcasAutos().then((data) => {
       this.listaMarcasAutos = data
       this.isLoading = false
-      console.log(this.listaMarcasAutos)
     })
   }
 
-  deleteThisRow = (row: any) => {
-    console.log('Deleting row', row)
-  }
-  editThisRow = (row: any) => {
-    console.log('Editing row', row)
-  }
+ 
 
 
 }

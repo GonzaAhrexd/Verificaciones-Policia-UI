@@ -87,7 +87,6 @@ export class BuscarDepositoComponent {
               entrega = await buscarDepositoNroTicket(formData.NroTicket)
 
               this.depositos = entrega
-              console.log(this.depositos)
               this.isEmpty = false
             }else { 
               entrega = await buscarDeposito(formData)
@@ -95,7 +94,6 @@ export class BuscarDepositoComponent {
               this.isEmpty = false
             }
 
-            console.log(this.depositos)
           
           } catch (error) {
             console.error(error)

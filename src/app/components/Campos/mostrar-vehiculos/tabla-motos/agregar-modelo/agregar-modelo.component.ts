@@ -23,9 +23,7 @@ export class AgregarModeloComponent {
   ngOnInit() {
     // Carga MarcaNombre con lo que viene en marcaNombre
     this.formulario.controls['MarcaNombre'].setValue(this.marcaNombre)
-  
-    console.log(this.formulario)
-  }
+    }
   
   
   agregarModelo(){
@@ -38,7 +36,6 @@ export class AgregarModeloComponent {
         denyButtonText: `No`,
       }).then(async (result) => {
         if (result.isConfirmed) {
-          console.log(this.formulario.value)
           await addModelo(this.formulario.value) 
   
           Swal.fire('Modelo agregado', '', 'success')

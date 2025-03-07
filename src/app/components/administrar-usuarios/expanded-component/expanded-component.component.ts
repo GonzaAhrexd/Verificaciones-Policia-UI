@@ -39,7 +39,6 @@ export class ExpandedComponentComponent {
         this.formulario.get('Rol')?.setValue(this.data.rol)
         this.formulario.get('Unidad')?.setValue(this.data.unidad)
     
-        console.log(this.formulario.value)
     
         getUnidades().then((res) => {
           this.Unidades = res

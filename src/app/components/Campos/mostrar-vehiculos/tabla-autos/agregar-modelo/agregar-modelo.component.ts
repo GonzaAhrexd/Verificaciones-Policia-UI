@@ -38,7 +38,6 @@ export class AgregarModeloComponent {
       denyButtonText: `No`,
     }).then(async (result) => {
       if (result.isConfirmed) {
-        console.log(this.formulario.value)
         await addModelo(this.formulario.value) 
 
         Swal.fire('Modelo agregado', '', 'success')

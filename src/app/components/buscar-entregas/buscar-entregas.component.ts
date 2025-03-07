@@ -36,7 +36,8 @@ export class BuscarEntregasComponent {
     {
       accessorKey: 'fecha',
       header: () => 'Fecha',
-      cell: info => info.getValue(),
+      // @ts-ignore
+      cell: info => new Date(info.getValue()).toLocaleDateString("es-AR"),
     },
     {
       accessorKey: 'unidad',
@@ -174,10 +175,6 @@ export class BuscarEntregasComponent {
     })
 
 
-  }
-
-  editThisRow() {
-    console.log("Edit")
   }
 
   imprimir() {

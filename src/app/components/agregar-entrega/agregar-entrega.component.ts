@@ -108,12 +108,11 @@ export class AgregarEntregaComponent implements OnInit {
     }).then(async (result) => {
       if (result.isConfirmed) {
         const formData = this.form.getRawValue(); // getRawValue() incluye los campos deshabilitados
-       
-        console.log(formData)
         await sendEntrega(formData)
         Swal.fire({
           title: 'Entrega enviada',
           icon: 'success',
+          confirmButtonColor: '#0C4A6E',
         }).then(() => {
           this.form.reset();
           this.renglonesEntregas.clear();

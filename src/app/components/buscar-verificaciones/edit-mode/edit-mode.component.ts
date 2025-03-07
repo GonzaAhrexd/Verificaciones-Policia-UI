@@ -174,6 +174,12 @@ export class EditModeComponent {
     })
   }
 
+  preventNegative(event: KeyboardEvent) {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  }
+
   editVerificacion() {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -217,7 +223,6 @@ export class EditModeComponent {
   onSelectChangeMotorcycle(event: any) {
     getModelosByMarcaMoto(event.target.value).then((res) => {
       this.modelOpcionesMoto = res;
-      console.log(this.modelOpcionesMoto)
     })
 
   }

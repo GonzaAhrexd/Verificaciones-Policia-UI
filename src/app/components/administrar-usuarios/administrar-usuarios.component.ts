@@ -113,7 +113,6 @@ export class EditarUsuariosComponent {
           // @ts-ignore
           this.listaUsuarios.push(buscarPorDNI)
           this.isEmpty = false
-          console.log(this.listaUsuarios)
         }catch(err){
           console.log(err)
         }
@@ -130,7 +129,6 @@ export class EditarUsuariosComponent {
           const  buscarPorRol =  await buscarUsuarios(this.formulario.value)
           this.listaUsuarios = buscarPorRol
           this.isEmpty = false
-          console.log(this.listaUsuarios)
         
         }catch(err){
           console.log(err)

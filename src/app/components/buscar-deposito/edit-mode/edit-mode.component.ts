@@ -61,7 +61,6 @@ export class EditModeComponent {
     fetchUnidades() {
       getUnidades().then((data) => {
         this.unidades = data
-        console.log(this.unidades)
       })
     }
 
@@ -102,7 +101,6 @@ export class EditModeComponent {
         confirmButtonText: 'Sí, enviar!'
       }).then((result) => {
         if (result.isConfirmed) {
-          console.log(this.form.value)
           deleteDepositos(nroDeposito).then((res) => {
             Swal.fire(
              {
@@ -137,7 +135,6 @@ export class EditModeComponent {
           confirmButtonText: 'Sí, enviar!'
         }).then((result) => {
           if (result.isConfirmed) {
-            console.log(this.form.value)
             const formData = this.form.getRawValue(); // getRawValue() incluye los campos deshabilitados
             editDeposito(formData).then((res) => {
               Swal.fire(

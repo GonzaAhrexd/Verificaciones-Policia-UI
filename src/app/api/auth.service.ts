@@ -54,8 +54,6 @@ export const buscarUsuarioDNI = async (dni: string) => {
 export const buscarUsuarios = async (userForm: any) => {
   try {
 
-    console.log(userForm)
-
     const response = await axios.get(`/Usuarios/buscar-usuarios/${userForm.Rol !="" && userForm.Rol != "0" ? userForm.Rol : "no_ingresado"}/${userForm.Unidad !="" && userForm.Unidad != "0" ? userForm.Unidad : "no_ingresado"}`, );
     return response.data;
   } catch (error) {

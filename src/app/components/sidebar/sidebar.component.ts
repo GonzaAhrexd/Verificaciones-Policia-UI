@@ -35,7 +35,6 @@ export class SidebarComponent {
   
   ngOnInit() {
     this.usuario = this.userService.getUser();
-    console.log(this.usuario);
   }
 
   cerrarSesion(){

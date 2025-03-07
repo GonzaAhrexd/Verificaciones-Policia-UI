@@ -5,7 +5,7 @@
             <tr>
                 @for (header of headerGroup.headers; track header.id) {
                 @if (!header.isPlaceholder) {
-                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                <th class="py-3 px-4 md:px-4 text-left font-semibold text-sm border-b">
                     <ng-container *flexRender="
                       header.column.columnDef.header;
                       props: header.getContext();
@@ -59,19 +59,19 @@
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                                <th class="py-3 px-2 md:px-4 text-left font-semibold text-sm border-b">
                                     Renglon
                                 </th>
-                                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                                <th class="py-3 px-2 md:px-4 text-left font-semibold text-sm border-b">
                                     Tipo de Formulario
                                 </th>
-                                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                                <th class="py-3 px-2 md:px-4 text-left font-semibold text-sm border-b">
                                     Desde
                                 </th>
-                                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                                <th class="py-3 px-2 md:px-4 text-left font-semibold text-sm border-b">
                                     Hasta
                                 </th>
-                                <th class="py-3 px-4 text-left font-semibold text-sm border-b">
+                                <th class="py-3 px-2 md:px-4 text-left font-semibold text-sm border-b">
                                     Cantidad
                                 </th>
                             </tr>
@@ -79,11 +79,11 @@
                         <tbody>
                             @for(contenido of row.original.renglonesEntregas; track contenido){
                             <tr>
-                                <td class="py-3 px-4 text-sm text-gray-400">{{contenido.nroRenglon}}</td>
-                                <td class="py-3 px-4 text-sm text-gray-400">{{contenido.tipoFormulario}}</td>
-                                <td class="py-3 px-4 text-sm text-gray-400">{{contenido.desde}}</td>
-                                <td class="py-3 px-4 text-sm text-gray-400">{{contenido.hasta}}</td>
-                                <td class="py-3 px-4 text-sm text-gray-400">{{contenido.cantidad}}</td>
+                                <td class="py-3 px-2 md:px-4 text-sm text-gray-400">{{contenido.nroRenglon}}</td>
+                                <td class="py-3 px-2 md:px-4 text-sm text-gray-400">{{contenido.tipoFormulario}}</td>
+                                <td class="py-3 px-2 md:px-4 text-sm text-gray-400">{{contenido.desde}}</td>
+                                <td class="py-3 px-2 md:px-4 text-sm text-gray-400">{{contenido.hasta}}</td>
+                                <td class="py-3 px-2 md:px-4 text-sm text-gray-400">{{contenido.cantidad}}</td>
                             </tr>
                             }
                         </tbody>
@@ -114,7 +114,7 @@
             </td>
             }@else {
                 <td [attr.colspan]="4"> 
-                    <EditMode [defaultData]="row.original" />
+                    <EditMode (cancelEditMode)="editMode = false" [defaultData]="row.original" />
                 </td>
                      }
                 }

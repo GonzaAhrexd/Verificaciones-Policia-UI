@@ -49,9 +49,6 @@ export class AgregarUsuarioComponent {
     }
     }
 
-    showUnidades(){
-      console.log(this.unidadesOpciones)
-    }
 
     agregarUsuario(){
       Swal.fire({
