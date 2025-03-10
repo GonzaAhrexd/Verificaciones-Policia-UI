@@ -1,4 +1,5 @@
-<div class="p-4">
+<div class="w-full">
+    <div class="overflow-x-auto">
     <table class="min-w-full table-auto border-collapse">
         <thead class="bg-sky-950 text-white">
             @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
@@ -53,12 +54,13 @@
             </tr>
 
             @if(row.getIsExpanded()){
-            <td [attr.colspan]="8">
-                <div class="w-full flex flex-col items-center justify-center p-2">
+            <td [attr.colspan]="8" class="whitespace-nowrap">
+        
+                <!-- <div class="w-full flex flex-col items-center justify-center p-2"> -->
                     <expanded-component [data]="row.original" />
                    
                     
-                </div>
+                <!-- </div> -->
 
 
 
@@ -70,6 +72,7 @@
 
         </tbody>
     </table>
+</div>
 </div>
 
 <div>

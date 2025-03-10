@@ -3,7 +3,7 @@
     {{ data.Id }}
     <span class="flex font-medium ml-4"> Rol </span>
     <select formControlName="Rol" id="Rol"
-        class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+        class="border open-sans border-gray-300 w-full md:w-6/10 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
         <option value="0">Selecciona una opción</option>
         @for (rol of roles; track rol) {
         <option value="{{rol.rol}}">{{ rol.rol }}</option>
@@ -11,7 +11,7 @@
     </select>
     <span class="flex font-medium ml-4"> Unidad </span>
     <select formControlName="Unidad" id="Unidad"
-        class="border open-sans border-gray-300 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
+        class="border open-sans border-gray-300 w-full md:w-6/10 rounded-md h-10 xl:h-8 2xl:h-10 my-2 xl:my-1 xl:m-2 m-4 pl-2">
         <option value="0">Selecciona una opción</option>
         @for (unidad of Unidades; track unidad) {
         <option value="{{unidad.unidad}}">{{ unidad.unidad }}</option>
@@ -20,7 +20,7 @@
 
 </form>
 
-<div class="flex flex-row w-full items-center justify-center ">
+<div class="flex flex-row w-full items-center justify-center  ">
     <button (click)="editThisData()"
         class="m-2 mr-2 flex flex-col items-center jsutify-center disabled:bg-gray-700 bg-sky-950 hover:bg-sky-800 rounded-lg w-3/10 text-white font-bold py-2 px-4 ">
         <!-- Editar -->
