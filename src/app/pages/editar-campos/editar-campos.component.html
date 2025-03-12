@@ -6,12 +6,12 @@
             [ngClass]="{  'text-sm': opcion }"
             class='grid gap-1 grid-cols-2 xl:grid-cols-5 w-full'>
                 @for(datos of opcionesDatos; track datos.texto; let i = $index ){
-                    <CardActions texto="{{datos.texto}}" (opcion)="getClickedSection($event)" 
+                    <CardActions texto="{{datos.texto}}" [SVG]="datos.SVG" (opcion)="getClickedSection($event)" 
                     [ngClass]="{ 'col-span-2 xl:col-span-1': opcionesDatos.length === 5 && i == 4 }"
                     />
                 }
             </div>
-            
+    
         </div>
         
         <!-- TIPOS -->

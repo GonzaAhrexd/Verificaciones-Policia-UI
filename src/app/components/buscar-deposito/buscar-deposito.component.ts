@@ -25,38 +25,38 @@ export class BuscarDepositoComponent {
       {
         accessorKey: 'nroDeposito',
         header: () => 'Id',
-        cell: info => info.getValue(),
+        cell: info => info?.getValue(),
       },
       {
         accessorKey: 'nroTicket',
         header: () => 'Nro de Ticket',
-        cell: info => info.getValue(),
+        cell: info => info?.getValue(),
       },
       {
         accessorKey: 'fecha',
         header: () => 'Fecha',
         // @ts-ignore
-        cell: info => new Date(info.getValue()).toLocaleDateString("es-AR") ,
+        cell: info => new Date(info?.getValue()).toLocaleDateString("es-AR") ,
       },
       {
         accessorKey: 'unidad',
         header: () => 'Unidad',
-        cell: info => info.getValue(),
+        cell: info => info?.getValue(),
       },
       {
         accessorKey: 'banco',
         header: () => 'Banco',
-        cell: info => info.getValue(),
+        cell: info => info?.getValue(),
       },      
       {
         accessorKey: 'tipo',
         header: () => 'Tipo',
-        cell: info => info.getValue(),
+        cell: info => info?.getValue(),
       },
       {
         accessorKey: 'importe',
         header: () => 'Importe',
-        cell: info => '$' + info.getValue(),
+        cell: info => '$' + info?.getValue(),
       }
     ]
     

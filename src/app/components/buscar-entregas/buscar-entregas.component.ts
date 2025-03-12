@@ -31,18 +31,18 @@ export class BuscarEntregasComponent {
     {
       accessorKey: 'nroEntrega',
       header: () => 'NroEntrega',
-      cell: info => info.getValue(),
+      cell: info => info?.getValue(),
     },
     {
       accessorKey: 'fecha',
       header: () => 'Fecha',
       // @ts-ignore
-      cell: info => new Date(info.getValue()).toLocaleDateString("es-AR"),
+      cell: info => new Date(info?.getValue()).toLocaleDateString("es-AR"),
     },
     {
       accessorKey: 'unidad',
       header: () => 'Unidad',
-      cell: info => info.getValue(),
+      cell: info => info?.getValue(),
 
     }
   ]
@@ -122,16 +122,17 @@ export class BuscarEntregasComponent {
 
   async fetchEntregas() {
     try {
+
       const formData = this.buscarEntregasForm.getRawValue(); // getRawValue() incluye los campos deshabilitados 
 
-
+      console.log(formData)
 
       this.listaEntregas = []
       this.isEmpty = true
 
       let entrega: any
 
-      if (formData.NroEntrega != '') {
+      if (formData.NroEntrega != '' && formData.NroEntrega != null) {
         entrega = await buscarEntregaPorNro(formData.NroEntrega)
         this.listaEntregas.push(entrega)
       } else {
