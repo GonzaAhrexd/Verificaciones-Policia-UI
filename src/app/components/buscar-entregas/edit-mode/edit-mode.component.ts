@@ -35,6 +35,7 @@ export class EditModeComponentEntrega implements OnInit {
   // Formulario principal con FormArray para los renglones
   form: FormGroup = new FormGroup({
     NroEntrega: new FormControl(''),
+    NroEntregaManual: new FormControl(''),
     Fecha: new FormControl('', [Validators.required]),
     Unidad: new FormControl('', [Validators.required]),
     renglonesEntregas: new FormArray([])  // FormArray para manejar los renglones
@@ -100,6 +101,7 @@ export class EditModeComponentEntrega implements OnInit {
     // Establecer valores de fecha y unidad
     this.form.patchValue({
       NroEntrega: this.defaultData.nroEntrega,
+      NroEntregaManual: this.defaultData.nroEntregaManual,
       Fecha: this.formatDate(this.defaultData.fecha),
       Unidad: this.defaultData.unidad
     });
@@ -136,6 +138,7 @@ cancelChanges(){
 
 // Guardar cambios
   saveChanges(){
+    console.log(this.form)
     Swal.fire({
       title: '¿Estás seguro?',
       text: "¿Desea guardar los cambios?",

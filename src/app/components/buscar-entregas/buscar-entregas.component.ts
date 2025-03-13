@@ -29,7 +29,7 @@ export class BuscarEntregasComponent {
 
   defaultColumns: ColumnDef<any>[] = [
     {
-      accessorKey: 'nroEntrega',
+      accessorKey: 'nroEntregaManual',
       header: () => 'NroEntrega',
       cell: info => info?.getValue(),
     },
@@ -185,7 +185,7 @@ export class BuscarEntregasComponent {
       // @ts-ignore
       entrega.renglonesEntregas.map(renglon => ({
         id: renglon.id,
-        nroEntrega: entrega.nroEntrega,
+        nroEntrega: entrega.nroEntregaManual,
         fecha: new Date(entrega.fecha).toLocaleDateString("es-AR"),
         unidad: entrega.unidad,
         ...renglon
@@ -219,7 +219,7 @@ export class BuscarEntregasComponent {
     worksheet.getRow(4).height = 20;
 
 
-    worksheet.getCell('E1').value = `Fecha de impresión: ${new Date().toLocaleDateString("es-AR")}`;
+    worksheet.getCell('F1').value = `Fecha de impresión: ${new Date().toLocaleDateString("es-AR")}`;
 
     worksheet.mergeCells('A6:G6'); // Unir celdas
     worksheet.getCell('A6').value = `Periodo desde ${new Date(this.buscarEntregasForm.value.Desde).toLocaleDateString("es-AR")} hasta ${new Date(this.buscarEntregasForm.value.Hasta).toLocaleDateString("es-AR")}`;
@@ -230,13 +230,13 @@ export class BuscarEntregasComponent {
 
     // Encabezados personalizados en la fila 8
     worksheet.getRow(8).values = [
-      'ID', 'Fecha', 'Unidad', 'Tipo de Formulario', 'Desde', 'Hasta', 'Cantidad'
+      'ID Renglón', 'Nro Entrega', 'Fecha', 'Unidad', 'Tipo de Formulario', 'Desde', 'Hasta', 'Cantidad'
     ];
     worksheet.getRow(8).font = { bold: true };
 
 
     // Haz que desde A8 hasta J8 tenga un borde abajo sin hacerlo manualmente uno a uno, no directamente getRow(8) porque lo hace en todo le documento y solo quiero de la A a la J
-    for (let col = 1; col <= 7; col++) { // 1 = A, 10 = J
+    for (let col = 1; col <= 8; col++) { // 1 = A, 10 = J
       const cell4 = worksheet.getCell(4, col);
 
       const cell8 = worksheet.getCell(8, col);
@@ -254,18 +254,20 @@ export class BuscarEntregasComponent {
 
     // Establecer ancho de columnas manualmente
     worksheet.getColumn(1).width = 10; // ID
-    worksheet.getColumn(2).width = 20; // Fecha
-    worksheet.getColumn(3).width = 20; // Unidad
-    worksheet.getColumn(4).width = 25; // Tipo de Formulario
-    worksheet.getColumn(5).width = 10; // Desde
-    worksheet.getColumn(6).width = 10; // Hasta
-    worksheet.getColumn(7).width = 10; // Cantidad
+    worksheet.getColumn(2).width = 10; // Nro Entrega
+    worksheet.getColumn(3).width = 20; // Fecha
+    worksheet.getColumn(4).width = 20; // Unidad
+    worksheet.getColumn(5).width = 25; // Tipo de Formulario
+    worksheet.getColumn(6).width = 10; // Desde
+    worksheet.getColumn(7).width = 10; // Hasta
+    worksheet.getColumn(8).width = 10; // Cantidad
 
     // Inserción de datos comenzando en la fila 9
     transformedData.forEach((data: any, index: number) => {
       const rowIndex = 9 + index; // Empieza en la fila 9
       worksheet.getRow(rowIndex).values = [
         data.id,
+        data.nroEntrega,
         data.fecha,
         data.unidad,
         data.tipoFormulario,
