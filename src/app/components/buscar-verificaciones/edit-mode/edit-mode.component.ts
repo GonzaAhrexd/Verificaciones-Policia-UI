@@ -32,30 +32,35 @@ export class EditModeComponentVerificaciones {
   setNoListMode: boolean = false
 
 
-  ngOnInit() {
+ async ngOnInit() {
 
     this.fetchUnidades()
     this.obtenerVehiculos()
     this.obtenerMotocicletas()
 
-    this.fetchFormularios().then(() => {
+    this.fetchFormularios().then(async () => {
 
       const formType = this.defaultData.tipo
+      
       let typeVehicle = this.formulariosOpciones?.find((form: any) => form.formulario == formType).tipoVehiculo
+      this.modoMoto = typeVehicle !== 'Automóvil'; // Esto garantiza que se establezca antes de la consulta
 
-      if (typeVehicle == 'Automóvil') {
-        this.modoMoto = false
+      if (!this.modoMoto) {
 
-        getModelosByMarcas(this.defaultData.marca).then((res) => {
-          this.modelOpciones = res;
-        })
+        const autos = await getModelosByMarcas(this.defaultData.marca)
+        this.modelOpciones = autos
 
       } else {
-        this.modoMoto = true
+        console.log(this.defaultData.marca)
 
-        getModelosByMarcaMoto(this.defaultData.marca).then((res) => {
-          this.modelOpciones = res;
-        })
+
+        const motos = await getModelosByMarcaMoto(this.defaultData.marca)
+       
+
+        this.modelOpcionesMoto = motos
+
+
+        console.log(motos)
       }
     })
 
@@ -121,14 +126,7 @@ export class EditModeComponentVerificaciones {
 
   verifyType = (type: any) => {
     const typeVehicle = type.target.value
-
-    if (typeVehicle == 'Automóvil') {
-      this.modoMoto = false
-    } else {
-      this.modoMoto = true
-    }
-
-
+    this.modoMoto = typeVehicle !== 'Automóvil'
   }
 
 
@@ -155,8 +153,8 @@ export class EditModeComponentVerificaciones {
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#FF554C',
-      cancelButtonColor: '#0C4A6E',
+      confirmButtonColor: '#0C4A6E',
+      cancelButtonColor: '#FF554C',
       confirmButtonText: '¡Sí, eliminar!',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
@@ -167,7 +165,7 @@ export class EditModeComponentVerificaciones {
             title: '¡Eliminado!',
             text: 'La verificación ha sido eliminada.',
             icon: 'success',
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#0C4A6E',
           }
         )
       }
@@ -200,7 +198,7 @@ export class EditModeComponentVerificaciones {
             title: '¡Enviado!',
             text: 'La verificación ha sido enviada.',
             icon: 'success',
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#0C4A6E',
           }
         )
       }

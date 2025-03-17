@@ -34,8 +34,8 @@ export class EditModeComponentModelo {
         text: "¡No podrás revertir esto!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        confirmButtonColor: '#0C4A6E',
+        cancelButtonColor: '#FF554C',
         confirmButtonText: 'Sí, editar!'
       }
     ).then(async (result) => {  
@@ -46,8 +46,8 @@ export class EditModeComponentModelo {
           title: '¡Editado!',
           text: 'El registro ha sido editado.',
           icon: 'success',
-          confirmButtonColor: '#3085d6',
-         }
+          confirmButtonColor: '#0C4A6E',
+        }
         )
       }
     }
@@ -60,8 +60,8 @@ export class EditModeComponentModelo {
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#0C4A6E',
+      cancelButtonColor: '#FF554C',
       confirmButtonText: 'Sí, eliminarlo!'
     }).then(async (result) => {
       if (result.isConfirmed) {

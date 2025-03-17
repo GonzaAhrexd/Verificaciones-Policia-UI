@@ -33,8 +33,8 @@ export class EditarModeloComponent {
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#0C4A6E',
+      cancelButtonColor: '#FF554C',
       confirmButtonText: 'Sí, eliminarlo!'
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -54,8 +54,8 @@ export class EditarModeloComponent {
       text: "¡No podrás revertir esto!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#0C4A6E',
+      cancelButtonColor: '#FF554C',
       confirmButtonText: 'Sí, editar!'
     }).then(async (result) => {
       if (result.isConfirmed) {

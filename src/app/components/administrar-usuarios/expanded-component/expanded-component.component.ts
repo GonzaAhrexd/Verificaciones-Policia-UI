@@ -78,8 +78,8 @@ export class ExpandedComponentComponent {
           showCancelButton: true,
           confirmButtonText: `Eliminar`,
           cancelButtonText: `Cancelar`,
-          confirmButtonColor: '#FF554C',
-          cancelButtonColor: '#0C4A6E',
+          confirmButtonColor: '#0C4A6E',
+          cancelButtonColor: '#FF554C',
         }).then(async (result) => {
           if (result.isConfirmed) {
             await deleteUsuario(this.data.id)

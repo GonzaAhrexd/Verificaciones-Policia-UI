@@ -134,8 +134,8 @@ export class TablaBancosComponent {
       text: 'No podrás revertir esto',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#0C4A6E',
+      cancelButtonColor: '#FF554C',
       confirmButtonText: 'Sí, bórralo',
       cancelButtonText: 'No, cancelar',
     }).then((result) => {

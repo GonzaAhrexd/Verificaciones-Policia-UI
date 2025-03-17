@@ -142,7 +142,7 @@ export class AgregarVerificacionComponent {
             title: '¡Enviado!',
             text: 'La verificación ha sido enviada.',
             icon: 'success',
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#0C4A6E',
           }
         ).then(() => {
          this.form.reset(); 
