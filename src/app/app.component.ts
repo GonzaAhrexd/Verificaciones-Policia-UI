@@ -41,7 +41,7 @@ import { CommonModule } from '@angular/common'; // Asegúrate de importar esto
     <title>Document</title>
   </head>
   <body [ngClass]="{'flex flex-col lg:ml-[15rem]': !isLoginPage}">
-  <router-outlet /> 
+  <router-outlet />   
   </body>
 </html>
   `,
