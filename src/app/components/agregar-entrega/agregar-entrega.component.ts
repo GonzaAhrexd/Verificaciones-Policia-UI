@@ -6,7 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 // Backend
 import { getFormularios } from '../../api/formulario.service';
-import { sendEntrega } from '../../api/entregas.service';
+import { sendEntrega, getLastNumeroEntrega } from '../../api/entregas.service';
 import { getUnidades } from '../../api/unidades.service';
 import { UserService } from '../../api/user.service';
 
@@ -94,17 +94,20 @@ export class AgregarEntregaComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.fetchUnidades()
     this.fetchFormulario();
     this.form.patchValue({
       Unidad: this.userService.getUser().unidad
     })
-
+    
+    const recentNumberGenerated = await getLastNumeroEntrega() + 1;
+    console.log(recentNumberGenerated)
+    this.form.get('NroEntregaManual')?.setValue(recentNumberGenerated);
+    
     if(this.userService.getUser().rol != "Administrador" && this.userService.getUser().rol != "Fondo"){
       this.form.controls['Unidad'].disable({ onlySelf: true });  
     }
-
 
   }
 

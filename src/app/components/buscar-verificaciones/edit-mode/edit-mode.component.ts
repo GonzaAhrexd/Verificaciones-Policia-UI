@@ -69,7 +69,6 @@ export class EditModeComponentVerificaciones {
       Unidad: this.defaultData.unidad,
       Recibo: this.defaultData.recibo,
       Fecha: this.formatDate(this.defaultData.fecha),
-      PlantaVerificadora: this.defaultData.plantaVerificadora,
       Tipo: this.defaultData.tipo,
       Responsable: this.defaultData.responsable,
       Formulario: this.defaultData.formulario,
@@ -78,6 +77,7 @@ export class EditModeComponentVerificaciones {
       Anio: this.defaultData.anio,
       Dominio: this.defaultData.dominio,
       Importe: this.defaultData.importe,
+      estaAnulado: this.defaultData.estaAnulado,
     })
 
     if (this.userService.getUser().rol != "Administrador") {
@@ -135,7 +135,6 @@ export class EditModeComponentVerificaciones {
     Unidad: new FormControl('0', [Validators.required]),
     Recibo: new FormControl('', [Validators.required]),
     Fecha: new FormControl('', [Validators.required]),
-    PlantaVerificadora: new FormControl('', [Validators.required]),
     Tipo: new FormControl('0', [Validators.required]),
     Responsable: new FormControl('', [Validators.required]),
     Formulario: new FormControl('', [Validators.required]),
@@ -144,7 +143,7 @@ export class EditModeComponentVerificaciones {
     Anio: new FormControl('', [Validators.required]),
     Dominio: new FormControl('', [Validators.required]),
     Importe: new FormControl('', [Validators.required]),
-
+    estaAnulado: new FormControl(false),
   })
 
   eliminarVerificacion(id: number) {

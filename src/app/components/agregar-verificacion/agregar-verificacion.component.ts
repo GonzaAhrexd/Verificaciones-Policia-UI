@@ -104,7 +104,7 @@ export class AgregarVerificacionComponent {
     Unidad: new FormControl('0', [Validators.required]),
     Recibo: new FormControl('', [Validators.required, Validators.min(0)]),
     Fecha: new FormControl('', [Validators.required]),
-    PlantaVerificadora: new FormControl('', [Validators.required]),
+    // PlantaVerificadora: new FormControl('', [Validators.required]),
     Tipo: new FormControl('0', [Validators.required]),
     Responsable: new FormControl('', [Validators.required]),
     Formulario: new FormControl('', [Validators.required]),
@@ -113,7 +113,7 @@ export class AgregarVerificacionComponent {
     Anio: new FormControl('', [Validators.required]),
     Dominio: new FormControl('', [Validators.required]),
     Importe: new FormControl('', [Validators.required]),
-
+    estaAnulado: new FormControl(false),
   })
   
   preventNegative(event: KeyboardEvent) {

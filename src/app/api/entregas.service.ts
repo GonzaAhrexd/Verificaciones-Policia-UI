@@ -63,3 +63,13 @@ export const deleteRenglonEntrega = async(id: number) => {
         return null;
     }
 }
+
+export const getLastNumeroEntrega = async () => {
+    try {
+        const response = await axios.get('/Entregas/last');
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

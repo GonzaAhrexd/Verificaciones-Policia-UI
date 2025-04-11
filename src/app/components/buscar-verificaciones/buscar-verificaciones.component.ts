@@ -65,6 +65,11 @@ export class BuscarVerificacionesComponent {
       header: () => 'Importe',
       cell: info => info.getValue(),
     },
+    {
+      accessorKey: 'estaAnulado',
+      header: () => 'Detalles',
+      cell: info => info.getValue() == 1 ? 'Anulado' : 'Ninguno',
+    }
   ]
   // Variables
   unidades: any = []
@@ -207,7 +212,7 @@ export class BuscarVerificacionesComponent {
 
     // Encabezados personalizados en la fila 8
     worksheet.getRow(8).values = [
-      'Fecha', 'Recibo', 'Tipo', 'Dominio', 'Marca', 'Modelo', 'Año', 'Responsable', 'Importe', 'Formulario'
+      'Fecha', 'Recibo', 'Tipo','Observaciones', 'Dominio', 'Marca', 'Modelo', 'Año', 'Responsable', 'Importe', 'Formulario'
     ];
     // Pon todos los del row 8 en negrita
     worksheet.getRow(8).font = { bold: true };
@@ -233,6 +238,7 @@ export class BuscarVerificacionesComponent {
     // Establecer ancho de columnas manualmente
     worksheet.getColumn(1).width = 20; // Fecha
     worksheet.getColumn(2).width = 10; // Recibo
+    worksheet.getColumn(3).width = 15; // Observaciones
     worksheet.getColumn(3).width = 15; // Tipo
     worksheet.getColumn(4).width = 10; // Patente
     worksheet.getColumn(5).width = 10; // Marca
@@ -249,6 +255,7 @@ export class BuscarVerificacionesComponent {
         data.fecha,
         data.recibo,
         data.tipo,
+        data.estaAnulado == 1 ? 'Anulado' : 'Ninguno',
         data.dominio,
         data.marca,
         data.modelo,

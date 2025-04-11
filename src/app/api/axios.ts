@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-const baseUrl = "https://policiadigitalchaco.com.ar/VERIFICACIONES_API/api/"
-// const baseUrl = "http://localhost:5010/api/"
+// const baseUrl = "https://policiadigitalchaco.com.ar/VERIFICACIONES_API/api/"
+const baseUrl = "http://localhost:5010/api/"
 // Creamos una instancia de axios con la URL base
 
 const instance = axios.create({
